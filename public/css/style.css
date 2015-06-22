@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/roboto-light-webfont.eot');
+    src: url('../fonts/roboto-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto-light-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-light-webfont.woff') format('woff'),
+         url('../fonts/roboto-light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+body{
+    font-family: 'Roboto', 'Arial', sans-serif;
+}
+.contact-bar{
+    background: url(../images/Layer-2-copy-3.png);
+    color: #3d3d3d;
+    height: 25px;
+}
+.contact-bar ul{
+    margin-top: 3px;
+}
+.contact-bar ul li{
+    list-style: none;
+    display: inline;
+    margin-right: 10px;
+    letter-spacing: 1px;
+}
+.contact-bar ul li button{
+    width: 82px;
+    height: 16px;
+    font-size: 10px;
+}
