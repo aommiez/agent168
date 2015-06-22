@@ -25,4 +25,18 @@ class HomeCTL extends BaseCTL {
     public function index () {
         return new HtmlView('/home');
     }
+
+    /**
+     * @uri /test
+     * @GET
+     */
+
+    /*public function test () {
+        $a = array();
+        $a['name'] = "testtttt";
+        $a['email'] = "jsonnnnnnn";
+        $a['total'] = 2;
+        $a['type'] = "json";
+        return new JsonView($a);
+    }*/
 }
