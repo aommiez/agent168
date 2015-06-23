@@ -51,3 +51,20 @@ use Main\Helper;
         </ul>
     </div>
 </div>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Logo.png")?>" /></a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>BUY</li>
+                <li>RENT</li>
+                <li>PROPERTY SEARCH</li>
+                <li>LIST YOUR PROPERTY</li>
+                <li>EDITORIAL</li>
+                <li>CONTACT US</li>
+            </ul>
+        </div>
+    </div>
+</nav>

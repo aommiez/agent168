@@ -9,9 +9,22 @@
     font-style: normal;
 
 }
+
+@font-face {
+    font-family: 'RobotoM';
+    src: url('../fonts/roboto-medium-webfont.eot');
+    src: url('../fonts/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto-medium-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-medium-webfont.woff') format('woff'),
+         url('../fonts/roboto-medium-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
 body{
     font-family: 'Roboto', 'Arial', sans-serif;
 }
+.navbar-collapse{ font-family: 'RobotoM', 'Arial', sans-serif;}
 .contact-bar{
     background: url(../images/Layer-2-copy-3.png);
     color: #3d3d3d;
@@ -34,4 +47,19 @@ body{
     font-size: 10px;
 }
 .contact-bar ul li img{ margin-bottom: 3px;}
-
+.navbar.navbar-default{
+    background-color: #ffffff;
+    border: none;
+}
+.navbar-header img{
+    margin-top: 7px;
+    margin-left: 100px;
+}
+.navbar-collapse ul{ 
+    margin-left: 25px;
+    font-size: 17px;
+}
+.navbar-nav li{
+    margin-right: 20px;
+    margin-top: 15px;
+}
