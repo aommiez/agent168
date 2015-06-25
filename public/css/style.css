@@ -72,9 +72,10 @@ body{
 .navbar.navbar-default{
     background-color: #ffffff;
     border: none;
+    margin: 0px;
 }
 .navbar-header img{
-    margin-top: 7px;
+    margin-top: 10px;
     margin-left: 100px;
 }
 .navbar-collapse ul{ 
@@ -85,7 +86,10 @@ body{
     margin-right: 20px;
     margin-top: 15px;
 }
-.member{ background: url(../images/Layer-6.png);}
+.member{ 
+    background: url(../images/Layer-6.png);
+   
+}
 .member .col-lg-6 {
     padding-bottom: 300px;
     margin-left: 250px;
