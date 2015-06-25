@@ -87,7 +87,6 @@ body{
 }
 .member{ background: url(../images/Layer-6.png);}
 .member .col-lg-6 {
-    border: solid 4px;
     padding-bottom: 300px;
     margin-left: 250px;
 }

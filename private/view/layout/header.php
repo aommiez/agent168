@@ -41,8 +41,8 @@ use Main\Helper;
                 <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                 tufftex2011@gmail.com
             </li>
-            <li style="margin-right: 0px"><button type="button" class="btn btn-primary" style="padding: 0px">LOGIN</button></li>
-            <li><button type="button" class="btn btn-primary" style="padding: 0px">REGISTER</button></li>
+            <li style="margin-right: 0px"><a href="/agent168/login"><button type="button" class="btn btn-primary" style="padding: 0px">LOGIN</button></a></li>
+            <li><a href="/agent168/register"><button type="button" class="btn btn-primary" style="padding: 0px">REGISTER</button></a> </li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Facebook.png")?>" /> </li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Twitter.png")?>" style="margin-left: -10px"/></li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Google+.png")?>" style="margin-left: -10px"/></li>
@@ -54,7 +54,7 @@ use Main\Helper;
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
-            <a href="#"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Logo.png")?>" /></a>
+            <a href="/agent168/home"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Logo.png")?>" /></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
