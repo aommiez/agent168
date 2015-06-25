@@ -21,8 +21,30 @@
     font-style: normal;
 
 }
+@font-face {
+    font-family: 'RobotoR';
+    src: url('../fonts/roboto-regular-webfont.eot');
+    src: url('../fonts/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/roboto-regular-webfont.woff2') format('woff2'),
+         url('../fonts/roboto-regular-webfont.woff') format('woff'),
+         url('../fonts/roboto-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Bangna';
+    src: url('../fonts/bangna-new-webfont.eot');
+    src: url('../fonts/bangna-new-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bangna-new-webfont.woff2') format('woff2'),
+         url('../fonts/bangna-new-webfont.woff') format('woff'),
+         url('../fonts/bangna-new-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
 body{
-    font-family: 'Roboto', 'Arial', sans-serif;
+    font-family: 'Roboto', 'Bangna', 'Arial', sans-serif;
 }
 .navbar-collapse{ font-family: 'RobotoM', 'Arial', sans-serif;}
 .contact-bar{
@@ -63,3 +85,61 @@ body{
     margin-right: 20px;
     margin-top: 15px;
 }
+.member{ background: url(../images/Layer-6.png);}
+.member .col-lg-6 {
+    border: solid 4px;
+    padding-bottom: 300px;
+    margin-left: 250px;
+}
+.member .col-lg-10{
+    border: solid 6px #1957a4;
+    margin-left: 50px;
+    padding-top: 25px;
+    background-color: #ffffff;
+}
+.nav-pills{ 
+    margin-left: 170px;
+    margin-top: 20px;
+    font-family: 'RobotoM', 'Arial', sans-serif;
+    font-size: 18px;
+}
+.maillogin, .passlogin{ 
+    margin-left: 70px;
+    font-family: 'RobotoR', 'Arial', sans-serif;
+    font-size: 16px;
+    display: inline;
+}
+.form-control{
+    width: 60%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    display: inline;
+}
+.loginbtn, .regisbtn{ 
+    margin-left: 160px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+.loginbtn button, .regisbtn button{
+    font-family: 'RobotoR', 'Bangna', 'Arial', sans-serif;
+    width: 110px;
+    height: 29px;
+    font-size: 18px;
+}
+.regis{
+    margin-left: 10px;
+}
+.regis .dropdown{ 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.regis .dropdown .btn{
+    width:90px;
+    height: 30px;
+}
+.regis .form-control{
+    width: 55%;
+    height: 30px;
+}
+.checkbox{ margin-left: 90px;}
