@@ -41,8 +41,8 @@ use Main\Helper;
                 <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                 tufftex2011@gmail.com
             </li>
-            <li style="margin-right: 0px"><a href="/agent168/login"><button type="button" class="btn btn-primary" style="padding: 0px">LOGIN</button></a></li>
-            <li><a href="/agent168/register"><button type="button" class="btn btn-primary" style="padding: 0px">REGISTER</button></a> </li>
+            <li style="margin-right: 0px"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login" style="padding: 0px">LOGIN</button></li>
+            <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#register" style="padding: 0px">REGISTER</button></li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Facebook.png")?>" /> </li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Twitter.png")?>" style="margin-left: -10px"/></li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Google+.png")?>" style="margin-left: -10px"/></li>
@@ -68,3 +68,53 @@ use Main\Helper;
         </div>
     </div>
 </nav>
+<div class="modal fade" id="login">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <div class="modal-body">
+                <div class="maillogin">
+                    E-Mail : <input type="text" class="form-control">
+                </div><br>
+                <div class="passlogin" style="margin-left: 44.5px">
+                    Password : <input type="password" class="form-control">
+                </div><br>
+                <img src="<?php echo \Main\Helper\URL::absolute("/public/images/ZW4QC.png")?>" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="register">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <div class="modal-body">
+                <div class="regis">
+                        คำนำหน้าชื่อ : <select class="form-control" style="margin-left: 65px">
+                            <option>นาย / Mr.</option>
+                            <option>นาง / Mrs.</option>
+                            <option>นางสาว / Miss</option>
+                        </select>
+                    <div class="nameregis">ชื่อ / Name : <input type="text" class="form-control" style="margin-left: 70px"></div>
+                    <div class="nameregis">นามสกุล / Lastname : <input type="text" class="form-control"></div>
+                    <div class="telinput">เบอร์โทรศัพท์ / Tel. : <input type="text" class="form-control" style="margin-left: 25px"></div>
+                    <div class="mailregis"">อีเมล / E-Mail : <input type="text" class="form-control" style="margin-left: 55px"></div>
+                <div class="passregis">รหัสผ่าน / Password : <input type="password" class="form-control" style="margin-left: 12px"></div>
+                <div class="passconfirm">Confirm Password : <input type="password" class="form-control" style="margin-left: 20px"></div>
+                <div class="coderegis">รหัสยืนยัน / Code :<input type="text" class="form-control" style="margin-left: 33px"></div>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox">รับข่าวสาร และโปรโมชั่นต่างๆ จาก Website</label>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
