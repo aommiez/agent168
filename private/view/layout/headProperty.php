@@ -10,7 +10,7 @@ use Main\Helper;
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>
         <?php
-            echo \Main\AppConfig::get("application.title");
+        echo \Main\AppConfig::get("application.title");
         ?>
     </title>
 
@@ -61,8 +61,8 @@ use Main\Helper;
             <ul class="nav navbar-nav">
                 <li><a href="#">BUY</a></li>
                 <li><a href="#">RENT</a></li>
-                <li><a href="/agent168/list">PROPERTY SEARCH</a></li>
-                <li><a href="/agent168/listprops">LIST YOUR PROPERTY</a></li>
+                <li><a href="#">PROPERTY SEARCH</a></li>
+                <li><a href="#">LIST YOUR PROPERTY</a></li>
                 <li><a href="#">EDITORIAL</a></li>
                 <li><a href="/agent168/contact">CONTACT US</a></li>
             </ul>
@@ -116,4 +116,163 @@ use Main\Helper;
         </div>
     </div>
 </div>
+</div>
+<style>
+
+    .all-head{
+        background-color: #1957a4;
+        height: 220px;
+        margin-top: 30px;
+    }
+    .head{
+
+    }
+
+    .head-a1{
+        background-color: #1957a4;
+        border-top-left-radius: 10px;
+        padding-right: 0px;
+
+    }
+
+    .head-a1 ul li{
+        color: #FFFFFF;
+        list-style-type: none;
+        font-size: 16px;
+        text-align: right;
+        font-family: 'thaisans', 'Arial', sans-serif;
+        margin-top: -2px;
+
+    }
+
+    .head-a2{
+        background-color: #1957a4;
+        border-top-right-radius: 10px;
+        padding-left: 0px;
+    }
+
+    .head-a2 ul li{
+        color: #FFFFFF;
+        list-style-type: none;
+        font-size: 16px;
+        display: inline;
+        font-family: 'thaisans', 'Arial', sans-serif;
+
+    }
+
+    .head-aa{
+        background-color: #1957a4;
+        margin-top: 5px;
+
+    }
+    .head-aa ul li{
+        color: #FFFFFF;
+        list-style-type: none;
+        font-size: 16px;
+        display: inline;
+        font-family: 'thaisans', 'Arial', sans-serif;
+
+    }
+    .head-ab{
+        background-color: #1957a4;
+        margin-top: 3px;
+    }
+    .head-ab ul li{
+        color: #FFFFFF;
+        list-style-type: none;
+        font-size: 16px;
+        display: inline;
+        float: right;
+        font-family: 'thaisans', 'Arial', sans-serif;
+        margin-top: -10px;
+
+    }
+    .head-ac{
+        background-color: #1957a4;
+
+    }
+    .head-ac ul li{
+        color: #FFFFFF;
+        list-style-type: none;
+        font-size: 16px;
+        display: inline;
+        font-family: 'thaisans', 'Arial', sans-serif;
+
+
+    }
+
+    .head-ad{
+        background-color: #1957a4;
+    }
+    .head-ad ul li{
+        color: #FFFFFF;
+        list-style-type: none;
+        font-size: 16px;
+        display: inline;
+        font-family: 'thaisans', 'Arial', sans-serif;
+    }
+</style>
+
+<div class="all-head" >
+    <div class="container" style="margin-top: -40px">
+        <div class="head row" style="margin-top: 50px">
+            <div class="head-a1 col-lg-3" style="margin-top: -40px">
+                <br>
+                <ul>
+                    <li>ค้นหาอย่างละเอียด</li><br>
+                    <li style="margin-top: 3px">ประเภทอสังหาฯ</li><br>
+                    <li style="margin-top: 3px">ห้องนอน</li><br>
+                    <li style="margin-top: 3px">คำค้นหา</li><br>
+                </ul>
+
+            </div>
+            <div class="head-a2 col-lg-9"style="margin-top: -40px">
+                <br>
+                <ul>
+                    <span class="glyphicon glyphicon-play" aria-hidden="true" style="color: #FFFFFF;height: 18px"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li>  ฉันต้องการ</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li>
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ซื้อ</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เช่า</label><br><br>
+                        <div class="head-aa col-lg-3">
+                            <form class="form-horizontal">
+                                <div class="form-group" style="margin-top: -15px">
+                                    <ul>
+                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
+                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
+                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="head-ab col-lg-3">
+                            <ul>
+                                <li>ทำเล</li> <br><br>
+                                <li>ห้องน้ำ</li> <br><br>
+                                <li>ช่วงราคา</li> <br><br>
+                            </ul>
+                        </div>
+                        <div class="head-ac col-lg-3" style="margin-top: -13px">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <ul>
+                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
+                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
+                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="head-ad col-lg-1">
+                            <form>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default" style="background-color: #FFFFFF; color: #1957a4; border-radius: 10px;margin-left: 60px;margin-top: 40px; height: 30px">ค้นหา</button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
