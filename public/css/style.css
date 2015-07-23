@@ -61,7 +61,7 @@ body{
     margin-bottom: 10px;
     width: 82px;
     height: 16px;
-    font-size: 11px;
+    font-size: 10px;
     font-family: 'thaisansb', 'Arial', sans-serif;
 }
 .contact-bar ul li img{ margin-bottom: 10px;}
@@ -83,10 +83,12 @@ body{
 }
 .modal-header{ border-bottom: none;}
 .modal-footer{ border-top: none;}
+.modal-body{ padding-top: 50px;}
 .modal-body img{ 
-    margin-left: 195px;
+    margin-left: 190px;
     margin-top: 10px;
 }
+.modal-body .btn{ font-size: 22px;}
 .member .col-lg-6 {
     margin-left: 270px;
     padding-top: 100px;
@@ -99,21 +101,18 @@ body{
     background-color: #1957a4;
     color: #ffffff;
 }
-.maillogin, .passlogin{ 
-    margin-left: 70px;
-    font-family: 'RobotoR', 'Arial', sans-serif;
-    font-size: 16px;
-    display: inline;
+.maillogin, .passlogin{
+    font-size: 20px;
 }
-
+.maillogin .control-label, .passlogin .control-label{
+    padding-top: 0;
+    font-size: 25px;
+}
 
 .regis{
     margin-left: 40px;
 }
-.regis .form-control{
-    width: 55%;
-    height: 35px;
-}
+
 .checkbox{ 
     margin-left: 150px;
 }

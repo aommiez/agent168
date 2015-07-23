@@ -15,6 +15,7 @@ $this->import('/layout/header');
         padding: 10px;
         border: 5px solid #1957a4;
         width: 750px;
+        margin-top: 25px;
     }
 
     .block-a ul li{
@@ -27,8 +28,8 @@ $this->import('/layout/header');
     .block-b{
         background-color: #FFFFFF;
         padding: 20px;
-        padding-right: 60px;
         border: 5px solid #1957a4;
+        margin-top: 25px;
     }
 
 
@@ -40,49 +41,134 @@ $this->import('/layout/header');
         float: right;
     }
 
-    h6 {
-        color: #245ea7;
-        font-family: 'thaisans', 'Arial', sans-serif;
-        font-size: 16px;
+
+
+
+    .hl{
+        position: relative;
+        top: -121px;
     }
 
-    .highlight{
-
-    }
-
-    .highlight-a{
+    .hl-a{
         background-color: #1957a4;
         width: 320px;
     }
 
-    .highlight-b{
+    .hl-b{
         background-color: #1957a4;
         width: 340px;
-        margin-left: 80px;
+        margin-left: 90px;
     }
 
-    .highlight-a ul li{
+    .hl-a ul li{
         list-style-type: none;
         font-size: 12px;
         margin-left: -40px;
     }
 
-    .highlight-b ul li{
+    .hl-b ul li{
         list-style-type: none;
         font-size: 12px;
         margin-left: -40px;
     }
 
-.mainLeft {
-    position: relative;
-}
+    .mainLeft {
+        position: relative;
+    }
     #googleMap {
         position: absolute;
         top: 20px;
         right: 20px;
-        width:400px;
+        width:360px;
         height:200px;
         border: 3px solid #bbbbbb;
+    }
+    .textareaClass {
+        resize: none;
+        width: 190px;
+    }
+
+
+    .labelText {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        vertical-align: top;
+    }
+    .labelText2 {
+        display: inline-block;
+        text-align: left;
+        width: 314px;
+    }
+    .formRight{
+        display: inline-block;
+    }
+
+    .formleft{
+        display: inline-block;
+    }
+
+    .formClass {
+        padding-top: 10px;
+        font-size: 18px;
+    }
+
+    .h6{
+        color: #000000;
+        font-family: 'thk2d', 'Arial', sans-serif;
+        font-size: 18px;
+    }
+
+    pre{
+        border: none;
+        background-color: #1957a4;
+        padding: 0;
+        color: #ffffff;
+        float: left;
+        margin-left: -40px;
+        font-size: 12px;
+        margin-top: 10px;
+    }
+
+    .formWidth{
+        width: 188px;
+    }
+
+    .formCenter{
+        text-align: center;
+    }
+
+    .spanAll{
+        background-color: #1957a4;
+        font-size: 18px;
+        font-family: 'thk2d', 'Arial', sans-serif;
+        height: 40px;
+        position: absolute;
+        z-index: 0;
+        border-top-left-radius:8px;
+        border-top-right-radius:8px;
+    }
+
+    .span1{
+        margin-left: 820px;
+    }
+
+    .span2{
+        margin-left: 200px;
+    }
+
+    .span3{
+        margin-top: 400px;
+        margin-left: 70px;
+    }
+    .span4{
+        margin-top: 400px;
+        margin-left: 490px;
+    }
+    .textHead {
+        color: #1957a4;
+        font-family: 'thk2d', 'Arial', sans-serif;
+        font-size: 18px;
     }
 
 </style>
@@ -90,91 +176,182 @@ $this->import('/layout/header');
 <div class="allcontact">
     <div class="container">
         <br><br>
-        <span class="label label-default" style="background-color: #1957a4; height: 40px; font-size: 14px; margin-top: 395px;margin-left: 100px;position: absolute;z-index: 1px;border-top-left-radius:8px;border-top-right-radius:8px"><li style="margin-top : 5px; list-style-type: none">Highlight Propoties</li></span>
-        <span class="label label-default" style="background-color: #1957a4; height: 40px; font-size: 14px; margin-top: 395px;margin-left: 480px;position: absolute;z-index: 1px;border-top-left-radius:8px;border-top-right-radius:8px"><li style="margin-top : 5px; list-style-type: none">Newsletter Sign Up</li></li></span>
-        <span class="label label-default" style="background-color: #1957a4; font-size: 14px; margin-left: 100px;border-top-left-radius:8px;border-top-right-radius:8px">ติดต่อ Bangkok Citysmart</span>
-        <span class="label label-default" style="background-color: #1957a4; font-size: 14px; margin-left: 600px;border-top-left-radius:8px;border-top-right-radius:8px">รายละเอียดการติดต่อ</span>
-        <div class="contact row">
+        <span class="label label-default spanAll span1" >ติดต่อ Bangkok Citysmart</span>
+        <span class="label label-default spanAll span2" >รายละเอียดการติดต่อ</span>
+        <span class="label label-default spanAll span3" >Highlight Propoties</span>
+        <span class="label label-default spanAll span4" >Newsletter Sign Up</span>
+       <div class="contact row">
             <div class="block-a col-lg-8 mainLeft">
-                <ul>
-                    <h6> ที่อยู่ : </h6>
-                    <li style="margin-top: -30px; margin-left: 40px">บริษัท กรุงเทพ ซิตี้สมาร์ท จำกัด</li>
-                    <li>170/48 ชั้น 15 อาคารโอเชียนทาวเวอร์ 1</li>
-                    <li>ถนนรัชดาภิเษกตัดใหม่ แขวงคลองเตย</li>
-                    <li>เขตคลองเตย กรุงเทพฯ 10110</li><br>
+                <div class="h6">
+                    <div class="labelText2">
+                        <span class="textHead"> ที่อยู่ : </span>บริษัท กรุงเทพ ซิตี้สมาร์ท จำกัด
+                        170/48 ชั้น 15 อาคารโอเชียนทาวเวอร์ 1
+                        ถนนรัชดาภิเษกตัดใหม่ แขวงคลองเตย
+                        เขตคลองเตย กรุงเทพฯ 10110
+                    </div>
+                    <div class="formleft">
 
-                    <h6>โทร : </h6><li style="margin-top: -30px; margin-left: 35px">02-661-899, 02-661-8338</li>
-                    <h6>แฟกซ์ : </h6><li style="margin-top: -30px; margin-left: 50px">02-661-8044</li><br>
 
-                    <h6>อีเมล :</h6><li style="margin-top: -30px; margin-left: 50px">info@bkkcitismart.com</li>
-                    <h6>เว็บไซต์ : </h6><li style="margin-top: -30px; margin-left: 60px">http://www.bkkcitismart.com/</li>
-                    <h6>เฟสบุ๊ค : </h6><li style="margin-top: -30px; margin-left: 55px">http://www.facebook.com/bangkokcitismart</li>
-                    <h6>ทวิตเตอร์ :</h6><li style="margin-top: -30px; margin-left: 75px">http://www.twitter.com/bkkcitismart </li>
+                    </div>
+                </div>
+                <br>
+                <div class="h6">
+                    <div class="labelText2">
+                        <span class="textHead">โทร :</span> 02-661-899, 02-661-8338
+                    </div>
+                    <div class="formleft">
+
+                    </div>
+                </div>
+
+                <div class="h6">
+                    <div class="labelText2">
+                        <span class="textHead">แฟกซ์ :</span> 02-661-899, 02-661-8338
+                    </div>
+                    <div class="formleft">
+
+                    </div>
+                </div>
+                <br>
+                <div class="h6">
+                    <div class="labelText2">
+                        <span class="textHead">อีเมล :</span> info@bkkcitismart.com
+                    </div>
+                    <div class="formleft">
+
+                    </div>
+                </div>
+
+                <div class="h6">
+                    <div class="labelText2">
+                        <span class="textHead">เว็บไซต์ :</span> http://www.bkkcitismart.com/
+                    </div>
+                    <div class="formleft">
+
+                    </div>
+                </div>
+
+                <div class="h6">
+                    <div class="labelText2">
+                        <span class="textHead">เฟซบุ๊ค :</span> http://www.facebook.com/bangkokcitismart
+                    </div>
+                    <div class="formleft">
+
+                    </div>
+                </div>
+
+                <div class="h6">
+                    <div class="labelText2">
+                        <span class="textHead">ทวิตเตอร์ : </span>http://www.twitter.com/bkkcitismart
+                    </div>
+                    <div class="formleft">
+
+                    </div>
+                </div>
+
                     <div id="googleMap" ></div>
-                </ul>
             </div>
 
 
             <div class="block-b col-lg-4" style="margin-left: 20px" >
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <ul>
-                            <li><br>
-                                เรื่อง :
-                                <select class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right; margin-top: -2px">
-                                    <option>ซื้อ</option>
-                                    <option>ขาย</option>
-                                    <option>เช่า</option>
-                                </select>
-                            </li><br>
-                            <li>
-                                <textarea class="form-control" rows="3" style="font-size: 12px; width: 200px; margin-top: -1px"></textarea>
-                            <li>ข้อความ : </li>
-                            </li><br><br><br>
-                            <li>
-                                ชื่อ : <input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  margin-top: -2px">
-                            </li><br>
-                            <li>
-                                นามสกุล : <input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  margin-top: -2px">
-                            </li><br>
-                            <li>
-                                มือถือ : <input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;margin-top: -2px">
-                            </li><br>
-                            <li>
-                                โทรศัพท์ : <input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;margin-top: -2px">
-                            </li><br>
-                            <li>
-                                อีเมล : <input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;margin-top: -2px">
-                            </li><br>
-                            <li>
-                                รหัสยืนยัน : <input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;margin-top: -2px">
-                            </li><br><br>
-                            <li style="text-align: center;font-size: 14px">กรุณากรอกตัวอักษรที่เห็นด้านล่างลงในช่องว่าง</li><br>
-                            <li>
-                                <textarea class="form-control" rows="2" style="font-size: 12px; width: 100px; float: left"></textarea>
-                            </li>
-                            <li>
-                                <textarea class="form-control" rows="2" style="font-size: 12px; width: 140px; float: right"></textarea>
-                            </li><br>
-                            <button type="submit" class="btn btn-default" style="background-color: #1957a4;
-                                border-radius:15px; margin-left: 100px; margin-top: 10px; color: #FFFFFF">ส่งข้อมูล</button>
-                        </ul>
+                    <div class="formClass">
+                        <div class="labelText">
+                            เรื่อง :
+                        </div>
+                        <div class="formRight">
+                            <select class="form-control">
+                                <option value="buy">ซื้อ</option>
+                                <option value="sale">ขาย</option>
+                                <option value="rent">เช่่า</option>
+                                <option value="audi"></option>
+                            </select>
+                        </div>
                     </div>
-                </form>
+                <div class="formClass ">
+                    <div class="labelText">
+                        ข้อความ :
+                    </div>
+                    <div class="formRight">
+                        <textarea rows="3" cols="50" class="textareaClass form-control">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="formClass">
+                    <div class="labelText">
+                        ชื่อ :
+                    </div>
+                    <div class="formRight   formWidth ">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="formClass ">
+                    <div class="labelText" class="form-control">
+                        นามสกุล :
+                    </div>
+                    <div class="formRight formWidth">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="formClass">
+                    <div class="labelText">
+                        มือถือ :
+                    </div>
+                    <div class="formRight formWidth">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="formClass">
+                    <div class="labelText">
+                        โทรศัพท์ :
+                    </div>
+                    <div class="formRight formWidth">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="formClass">
+                    <div class="labelText">
+                        อีเมล :
+                    </div>
+                    <div class="formRight formWidth">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="formClass">
+                    <div class="labelText">
+                        รหัสยืนยัน :
+                    </div>
+                    <div class="formRight formWidth">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="formClass">
+                    <div class="formCenter">กรุณากรอกตัวอักษรที่เห็นด้านล่างลงในช่องว่าง</div>
+                </div>
+
+                <div style="    text-align: center">
+                    <a href="#" class="btn btn-default">ส่งข้อความ</a>
+                </div>
+
             </div>
         </div>
 
 
-        <div class="highlight row">
-            <div class="highlight-a col-lg-4" style="margin-top: -150px; margin-left: 30px">
+        <div class="hl row">
+            <div class="hl-a col-lg-4">
                 <ul>
                     <img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>" style="margin-left: -40px;height: 200px;width: 290px;margin-top: 15px;">
-                    <h6 style="margin-left: -40px; font-size: 14px;color: #FFFFFF"><b>แอสปาย สาทร ตากสิน (ทิมเบอร์ โซน)</b></h6>
-                    <li style="color: #FFFFFF">ทำเล : สาทร, กรุงเทพมหานคร ขนาด: 26 ตร.ม.</li>
-                    <li style="color: #FFFFFF">1 ห้องนอน 1 ห้องน้ำ sell : 1,880,000 บาท</li>
+<pre>แอสปาย สาทร ตากสิน (ทิมเบอร์ โซน)
+ทำเล : สาทร, กรุงเทพมหานคร ขนาด: 26 ตร.ม.
+1 ห้องนอน 1 ห้องน้ำ sell : 1,880,000 บาท</pre>
                 </ul>
             </div>
-            <div class="highlight-b col-lg-4" style="margin-top: -150px; margin-left: 50px">
+            <div class="hl-b col-lg-4">
                 <ul>
                     <img src="<?php echo \Main\Helper\URL::absolute("/public/images/mail.gif")?>" style="margin-left: -40px;height: 260px;width: 310px;margin-top: 15px;">
                     <form>

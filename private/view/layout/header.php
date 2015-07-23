@@ -74,11 +74,27 @@ use Main\Helper;
         <div class="modal-content">
             <div class="modal-body">
                 <div class="maillogin">
-                    E-Mail : <input type="text" class="form-control">
-                </div><br>
-                <div class="passlogin" style="margin-left: 44.5px">
-                    Password : <input type="password" class="form-control">
-                </div><br>
+                    <form class="form-horizontal">
+                        <div class="form-group" id="id">
+                            <label class="control-label col-lg-3" for="">E-Mail :</label>
+                            <div class="col-lg-7">
+                                <input type="text" class="form-control">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="passlogin">
+                    <form class="form-horizontal">
+                        <div class="form-group" id="id">
+                            <label class="control-label col-lg-3" for="">Password :</label>
+                            <div class="col-lg-7">
+                                <input type="text" class="form-control">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
                 <img src="<?php echo \Main\Helper\URL::absolute("/public/images/ZW4QC.png")?>" />
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
