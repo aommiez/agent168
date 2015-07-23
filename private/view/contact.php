@@ -21,7 +21,7 @@ $this->import('/layout/header');
         color: #000000;
         list-style-type: none;
         font-size: 16px;
-        font-family: 'Roboto', 'Bangna', 'Arial', sans-serif;
+        font-family: 'thaisans', 'Arial', sans-serif;
     }
 
     .block-b{
@@ -36,13 +36,13 @@ $this->import('/layout/header');
         color: #000000;
         list-style-type: none;
         font-size: 16px;
-        font-family: 'Roboto', 'Bangna', 'Arial', sans-serif;
+        font-family: 'thaisans', 'Arial', sans-serif;
         float: right;
     }
 
     h6 {
         color: #245ea7;
-        font-family: 'Roboto', 'Bangna', 'Arial', sans-serif;
+        font-family: 'thaisans', 'Arial', sans-serif;
         font-size: 16px;
     }
 

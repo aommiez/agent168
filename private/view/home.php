@@ -230,7 +230,7 @@ $this->import('/layout/header');
     $(function(){
         var $el = $('.newsletter');
         var wH = $(window).height();
-        var top = $el.offset().top - $el.height();
+        var top = $el.offset().top - wH;
         var bottom = top + wH + ($el.height()*2);
 
         var topAttr = 'data-'+parseInt(top);
@@ -281,13 +281,13 @@ $this->import('/layout/header');
         });
     });
 </script>
-<script>
-    $(function(){
-        setTimeout(function(){
-            $('.newsletter').scrollTop(0);
-        }, 1000);
-    });
-</script>
+<!--<script>-->
+<!--    $(function(){-->
+<!--        setTimeout(function(){-->
+<!--            $('.newsletter').scrollTop(0);-->
+<!--        }, 1000);-->
+<!--    });-->
+<!--</script>-->
 <script>
     function isElementInViewport(elem) {
         var $elem = $(elem);

@@ -61,8 +61,8 @@ use Main\Helper;
             <ul class="nav navbar-nav">
                 <li><a href="#">BUY</a></li>
                 <li><a href="#">RENT</a></li>
-                <li><a href="#">PROPERTY SEARCH</a></li>
-                <li><a href="#">LIST YOUR PROPERTY</a></li>
+                <li><a href="/agent168/list">PROPERTY SEARCH</a></li>
+                <li><a href="/agent168/listprops">LIST YOUR PROPERTY</a></li>
                 <li><a href="#">EDITORIAL</a></li>
                 <li><a href="/agent168/contact">CONTACT US</a></li>
             </ul>
