@@ -63,7 +63,7 @@ use Main\Helper;
                 <li><a href="#">RENT</a></li>
                 <li><a href="/agent168/list">PROPERTY SEARCH</a></li>
                 <li><a href="/agent168/listprops">LIST YOUR PROPERTY</a></li>
-                <li><a href="#">EDITORIAL</a></li>
+                <li><a href="/agent168/campaign">EDITORIAL</a></li>
                 <li><a href="/agent168/contact">CONTACT US</a></li>
             </ul>
         </div>
@@ -72,7 +72,6 @@ use Main\Helper;
 <div class="modal fade" id="login">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
             <div class="modal-body">
                 <div class="maillogin">
                     E-Mail : <input type="text" class="form-control">
@@ -82,6 +81,7 @@ use Main\Helper;
                 </div><br>
                 <img src="<?php echo \Main\Helper\URL::absolute("/public/images/ZW4QC.png")?>" />
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Login</button>
                 </div>
             </div>
