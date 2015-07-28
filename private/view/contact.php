@@ -80,7 +80,7 @@ $this->import('/layout/header');
         top: 20px;
         right: 20px;
         width:360px;
-        height:200px;
+        height:290px;
         border: 3px solid #bbbbbb;
     }
     .textareaClass {
@@ -189,18 +189,11 @@ $this->import('/layout/header');
                         ถนนรัชดาภิเษกตัดใหม่ แขวงคลองเตย
                         เขตคลองเตย กรุงเทพฯ 10110
                     </div>
-                    <div class="formleft">
-
-
-                    </div>
                 </div>
                 <br>
                 <div class="h6">
                     <div class="labelText2">
                         <span class="textHead">โทร :</span> 02-661-899, 02-661-8338
-                    </div>
-                    <div class="formleft">
-
                     </div>
                 </div>
 
@@ -208,26 +201,17 @@ $this->import('/layout/header');
                     <div class="labelText2">
                         <span class="textHead">แฟกซ์ :</span> 02-661-899, 02-661-8338
                     </div>
-                    <div class="formleft">
-
-                    </div>
                 </div>
                 <br>
                 <div class="h6">
                     <div class="labelText2">
                         <span class="textHead">อีเมล :</span> info@bkkcitismart.com
                     </div>
-                    <div class="formleft">
-
-                    </div>
                 </div>
 
                 <div class="h6">
                     <div class="labelText2">
                         <span class="textHead">เว็บไซต์ :</span> http://www.bkkcitismart.com/
-                    </div>
-                    <div class="formleft">
-
                     </div>
                 </div>
 
@@ -243,9 +227,6 @@ $this->import('/layout/header');
                 <div class="h6">
                     <div class="labelText2">
                         <span class="textHead">ทวิตเตอร์ : </span>http://www.twitter.com/bkkcitismart
-                    </div>
-                    <div class="formleft">
-
                     </div>
                 </div>
 
@@ -335,7 +316,7 @@ $this->import('/layout/header');
                 </div>
 
                 <div style="    text-align: center">
-                    <a href="#" class="btn btn-default">ส่งข้อความ</a>
+                    <a href="#" class="btn btn-primary">ส่งข้อความ</a>
                 </div>
 
             </div>
