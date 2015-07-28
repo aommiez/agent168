@@ -57,6 +57,9 @@ body{
     letter-spacing: 1px;
     font-size: 20px;
 }
+.contact-bar ul li #icon{
+    font-size: 16px;
+}
 .contact-bar ul li button{
     margin-bottom: 10px;
     width: 82px;
@@ -64,7 +67,10 @@ body{
     font-size: 10px;
     font-family: 'thaisansb', 'Arial', sans-serif;
 }
-.contact-bar ul li img{ margin-bottom: 10px;}
+.contact-bar ul li img{
+    margin-bottom: 10px;
+    margin-left: -10px;
+}
 .navbar.navbar-default{
     background-color: #ffffff;
     border: none;
@@ -88,7 +94,7 @@ body{
     margin-left: 190px;
     margin-top: 10px;
 }
-.modal-body .btn{ font-size: 22px;}
+.modal-body .btn, .modal-body .form-control{ font-size: 22px;}
 .member .col-lg-6 {
     margin-left: 270px;
     padding-top: 100px;
@@ -108,13 +114,13 @@ body{
     padding-top: 0;
     font-size: 25px;
 }
-
-.regis{
-    margin-left: 40px;
+.regis .control-label{
+    padding-top: 0;
+    font-size: 20px;
 }
-
 .checkbox{ 
     margin-left: 150px;
+    font-size: 20px;
 }
 .footer{ 
     background: url(../images/Layer-20-copy-2.png);
@@ -149,10 +155,10 @@ body{
     text-align: center;
 }
 .findprops{
-        z-index: 2;
-  left: 17%;
-  position: absolute;
-      top: -120px;
+    z-index: 2;
+    left: 17%;
+    position: absolute;
+    top: -120px;
 }
 .searchbox{ 
     

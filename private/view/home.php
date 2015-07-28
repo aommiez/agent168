@@ -26,7 +26,7 @@ $this->import('/layout/header');
 </div>
 <div class="container" style="position: relative;">
     <div class="findprops">
-        <img style="opacity: 0.9;" src="<?php echo \Main\Helper\URL::absolute("/public/images/maps.jpg")?>" />
+        <img style="opacity: 0.8;" src="<?php echo \Main\Helper\URL::absolute("/public/images/maps.jpg")?>" />
         <div class="searchbox">
             <div class="row">
                 <div class="col-lg-10">

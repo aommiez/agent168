@@ -53,7 +53,7 @@ use Main\Helper;
                         <p style="margin-left: 40px;">Copyright <span class="glyphicon glyphicon-copyright-mark"></span> 2013 Tufftex Group Company Limited All Rights Reserved. Designated trademarks and brands
                             are the property of their respective owners. Use of this Web site constitutes acceptance of the Bangkok
                             CitiSmart. Privacy Policy and Terms & Conditions | more info</p>
-                        <img style="margin-left: 500px; padding-bottom: 5px;" src="<?php echo \Main\Helper\URL::absolute("/public/images/backtop.png")?>" />
+                        <a href="#"><img style="margin-left: 500px; padding-bottom: 5px;" src="<?php echo \Main\Helper\URL::absolute("/public/images/backtop.png")?>" /></a>
                     </div>
                 </div>
             </div>
