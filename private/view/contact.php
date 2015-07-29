@@ -184,40 +184,40 @@ $this->import('/layout/header');
             <div class="block-a col-lg-8 mainLeft">
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead"> ที่อยู่ : </span>บริษัท กรุงเทพ ซิตี้สมาร์ท จำกัด
-                        170/48 ชั้น 15 อาคารโอเชียนทาวเวอร์ 1
-                        ถนนรัชดาภิเษกตัดใหม่ แขวงคลองเตย
-                        เขตคลองเตย กรุงเทพฯ 10110
+                        <span class="textHead"> ที่อยู่ : </span>บริษัท เอเจ้นท์168 จำกัด”<br>
+                        เลขประจำตัวผู้เสียภาษีอากร 0105558054793<br>
+                        189/87 กรุงเทพกรีฑา 7
+                        แขวงหัวหมาก เขตบางกะปิ กทม. 10240
                     </div>
                 </div>
                 <br>
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead">โทร :</span> 02-661-899, 02-661-8338
+                        <span class="textHead">โทร :</span>  02-184-6914
                     </div>
                 </div>
 
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead">แฟกซ์ :</span> 02-661-899, 02-661-8338
+                        <span class="textHead">แฟกซ์ :</span> 02-184-6914
                     </div>
                 </div>
                 <br>
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead">อีเมล :</span> info@bkkcitismart.com
+                        <span class="textHead">อีเมล :</span> info@agent168th.com
                     </div>
                 </div>
 
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead">เว็บไซต์ :</span> http://www.bkkcitismart.com/
+                        <span class="textHead">เว็บไซต์ :</span> http://agent168th.com/
                     </div>
                 </div>
 
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead">เฟซบุ๊ค :</span> http://www.facebook.com/bangkokcitismart
+                        <span class="textHead">เฟซบุ๊ค :</span> http://www.facebook.com/agent168th
                     </div>
                     <div class="formleft">
 
@@ -226,7 +226,7 @@ $this->import('/layout/header');
 
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead">ทวิตเตอร์ : </span>http://www.twitter.com/bkkcitismart
+                        <span class="textHead">ทวิตเตอร์ : </span>http://www.twitter.com/agent168th
                     </div>
                 </div>
 

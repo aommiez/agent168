@@ -62,19 +62,19 @@ use Main\Helper;
                 <li class="dropdown" id="buy">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BUY</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">CONDOMINIUM</a></li>
-                        <li><a href="#">SINGLE DETACHED HOUSE</a></li>
-                        <li><a href="#">TOWNHOME</a></li>
-                        <li><a href="#">HOME OFFICE</a></li>
+                        <li><a href="/agent168/list">CONDOMINIUM</a></li>
+                        <li><a href="/agent168/house">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="/agent168/listth">TOWNHOME</a></li>
+                        <li><a href="/agent168/listhome">HOME OFFICE</a></li>
                     </ul>
                 </li>
                 <li class="dropdown" id="rent">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RENT</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">CONDOMINIUM</a></li>
-                        <li><a href="#">SINGLE DETACHED HOUSE</a></li>
-                        <li><a href="#">TOWNHOME</a></li>
-                        <li><a href="#">HOME OFFICE</a></li>
+                        <li><a href="/agent168/list">CONDOMINIUM</a></li>
+                        <li><a href="/agent168/house">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="/agent168/listth">TOWNHOME</a></li>
+                        <li><a href="/agent168/listhome">HOME OFFICE</a></li>
                     </ul>
                 </li>
                 <li><a href="/agent168/list">PROPERTY SEARCH</a></li>

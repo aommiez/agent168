@@ -146,7 +146,7 @@ body{
 }
 .footer #social{ display: inline;}
 .slide .carousel-indicators {
-  bottom: 470px;
+  top: 10px;
 }
 .right.carousel-control, .left.carousel-control {
     display: none;
@@ -163,7 +163,7 @@ body{
 }
 .findprops{
     z-index: 2;
-    left: 17%;
+    left: 16%;
     position: absolute;
     top: -120px;
 }
