@@ -9,28 +9,28 @@ use Main\Helper;
                     <div class="col-lg-3">
                         <ul class="buyandrent">
                             <li id="subject">Buy</li>
-                            <li>Condominium</li>
-                            <li>Single Detached House</li>
-                            <li>Townhouse</li>
-                            <li>Home Office</li>
+                            <li><a href="#">Condominium</a></li>
+                            <li><a href="#">Single Detached House</a></li>
+                            <li><a href="#">Townhouse</a></li>
+                            <li><a href="#">Home Office</a></li>
                             <li id="subject">Rent</li>
-                            <li>Condominium</li>
-                            <li>Single Detached House</li>
-                            <li>Townhouse</li>
-                            <li>Home Office</li>
+                            <li><a href="#">Condominium</a></li>
+                            <li><a href="#">Single Detached House</a></li>
+                            <li><a href="#">Townhouse</a></li>
+                            <li><a href="#">Home Office</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3">
                         <ul class="propsandlocation">
                             <li id="subject">Property Serch</li>
-                            <li>Advance Search</li>
-                            <li>Transportation Search</li>
-                            <li>Map Search</li>
+                            <li><a href="#">Advance Search</a></li>
+                            <li><a href="#">Transportation Search</a></li>
+                            <li><a href="#">Map Search</a></li>
                             <li id="subject">Location</li>
-                            <li>Bangkok</li>
-                            <li>Pattaya</li>
-                            <li>Chiang Mai</li>
-                            <li>Khon Khan</li>
+                            <li><a href="">Bangkok</a></li>
+                            <li><a href="">Pattaya</a></li>
+                            <li><a href="">Chiang Mai</a></li>
+                            <li><a href="">Khon Khan</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-6">

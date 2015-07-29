@@ -35,20 +35,20 @@ use Main\Helper;
     <div class="container">
         <ul>
             <li>
-                <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-earphone" id="icon" aria-hidden="true"></span>
                 02-222-2222
             </li>
             <li style="margin-right: 130px">
-                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-envelope" id="icon" aria-hidden="true"></span>
                 tufftex2011@gmail.com
             </li>
             <li style="margin-right: 0px"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login" style="padding: 0px">LOGIN</button></li>
             <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#register" style="padding: 0px">REGISTER</button></li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Facebook.png")?>" /> </li>
-            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Twitter.png")?>" style="margin-left: -10px"/></li>
-            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Google+.png")?>" style="margin-left: -10px"/></li>
-            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Rss.png")?>" style="margin-left: -10px"/></li>
-            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Pinterest.png")?>" style="margin-left: -10px"/></li>
+            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Twitter.png")?>" /></li>
+            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Google+.png")?>" /></li>
+            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Rss.png")?>" /></li>
+            <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Pinterest.png")?>" /></li>
         </ul>
     </div>
 </div>
@@ -59,11 +59,27 @@ use Main\Helper;
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">BUY</a></li>
-                <li><a href="#">RENT</a></li>
+                <li class="dropdown" id="buy">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BUY</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">CONDOMINIUM</a></li>
+                        <li><a href="#">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="#">TOWNHOME</a></li>
+                        <li><a href="#">HOME OFFICE</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" id="rent">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RENT</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">CONDOMINIUM</a></li>
+                        <li><a href="#">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="#">TOWNHOME</a></li>
+                        <li><a href="#">HOME OFFICE</a></li>
+                    </ul>
+                </li>
                 <li><a href="/agent168/list">PROPERTY SEARCH</a></li>
                 <li><a href="/agent168/listprops">LIST YOUR PROPERTY</a></li>
-                <li><a href="#">EDITORIAL</a></li>
+                <li><a href="/agent168/campaign">EDITORIAL</a></li>
                 <li><a href="/agent168/contact">CONTACT US</a></li>
             </ul>
         </div>
@@ -72,16 +88,32 @@ use Main\Helper;
 <div class="modal fade" id="login">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
             <div class="modal-body">
                 <div class="maillogin">
-                    E-Mail : <input type="text" class="form-control">
-                </div><br>
-                <div class="passlogin" style="margin-left: 44.5px">
-                    Password : <input type="password" class="form-control">
-                </div><br>
+                    <form class="form-horizontal">
+                        <div class="form-group" id="id">
+                            <label class="control-label col-lg-3" for="">E-Mail :</label>
+                            <div class="col-lg-7">
+                                <input type="text" class="form-control">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="passlogin">
+                    <form class="form-horizontal">
+                        <div class="form-group" id="id">
+                            <label class="control-label col-lg-3" for="">Password :</label>
+                            <div class="col-lg-7">
+                                <input type="password" class="form-control">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
                 <img src="<?php echo \Main\Helper\URL::absolute("/public/images/ZW4QC.png")?>" />
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Login</button>
                 </div>
             </div>
@@ -91,31 +123,87 @@ use Main\Helper;
 <div class="modal fade" id="register">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
             <div class="modal-body">
                 <div class="regis">
-                    คำนำหน้าชื่อ : <select class="form-control" style="margin-left: 65px">
-                        <option>นาย / Mr.</option>
-                        <option>นาง / Mrs.</option>
-                        <option>นางสาว / Miss</option>
-                    </select>
-                    <div class="nameregis">ชื่อ / Name : <input type="text" class="form-control" style="margin-left: 70px"></div>
-                    <div class="nameregis">นามสกุล / Lastname : <input type="text" class="form-control"></div>
-                    <div class="telinput">เบอร์โทรศัพท์ / Tel. : <input type="text" class="form-control" style="margin-left: 25px"></div>
-                    <div class="mailregis"">อีเมล / E-Mail : <input type="text" class="form-control" style="margin-left: 55px"></div>
-                <div class="passregis">รหัสผ่าน / Password : <input type="password" class="form-control" style="margin-left: 12px"></div>
-                <div class="passconfirm">Confirm Password : <input type="password" class="form-control" style="margin-left: 20px"></div>
-                <div class="coderegis">รหัสยืนยัน / Code :<input type="text" class="form-control" style="margin-left: 33px"></div>
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox">รับข่าวสาร และโปรโมชั่นต่างๆ จาก Website</label>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Register</button>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">คำนำหน้าชื่อ : </label>
+                            <div class="col-lg-4">
+                                <select class="form-control">
+                                    <option>นาย / Mr.</option>
+                                    <option>นาง / Mrs.</option>
+                                    <option>นางสาว / Miss</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">ชื่อ / Name : </label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">นามสกุล / Lastname : </label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">เบอร์โทรศัพท์ / Tel. : </label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">อีเมล / E-Mail : </label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">รหัสผ่าน / Password : </label>
+                            <div class="col-lg-5">
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">Confirm Password : </label>
+                            <div class="col-lg-5">
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-lg-4" for="">รหัสยืนยัน / Code :</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox">รับข่าวสาร และโปรโมชั่นต่างๆ จาก Website</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Register</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <style>
 

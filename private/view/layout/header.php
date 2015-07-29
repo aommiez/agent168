@@ -59,8 +59,24 @@ use Main\Helper;
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">BUY</a></li>
-                <li><a href="#">RENT</a></li>
+                <li class="dropdown" id="buy">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BUY</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">CONDOMINIUM</a></li>
+                        <li><a href="#">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="#">TOWNHOME</a></li>
+                        <li><a href="#">HOME OFFICE</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" id="rent">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RENT</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">CONDOMINIUM</a></li>
+                        <li><a href="#">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="#">TOWNHOME</a></li>
+                        <li><a href="#">HOME OFFICE</a></li>
+                    </ul>
+                </li>
                 <li><a href="/agent168/list">PROPERTY SEARCH</a></li>
                 <li><a href="/agent168/listprops">LIST YOUR PROPERTY</a></li>
                 <li><a href="/agent168/campaign">EDITORIAL</a></li>

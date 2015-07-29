@@ -84,6 +84,12 @@ body{
     margin-left: 25px;
     font-size: 17px;
 }
+
+.navbar-nav .dropdown-menu{
+    font-size: 14px;
+    margin-left: 0px;
+    color: #000000;
+}
 .navbar-nav li a{
     color: #000000;
 }
@@ -132,6 +138,7 @@ body{
     list-style: none;
     color: #ffffff;
 }
+.footer .buyandrent a, .footer .propsandlocation a, .footer .contactus a{ color: #ffffff;}
 .footer #subject{ 
     font-size: 24px;
     color: #000000;
