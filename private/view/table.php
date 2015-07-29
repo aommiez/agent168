@@ -35,17 +35,19 @@ $this->import('/layout/headProperty');
 
 
 
+
 </style>
 
 <div class="bgtable">
     <div class="container">
-        <div class="labelText divTop"><a href="#">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="#">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="#">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="#">Table</a></div>
-          <div class="labelText2">
+        <div class="labelText divTop"><a href="/agent168/list">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="/agent168/map">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="/agent168/gallery">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="/agent168/table">Table</a></div>
+
+        <div class="labelText2">
             <div class="col-md-2 bglabel divTop">รหัส</div>
             <div class="col-md-6 bglabel divTop">รายการ</div>
             <div class="col-md-2 bglabel divTop">ขาย</div>
             <div class="col-md-2 bglabel divTop">เช่า</div>
-          </div>
+        </div>
 
         <div class="labelText">
             <a href="#">
