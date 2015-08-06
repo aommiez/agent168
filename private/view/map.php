@@ -2,73 +2,41 @@
 $this->import('/layout/headProperty');
 ?>
 <style>
-    .bgmap{
-        background-image: url(<?php echo \Main\Helper\URL::absolute("/public/images/bglist.jpg")?>);
-    }
 
-
-    .menu{
-        margin-left: 40px;
-
-    }
-
-    .menu ul li{
-        list-style-type: none;
-        display: inline;
-        font-size: 16px;
-        font-family: 'Roboto', 'Arial', sans-serif;
-
-    }
-
-    .menu ul li a:link {
+    .labelText, .labelText2{
+        font-family: 'thaisans', 'Arial', sans-serif;
         color: #1957a4;
-        text-decoration: none;}
-    .menu ul li a:visited {
-        color: #245ea7;
-        text-decoration: none;
     }
-    .menu ul li a:hover {
-        color:#C355A6;
-        text-decoration: none;
-    }
-    .menu ul li a:active {
-        color: #1957a4;
-        text-decoration: none;
+    .labelText{
+        font-size: 14px;
+        margin-left: 100px;
     }
 
-    .linemap{
-        background-image: url(<?php echo \Main\Helper\URL::absolute("/public/images/line.jpg")?>);
-        width: 95%;
-        margin-left: 40px;
+    .divTop{
+        margin-top: 20px;
+    }
+
+    hr{
+        border: 1px solid #1957a4;
+        width: 100%;
+        margin-top: 20px;
+        float: left;
+        margin-bottom: 0px;
     }
 
 
     #googleMap {
     position: absolute;
-    margin-top: 20px;
-    margin-left: 80px;
+    margin-top: 50px;
+    margin-left: 100px;
     width:1050px;
     height:400px;
     border: 3px solid #bbbbbb;
     }
 </style>
     <div class="container">
-        <br>
-        <div class="menu">
-            <ul>
-                <li><a href="/agent168/list">List</a></li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><span class="divider" style="color: #bbbbbb">/</span></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="/agent168/map">Map</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><span class="divider" style="color: #bbbbbb">/</span></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="/agent168/gallery">Gallery</a> </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><span class="divider" style="color: #bbbbbb">/</span></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="/agent168/table">Table</a> </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </ul>
-            <div class="linemap row">
-                <div class="linemap col-lg-12">
-                </div>
-            </div>
-        </div>
+        <div class="labelText divTop"><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/map")?>">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/gallery")?>">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/table")?>">Table</a></div>
+        <div class="labelText"><hr></div>
         <div id="googleMap" ></div>
     </div>
 

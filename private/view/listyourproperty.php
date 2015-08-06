@@ -297,7 +297,7 @@ $this->import('/layout/header');
                         <div class="formRight">
                             <div class="formRight   formWidth ">
                                 <div>
-                                    <a href="#" class="btn btn-default">Next Step</a>
+                                    <a href="#" class="btn btn-default" id="step1">Next Step</a>
                                 </div>
                             </div>
                         </div>
@@ -418,7 +418,7 @@ $this->import('/layout/header');
                         <div class="formRight">
                             <div class="formRight   formWidth ">
                                 <div>
-                                    <a href="#" class="btn btn-primary">Submit</a>
+                                    <a href="#" class="btn btn-primary" id="step2">Submit</a>
                                 </div>
                             </div>
                         </div>

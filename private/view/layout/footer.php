@@ -36,9 +36,9 @@ use Main\Helper;
                     <div class="col-lg-6">
                         <ul class="contactus">
                             <li id="subject">Contact Us</li>
-                            <li style="font-size: 2em; letter-spacing: 1px; font-family: 'cocogoose', 'Arial', sans-serif; font-weight: bold;">02 222 2222</li>
-                            <li style="font-size: 20px;">agent168@hotmail.com</li>
-                            <li style="font-size: 16px;"><span class="glyphicon glyphicon-map-marker" style=" color: #000000;"></span> 1991/192 Oonuch R.<br><p style="text-indent: 25px;">Thailand</p></li>
+                            <li style="font-size: 2em; letter-spacing: 1px; font-family: 'cocogoose', 'Arial', sans-serif; font-weight: bold;">02 184 6914</li>
+                            <li style="font-size: 20px;">info@agent168th.com</li>
+                            <li style="font-size: 16px;"><span class="glyphicon glyphicon-map-marker" style=" color: #000000;"></span> 189/87 Kreeta R.<br><p style="text-indent: 25px;">Thailand</p></li>
                             <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Facebook2.png")?>" /></li>
                             <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Twitter2.png")?>" /></li>
                             <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Google+2.png")?>" /></li>
@@ -46,6 +46,7 @@ use Main\Helper;
                             <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Pinterest2.png")?>" /></li>
                         </ul>
                         <img style= "margin-top: -200px; margin-left: 280px;" src="<?php echo \Main\Helper\URL::absolute("/public/images/ads.png")?>" />
+                        <img style= "margin-left: 420px;" src="<?php echo \Main\Helper\URL::absolute("/public/images/Vector-Smart-Object.png")?>" />
                     </div>
                 </div>
                 <div class="row">

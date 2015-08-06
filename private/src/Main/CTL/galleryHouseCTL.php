@@ -1,11 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: p2
- * Date: 7/15/14
- * Time: 11:27 AM
+ * User: bbillboy
+ * Date: 19/6/2558
+ * Time: 11:35
  */
-
 namespace Main\CTL;
 
 
@@ -14,20 +13,18 @@ use Main\Http\RequestInfo;
 use Main\View\HtmlView;
 use Main\View\JsonView;
 use Main\ThirdParty\Xcrud\Xcrud;
-
 /**
  * @Restful
- * @uri /condo
+ * @uri /gallery_h
  */
-class ListCTL extends BaseCTL {
+class galleryHouseCTL extends BaseCTL {
 
     /**
      * @GET
      */
     public function index () {
-        return new HtmlView('/list');
+        return new HtmlView('/galleryhouse');
     }
-
 
 
 }

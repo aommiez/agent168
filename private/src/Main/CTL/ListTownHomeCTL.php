@@ -15,7 +15,7 @@ use Main\View\JsonView;
 use Main\ThirdParty\Xcrud\Xcrud;
 /**
  * @Restful
- * @uri /listth
+ * @uri /townhome
  */
 class ListTownHomeCTL extends BaseCTL {
 

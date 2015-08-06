@@ -42,7 +42,7 @@ $this->import('/layout/headProperty');
 </style>
 <div class="bgGallery">
     <div class="container">
-        <div class="labelText divTop"><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/map")?>">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/gallery")?>">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/table")?>">Table</a></div>
+        <div class="labelText divTop"><a href="<?php echo \Main\Helper\URL::absolute("/townhome")?>">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/map_th")?>">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/gallery_th")?>">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/table_th")?>">Table</a></div>
         <div class="labelText"><hr></div>
         <div class="labelGallery">
             <div class="col-md-3 divCenter divImg"><a href="#"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/picgal.jpg")?>"></a></div>

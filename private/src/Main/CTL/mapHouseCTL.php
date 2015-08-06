@@ -17,15 +17,15 @@ use Main\ThirdParty\Xcrud\Xcrud;
 
 /**
  * @Restful
- * @uri /condo
+ * @uri /map_h
  */
-class ListCTL extends BaseCTL {
+class mapHouseCTL extends BaseCTL {
 
     /**
      * @GET
      */
     public function index () {
-        return new HtmlView('/list');
+        return new HtmlView('/maphouse');
     }
 
 

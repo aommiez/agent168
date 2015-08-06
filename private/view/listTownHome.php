@@ -67,7 +67,7 @@ $this->import('/layout/headProperty');
 
 <div class="bgList">
     <div class="container">
-        <div class="labelText divTop"><a href="/agent168/list">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="/agent168/map">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="/agent168/gallery">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="/agent168/table">Table</a></div>
+        <div class="labelText divTop"><a href="<?php echo \Main\Helper\URL::absolute("/townhome")?>">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/map_th")?>">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/gallery_th")?>">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/table_th")?>">Table</a></div>
         <div class="labelText"><hr></div>
         <div class="col-md-12 list">
             <div class="col-md-2">
@@ -75,12 +75,15 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
                         คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,12 +94,15 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
                         คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,29 +113,15 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
                         คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/townhome.jpg")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
                 </div>
             </div>
         </div>
@@ -141,12 +133,15 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
                         คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
+                    </div>
                 </div>
             </div>
         </div>
@@ -158,12 +153,15 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
                         คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
+                    </div>
                 </div>
             </div>
         </div>
@@ -175,12 +173,15 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
                         คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,12 +193,35 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
                         คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
                     </div>
-                    <div class="labelText textRed">ขาย : 85,000,000 บาท</div>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 list">
+            <div class="col-md-2">
+                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/townhome.jpg")?>"></div>
+            </div>
+            <div class="col-md-8">
+                <div class="labelText2 formRight">
+                    <div class="labelText labelText2"><a href="#">ขาย/เช่า ทาวน์โฮม เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText"><hr class="h"></div>
+                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
+                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
+                    </div>
+                    <div class="labelText textRed">
+                        ขาย : 85,000,000 บาท /
+                        เช่า : 50,000 บาท
+                    </div>
                 </div>
             </div>
         </div>

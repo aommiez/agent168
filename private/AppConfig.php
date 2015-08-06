@@ -11,14 +11,14 @@ $configs = array(
         "name" => "Agent 168",
         "title" => "Agent 168",
         "version" => "1.0",
-        "base_url" => "http://192.168.100.34/agent168",
-        "site_url" => "http://192.168.100.34/agent168",
+        "base_url" => "http://agent168th.com",
+        "site_url" => "http://agent168th.com",
         "share_url" => "",
         "directory" => dirname(__FILE__),
         "view" => "default"
     ),
     "route"=> array(
-        "base_path"=> "/agent168"
+        "base_path"=> "/"
     ),
     "crud" => array(
         "dbhost" => "localhost",

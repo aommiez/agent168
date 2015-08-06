@@ -36,11 +36,11 @@ use Main\Helper;
         <ul>
             <li>
                 <span class="glyphicon glyphicon-earphone" id="icon" aria-hidden="true"></span>
-                02-222-2222
+                02-184-6914
             </li>
             <li style="margin-right: 130px">
                 <span class="glyphicon glyphicon-envelope" id="icon" aria-hidden="true"></span>
-                tufftex2011@gmail.com
+                info@agent168th.com
             </li>
             <li style="margin-right: 0px"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login" style="padding: 0px">LOGIN</button></li>
             <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#register" style="padding: 0px">REGISTER</button></li>
@@ -55,32 +55,32 @@ use Main\Helper;
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
-            <a href="/agent168/home"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Logo.png")?>" /></a>
+            <a href="<?php echo \Main\Helper\URL::absolute("/home")?>"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Logo.png")?>" /></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown" id="buy">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BUY</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/agent168/list">CONDOMINIUM</a></li>
-                        <li><a href="/agent168/house">SINGLE DETACHED HOUSE</a></li>
-                        <li><a href="/agent168/listth">TOWNHOME</a></li>
-                        <li><a href="/agent168/listhome">HOME OFFICE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">CONDOMINIUM</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/house")?>">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/townhome")?>">TOWNHOME</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/office")?>">HOME OFFICE</a></li>
                     </ul>
                 </li>
                 <li class="dropdown" id="rent">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RENT</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/agent168/list">CONDOMINIUM</a></li>
-                        <li><a href="/agent168/house">SINGLE DETACHED HOUSE</a></li>
-                        <li><a href="/agent168/listth">TOWNHOME</a></li>
-                        <li><a href="/agent168/listhome">HOME OFFICE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">CONDOMINIUM</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/house")?>">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/townhome")?>">TOWNHOME</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/office")?>">HOME OFFICE</a></li>
                     </ul>
                 </li>
-                <li><a href="/agent168/list">PROPERTY SEARCH</a></li>
-                <li><a href="/agent168/listprops">LIST YOUR PROPERTY</a></li>
-                <li><a href="/agent168/campaign">EDITORIAL</a></li>
-                <li><a href="/agent168/contact">CONTACT US</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">PROPERTY SEARCH</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute("/listprops")?>">LIST YOUR PROPERTY</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute("/campaign")?>">EDITORIAL</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute("/contact")?>">CONTACT US</a></li>
             </ul>
         </div>
     </div>

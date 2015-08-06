@@ -17,7 +17,7 @@ use Main\ThirdParty\Xcrud\Xcrud;
 
 /**
  * @Restful
- * @uri /listhome
+ * @uri /office
  */
 class ListHomeOfficeCTL extends BaseCTL {
 
