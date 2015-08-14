@@ -18,12 +18,12 @@ $configs = array(
         "view" => "default"
     ),
     "route"=> array(
-        "base_path"=> "/"
+        "base_path"=> ""
     ),
     "crud" => array(
         "dbhost" => "localhost",
-        "dbname" => "agent168",
-        "dbuser" => "root",
+        "dbname" => "admin_agent168",
+        "dbuser" => "admin_agent168",
         "dbpass" => "111111",
         "theme" => "bootstrap" , // can be 'default', 'bootstrap', 'minimal' or your custom. Theme of xCRUD visual presentation. For using bootstrap you need to load it on your page.
         "language" => "en" , // sets default localization
@@ -47,9 +47,9 @@ $configs = array(
         "medoo" => array(
             "master"=> array(
                 "database_type"=> "mysql",
-                "database_name" => "agent168",
+                "database_name" => "admin_agent168",
                 "server" => "localhost",
-                "username" => 'root',
+                "username" => 'admin_agent168',
                 'password' => '111111',
 
                 // optional

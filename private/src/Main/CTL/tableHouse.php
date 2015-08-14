@@ -19,7 +19,7 @@ use Main\ThirdParty\Xcrud\Xcrud;
  * @Restful
  * @uri /table_h
  */
-class tableHouseCTL extends BaseCTL {
+class tableHouse extends BaseCTL {
 
     /**
      * @GET

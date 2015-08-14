@@ -10,14 +10,16 @@ namespace Main\CTL;
 
 
 use Main\Context\Context;
+use Main\Helper\URL;
 use Main\Http\RequestInfo;
 use Main\View\HtmlView;
 use Main\View\JsonView;
 use Main\ThirdParty\Xcrud\Xcrud;
+use Main\View\RedirectView;
 
 /**
  * @Restful
- * @uri /index
+ * @uri /
  */
 class indexCTL extends BaseCTL {
 
@@ -25,8 +27,8 @@ class indexCTL extends BaseCTL {
      * @GET
      */
     public function index () {
-
-        return new HtmlView('/index');
+        return new RedirectView(URL::absolute("/home"));
+//        return new HtmlView('/index');
     }
 
 

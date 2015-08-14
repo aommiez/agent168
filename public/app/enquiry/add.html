@@ -1,0 +1,203 @@
+<form class="form-horizontal" ng-controller="AddCTL" ng-submit="addSubmit()">
+    <fieldset ng-disabled="isSaving">
+        <div class="form-group">
+            <label class="control-label col-sm-3">Customer</label>
+            <div class="col-sm-9">
+                <select name="customer_id"
+                    ng-options="item.id as item.firstname + ' ' + item.lastname for item in collection.customer.data"
+                    ng-model="form.customer_id"
+                    required="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Requirement Type</label>
+            <div class="col-sm-9">
+                <select name="requirement_type"
+                        ng-model="form.requirement_type_id"
+                        ng-options="item.id as item.name_for_enquiry for item in collection.requirement_type.data" required="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Property Type</label>
+            <div class="col-sm-9">
+                <select name="property_type_id"
+                        ng-options="item.id as item.name for item in collection.property_type.data"
+                        ng-model="form.property_type_id"
+                        required="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Zone Group</label>
+            <div class="col-sm-9">
+                #1 <select name="zone_group_1"
+                        ng-model="form.zone_group_1_id"
+                        required="">
+                    <option value="0">-</option>
+                    <option ng-repeat="item in collection.zone_group.data" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                #2 <select name="zone_group_2"
+                        ng-model="form.zone_group_2_id"
+                        required="">
+                    <option value="0">-</option>
+                    <option ng-repeat="item in collection.zone_group.data" value="{{item.id}}">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Zone</label>
+            <div class="col-sm-9">
+                #1 <select name="zone_1"
+                        ng-model="form.zone_1_id"
+                        required="">
+                    <option value="0">-</option>
+                    <option ng-repeat="item in filter_zone(collection.zone.data, form.zone_group_1_id)" value="{{item.id}}">{{item.name}}</option>
+                </select>
+                #2 <select name="zone_2"
+                        ng-model="form.zone_2_id"
+                        required="">
+                    <option value="0">-</option>
+                    <option ng-repeat="item in filter_zone(collection.zone.data, form.zone_group_2_id)" value="{{item.id}}">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Developer</label>
+            <div class="col-sm-9">
+                <select name="project" ng-model="form.developer_id" required=""
+                        ng-options="item.id as item.name for item in collection.developer.data">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Bed rooms</label>
+            <div class="col-sm-9">
+                <select name="bed_rooms" ng-model="form.bed_rooms" ng-init="form.bed_rooms = 'Studio'">
+                    <option value="Studio" selected>Studio</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Size</label>
+            <div class="col-sm-9">
+                <input class="" ng-model="form.size_start" size="4" ng-init="form.size_start = ''">
+                To <input class="" ng-model="form.size_end" size="4" ng-init="form.size_end = ''">
+                <select name="size_unit" ng-model="form.size_unit_id"
+                        ng-options="item.id as item.name for item in collection.size_unit.data">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Buying Budget</label>
+            <div class="col-sm-9">
+                <input class="" ng-model="form.buying_budget_start" size="10" ng-init="form.buying_budget_start = ''">
+                To <input class="" ng-model="form.buying_budget_end" size="10" ng-init="form.buying_budget_end = ''">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Rental Budget</label>
+            <div class="col-sm-9">
+                <input class="" ng-model="form.rental_budget_start" size="10" ng-init="form.rental_budget_start = ''">
+                To <input class="" ng-model="form.rental_budget_end" size="10" ng-init="form.rental_budget_end = ''">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Exact location require</label>
+            <div class="col-sm-9">
+                <textarea ng-model="form.exact_location_require" ng-init="form.exact_location_require = ''"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Are you decision make to buy the property</label>
+            <div class="col-sm-9">
+                <select ng-model="form.decision" ng-init="form.decision='Yes'" required="">
+                    <option value="Yes" selected>Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Status</label>
+            <div class="col-sm-9">
+                <select name="status" ng-model="form.enquiry_status_id"
+                        ng-options="item.id as item.name for item in collection.enquiry_status.data" required=""></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Period time to purchasing or leasing</label>
+            <div class="col-sm-9">
+                <select ng-model="form.enquiry_plan_tobuy_id"
+                        ng-options="item.id as item.name for item in collection.enquiry_plan_tobuy.data" required="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">budget for payments</label>
+            <div class="col-sm-9">
+                <select ng-model="form.enquiry_budget_payment_id"
+                        ng-options="item.id as item.name for item in collection.enquiry_budget_payment.data" required="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">budget for purchases</label>
+            <div class="col-sm-9">
+                <select ng-model="form.enquiry_budget_purchases_id"
+                        ng-options="item.id as item.name for item in collection.enquiry_budget_purchases.data" required="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">The reason for purchasing or leasing new residence</label>
+            <div class="col-sm-9">
+                <select ng-model="form.enquiry_reason_id"
+                        ng-options="item.id as item.name for item in collection.enquiry_reason.data" required="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Remark</label>
+            <div class="col-sm-9">
+                <textarea ng-model="form.remark" ng-init="form.remark = ''"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Comment</label>
+            <div class="col-sm-9">
+                <textarea ng-model="form.comment" ng-init="form.comment = ''"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3">Raing</label>
+            <div class="col-sm-9">
+                <select ng-model="form.rating" ng-init="form.rating = 0">
+                    <option value="0" selected="">N/A</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-3"></label>
+            <div class="col-sm-9">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-warning" href="#/">Cancel</a>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

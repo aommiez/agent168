@@ -19,7 +19,7 @@ use Main\ThirdParty\Xcrud\Xcrud;
  * @Restful
  * @uri /gallery_o
  */
-class gallertOfficeCTL extends BaseCTL {
+class galleryOfficeCTL extends BaseCTL {
 
     /**
      * @GET
