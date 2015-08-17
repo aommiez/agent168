@@ -113,7 +113,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Mashape/unirest-php/zipball/99c6975f2306aa1f39be06f783762364d250cd25",
+            "url": "https://api.github.com/repos/Mashape/unirest-php/zipball/2f7aea9f631bdf59ad1ae55feaefbf314ebe1a7b",
             "reference": "99c6975f2306aa1f39be06f783762364d250cd25",
             "shasum": ""
         },
@@ -970,6 +970,124 @@
             "php",
             "spreadsheet",
             "xls",
+            "xlsx"
+        ]
+    },
+    {
+        "name": "symfony/options-resolver",
+        "version": "v2.7.3",
+        "version_normalized": "2.7.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/OptionsResolver.git",
+            "reference": "98c313c831e5d99bb393ba1844df91bab2bb5b8b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/OptionsResolver/zipball/98c313c831e5d99bb393ba1844df91bab2bb5b8b",
+            "reference": "98c313c831e5d99bb393ba1844df91bab2bb5b8b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9"
+        },
+        "require-dev": {
+            "symfony/phpunit-bridge": "~2.7"
+        },
+        "time": "2015-06-18 19:21:56",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.7-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\OptionsResolver\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony OptionsResolver Component",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "config",
+            "configuration",
+            "options"
+        ]
+    },
+    {
+        "name": "akeneo/spreadsheet-parser",
+        "version": "v1.1.6",
+        "version_normalized": "1.1.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/akeneo/spreadsheet-parser.git",
+            "reference": "97148e1c1b30b7cdda887b20a486caa8d3cd7ddf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/akeneo/spreadsheet-parser/zipball/97148e1c1b30b7cdda887b20a486caa8d3cd7ddf",
+            "reference": "97148e1c1b30b7cdda887b20a486caa8d3cd7ddf",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "symfony/options-resolver": "2.*"
+        },
+        "require-dev": {
+            "phpspec/phpspec": "2.0.*@dev"
+        },
+        "time": "2015-08-12 14:54:17",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Akeneo\\Component\\SpreadsheetParser\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "OSL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Antoine Guigan",
+                "email": "antoine@akeneo.com",
+                "homepage": "http://akeneo.com"
+            },
+            {
+                "name": "Matthieu Viel",
+                "email": "matthieu.viel@akeneo.com",
+                "homepage": "http://akeneo.com"
+            }
+        ],
+        "description": "Akeneo Spreadsheet parser. Reads XLXS files from Microsoft Excel and Open Office",
+        "homepage": "http://akeneo.com",
+        "keywords": [
+            "akeneo",
+            "excel",
+            "parser",
+            "reader",
+            "spreadsheet",
             "xlsx"
         ]
     }

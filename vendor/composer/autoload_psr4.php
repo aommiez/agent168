@@ -6,7 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Symfony\\Component\\OptionsResolver\\' => array($vendorDir . '/symfony/options-resolver'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Facebook\\' => array($vendorDir . '/facebook/php-sdk-v4/src/Facebook'),
     'DocBlock\\' => array($vendorDir . '/dannykopping/docblock/DocBlock'),
+    'Akeneo\\Component\\SpreadsheetParser\\' => array($vendorDir . '/akeneo/spreadsheet-parser/src'),
 );
