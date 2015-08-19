@@ -79,7 +79,6 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
             success: function (data) {
                 if(typeof data.error == "undefined"){
                     //window.location.reload();
-                    console.log(data);
                 }
                 else {
                     alert(data.error.message);

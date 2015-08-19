@@ -11,20 +11,20 @@ $configs = array(
         "name" => "Agent 168",
         "title" => "Agent 168",
         "version" => "1.0",
-        "base_url" => "http://agent168th.com",
-        "site_url" => "http://agent168th.com",
+        "base_url" => "http://localhost/agent168",
+        "site_url" => "http://localhost/agent168",
         "share_url" => "",
         "directory" => dirname(__FILE__),
         "view" => "default"
     ),
     "route"=> array(
-        "base_path"=> ""
+        "base_path"=> "/agent168"
     ),
     "crud" => array(
         "dbhost" => "localhost",
-        "dbname" => "admin_agent168",
-        "dbuser" => "admin_agent168",
-        "dbpass" => "111111",
+        "dbname" => "agent168",
+        "dbuser" => "root",
+        "dbpass" => "",
         "theme" => "bootstrap" , // can be 'default', 'bootstrap', 'minimal' or your custom. Theme of xCRUD visual presentation. For using bootstrap you need to load it on your page.
         "language" => "en" , // sets default localization
         "dbencoding"  => "utf8", // Your database encoding, default is 'utf8'. Do not change, if not sure.
@@ -47,10 +47,10 @@ $configs = array(
         "medoo" => array(
             "master"=> array(
                 "database_type"=> "mysql",
-                "database_name" => "admin_agent168",
+                "database_name" => "agent168",
                 "server" => "localhost",
-                "username" => 'admin_agent168',
-                'password' => '111111',
+                "username" => 'root',
+                'password' => '',
 
                 // optional
                 'port' => 3306,

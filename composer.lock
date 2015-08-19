@@ -4,68 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1a64dd04d9c114f9eb0f5dc467b85158",
+    "hash": "c7181d2402caedd066ae0c73bda060cf",
     "packages": [
-        {
-            "name": "akeneo/spreadsheet-parser",
-            "version": "v1.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/akeneo/spreadsheet-parser.git",
-                "reference": "97148e1c1b30b7cdda887b20a486caa8d3cd7ddf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/akeneo/spreadsheet-parser/zipball/97148e1c1b30b7cdda887b20a486caa8d3cd7ddf",
-                "reference": "97148e1c1b30b7cdda887b20a486caa8d3cd7ddf",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "symfony/options-resolver": "2.*"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "2.0.*@dev"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Akeneo\\Component\\SpreadsheetParser\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "OSL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Antoine Guigan",
-                    "email": "antoine@akeneo.com",
-                    "homepage": "http://akeneo.com"
-                },
-                {
-                    "name": "Matthieu Viel",
-                    "email": "matthieu.viel@akeneo.com",
-                    "homepage": "http://akeneo.com"
-                }
-            ],
-            "description": "Akeneo Spreadsheet parser. Reads XLXS files from Microsoft Excel and Open Office",
-            "homepage": "http://akeneo.com",
-            "keywords": [
-                "akeneo",
-                "excel",
-                "parser",
-                "reader",
-                "spreadsheet",
-                "xlsx"
-            ],
-            "time": "2015-08-12 14:54:17"
-        },
         {
             "name": "altorouter/altorouter",
             "version": "v1.1.0",
@@ -119,16 +59,16 @@
         },
         {
             "name": "catfan/medoo",
-            "version": "v0.9.7",
+            "version": "v0.9.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/catfan/Medoo.git",
-                "reference": "019e4f60aa756adae12643c3c6a851dd9c468c08"
+                "reference": "920ae293ee87286f955a5265124509695e172434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/catfan/Medoo/zipball/019e4f60aa756adae12643c3c6a851dd9c468c08",
-                "reference": "019e4f60aa756adae12643c3c6a851dd9c468c08",
+                "url": "https://api.github.com/repos/catfan/Medoo/zipball/920ae293ee87286f955a5265124509695e172434",
+                "reference": "920ae293ee87286f955a5265124509695e172434",
                 "shasum": ""
             },
             "require": {
@@ -170,7 +110,7 @@
                 "sql",
                 "sqlite"
             ],
-            "time": "2014-12-04 07:52:42"
+            "time": "2015-02-11 03:54:23"
         },
         {
             "name": "dannykopping/docblock",
@@ -812,12 +752,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mashape/unirest-php.git",
-                "reference": "99c6975f2306aa1f39be06f783762364d250cd25"
+                "reference": "2f7aea9f631bdf59ad1ae55feaefbf314ebe1a7b"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Mashape/unirest-php/zipball/2f7aea9f631bdf59ad1ae55feaefbf314ebe1a7b",
-                "reference": "99c6975f2306aa1f39be06f783762364d250cd25",
+                "reference": "2f7aea9f631bdf59ad1ae55feaefbf314ebe1a7b",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +788,7 @@
                 "https",
                 "rest"
             ],
-            "time": "2015-06-08 17:29:31"
+            "time": "2015-07-28 07:27:17"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -909,16 +849,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.1",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "564398bc1f33faf92fc2ec86859983d30eb81806"
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/564398bc1f33faf92fc2ec86859983d30eb81806",
-                "reference": "564398bc1f33faf92fc2ec86859983d30eb81806",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/d6cf02fe73634c96677e428f840704bfbcaec29e",
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e",
                 "shasum": ""
             },
             "require": {
@@ -962,61 +902,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-06-10 15:30:22"
-        },
-        {
-            "name": "symfony/options-resolver",
-            "version": "v2.7.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/OptionsResolver.git",
-                "reference": "98c313c831e5d99bb393ba1844df91bab2bb5b8b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/OptionsResolver/zipball/98c313c831e5d99bb393ba1844df91bab2bb5b8b",
-                "reference": "98c313c831e5d99bb393ba1844df91bab2bb5b8b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\OptionsResolver\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony OptionsResolver Component",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "config",
-                "configuration",
-                "options"
-            ],
-            "time": "2015-06-18 19:21:56"
+            "time": "2015-07-28 15:18:12"
         },
         {
             "name": "vlucas/valitron",

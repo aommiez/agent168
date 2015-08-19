@@ -2,14 +2,19 @@
 /*!
  * Medoo database framework
  * http://medoo.in
- * Version 0.9.7
+ * Version 0.9.8
  * 
- * Copyright 2014, Angel Lai
+ * Copyright 2015, Angel Lai
  * Released under the MIT license
  */
 class medoo
 {
+	// General
 	protected $database_type;
+
+	protected $charset;
+
+	protected $database_name;
 
 	// For MySQL, MariaDB, MSSQL, Sybase, PostgreSQL, Oracle
 	protected $server;
@@ -27,14 +32,12 @@ class medoo
 	// Optional
 	protected $port;
 
-	protected $charset;
-
-	protected $database_name;
-
 	protected $option = array();
 
-	// Variable 
+	// Variable
 	protected $logs = array();
+
+	protected $debug_mode = false;
 
 	public function __construct($options = null)
 	{
@@ -131,7 +134,7 @@ class medoo
 			}
 
 			$this->pdo = new PDO(
-				$dsn, 
+				$dsn,
 				$this->username,
 				$this->password,
 				$this->option
@@ -149,6 +152,15 @@ class medoo
 
 	public function query($query)
 	{
+		if ($this->debug_mode)
+		{
+			echo $query;
+
+			$this->debug_mode = false;
+
+			return false;
+		}
+
 		array_push($this->logs, $query);
 
 		return $this->pdo->query($query);
@@ -156,6 +168,15 @@ class medoo
 
 	public function exec($query)
 	{
+		if ($this->debug_mode)
+		{
+			echo $query;
+
+			$this->debug_mode = false;
+
+			return false;
+		}
+
 		array_push($this->logs, $query);
 
 		return $this->pdo->exec($query);
@@ -312,75 +333,72 @@ class medoo
 					{
 						if ($type == 'string')
 						{
-							if ($operator == '!~')
+							$value = array($value);
+						}
+
+						if (!empty($value))
+						{
+							$like_clauses = array();
+
+							foreach ($value as $item)
 							{
-								$column .= ' NOT';
+								if ($operator == '!~')
+								{
+									$column .= ' NOT';
+								}
+
+								if (preg_match('/^(?!%).+(?<!%)$/', $item))
+								{
+									$item = '%' . $item . '%';
+								}
+
+								$like_clauses[] = $column . ' LIKE ' . $this->fn_quote($key, $item);
 							}
 
-							if (preg_match('/^[^%].+[^%]$/', $value))
-							{
-								$value = '%' . $value . '%';
-							}
-
-							$wheres[] = $column . ' LIKE ' . $this->fn_quote($key, $value);
+							$wheres[] = implode(' OR ', $like_clauses);
 						}
 					}
-					
+
 					if (in_array($operator, array('>', '>=', '<', '<=')))
 					{
 						if (is_numeric($value))
 						{
 							$wheres[] = $column . ' ' . $operator . ' ' . $value;
 						}
+						elseif (strpos($key, '#') === 0)
+						{
+							$wheres[] = $column . ' ' . $operator . ' ' . $this->fn_quote($key, $value);
+						}
 						else
 						{
-							$datetime = strtotime($value);
-
-							if ($datetime)
-							{
-								$wheres[] = $column . ' ' . $operator . ' ' . $this->quote(date('Y-m-d H:i:s', $datetime));
-							}
-							else
-							{
-								if (strpos($key, '#') === 0)
-								{
-									$wheres[] = $column . ' ' . $operator . ' ' . $this->fn_quote($key, $value);
-								}
-							}
+							$wheres[] = $column . ' ' . $operator . ' ' . $this->quote($value);
 						}
 					}
 				}
 				else
 				{
-					if (is_int($key))
+					switch ($type)
 					{
-						$wheres[] = $this->quote($value);
-					}
-					else
-					{
-						switch ($type)
-						{
-							case 'NULL':
-								$wheres[] = $column . ' IS NULL';
-								break;
+						case 'NULL':
+							$wheres[] = $column . ' IS NULL';
+							break;
 
-							case 'array':
-								$wheres[] = $column . ' IN (' . $this->array_quote($value) . ')';
-								break;
+						case 'array':
+							$wheres[] = $column . ' IN (' . $this->array_quote($value) . ')';
+							break;
 
-							case 'integer':
-							case 'double':
-								$wheres[] = $column . ' = ' . $value;
-								break;
+						case 'integer':
+						case 'double':
+							$wheres[] = $column . ' = ' . $value;
+							break;
 
-							case 'boolean':
-								$wheres[] = $column . ' = ' . ($value ? '1' : '0');
-								break;
+						case 'boolean':
+							$wheres[] = $column . ' = ' . ($value ? '1' : '0');
+							break;
 
-							case 'string':
-								$wheres[] = $column . ' = ' . $this->fn_quote($key, $value);
-								break;
-						}
+						case 'string':
+							$wheres[] = $column . ' = ' . $this->fn_quote($key, $value);
+							break;
 					}
 				}
 			}
@@ -418,51 +436,6 @@ class medoo
 			{
 				$value = array_values($where_OR);
 				$where_clause = ' WHERE ' . $this->data_implode($where[ $value[0] ], ' OR');
-			}
-
-			// Will be deprecated
-			if (isset($where['LIKE']))
-			{
-				$LIKE = $where['LIKE'];
-
-				if (is_array($LIKE))
-				{
-					$is_OR = isset($LIKE['OR']);
-					$clause_wrap = array();
-
-					if ($is_OR || isset($LIKE['AND']))
-					{
-						$connector = $is_OR ? 'OR' : 'AND';
-						$LIKE = $is_OR ? $LIKE['OR'] : $LIKE['AND'];
-					}
-					else
-					{
-						$connector = 'AND';
-					}
-
-					foreach ($LIKE as $column => $keyword)
-					{
-						$keyword = is_array($keyword) ? $keyword : array($keyword);
-
-						foreach ($keyword as $key)
-						{
-							preg_match('/(%?)([a-zA-Z0-9_\-\.]*)(%?)((\[!\])?)/', $column, $column_match);
-
-							if ($column_match[1] == '' && $column_match[3] == '')
-							{
-								$column_match[1] = '%';
-								$column_match[3] = '%';
-							}
-
-							$clause_wrap[] =
-								$this->column_quote($column_match[2]) .
-								($column_match[4] != '' ? ' NOT' : '') . ' LIKE ' .
-								$this->quote($column_match[1] . $key . $column_match[3]);
-						}
-					}
-
-					$where_clause .= ($where_clause != '' ? ' AND ' : ' WHERE ') . '(' . implode($clause_wrap, ' ' . $connector . ' ') . ')';
-				}
 			}
 
 			if (isset($where['MATCH']))
@@ -755,9 +728,9 @@ class medoo
 					case 'array':
 						preg_match("/\(JSON\)\s*([\w]+)/i", $key, $column_match);
 
-						$fields[] = isset($column_match[0]) ?
-							$this->column_quote($column_match[1]) . ' = ' . $this->quote(json_encode($value)) :
-							$column . ' = ' . $this->quote(serialize($value));
+						$fields[] = $column . ' = ' . $this->quote(
+								isset($column_match[0]) ? json_encode($value) : serialize($value)
+							);
 						break;
 
 					case 'boolean':
@@ -830,18 +803,27 @@ class medoo
 
 		$where['LIMIT'] = 1;
 
-		$data = $this->query($this->select_context($table, $join, $column, $where))->fetchAll(PDO::FETCH_ASSOC);
+		$query = $this->query($this->select_context($table, $join, $column, $where));
 
-		if (isset($data[0]))
+		if ($query)
 		{
-			$column = $where == null ? $join : $column;
-			
-			if (is_string($column) && $column != '*')
-			{
-				return $data[ 0 ][ $column ];
-			}
+			$data = $query->fetchAll(PDO::FETCH_ASSOC);
 
-			return $data[ 0 ];
+			if (isset($data[0]))
+			{
+				$column = $where == null ? $join : $column;
+
+				if (is_string($column) && $column != '*')
+				{
+					return $data[ 0 ][ $column ];
+				}
+
+				return $data[ 0 ];
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -853,36 +835,69 @@ class medoo
 	{
 		$column = null;
 
-		return $this->query('SELECT EXISTS(' . $this->select_context($table, $join, $column, $where, 1) . ')')->fetchColumn() === '1';
+		$query = $this->query('SELECT EXISTS(' . $this->select_context($table, $join, $column, $where, 1) . ')');
+
+		return $query ? $query->fetchColumn() === '1' : false;
 	}
 
 	public function count($table, $join = null, $column = null, $where = null)
 	{
-		return 0 + ($this->query($this->select_context($table, $join, $column, $where, 'COUNT'))->fetchColumn());
+		$query = $this->query($this->select_context($table, $join, $column, $where, 'COUNT'));
+
+		return $query ? 0 + $query->fetchColumn() : false;
 	}
 
 	public function max($table, $join, $column = null, $where = null)
 	{
-		$max = $this->query($this->select_context($table, $join, $column, $where, 'MAX'))->fetchColumn();
+		$query = $this->query($this->select_context($table, $join, $column, $where, 'MAX'));
 
-		return is_numeric($max) ? $max + 0 : $max;
+		if ($query)
+		{
+			$max = $query->fetchColumn();
+
+			return is_numeric($max) ? $max + 0 : $max;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public function min($table, $join, $column = null, $where = null)
 	{
-		$min = $this->query($this->select_context($table, $join, $column, $where, 'MIN'))->fetchColumn();
+		$query = $this->query($this->select_context($table, $join, $column, $where, 'MIN'));
 
-		return is_numeric($min) ? $min + 0 : $min;
+		if ($query)
+		{
+			$min = $query->fetchColumn();
+
+			return is_numeric($min) ? $min + 0 : $min;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public function avg($table, $join, $column = null, $where = null)
 	{
-		return 0 + ($this->query($this->select_context($table, $join, $column, $where, 'AVG'))->fetchColumn());
+		$query = $this->query($this->select_context($table, $join, $column, $where, 'AVG'));
+
+		return $query ? 0 + $query->fetchColumn() : false;
 	}
 
 	public function sum($table, $join, $column = null, $where = null)
 	{
-		return 0 + ($this->query($this->select_context($table, $join, $column, $where, 'SUM'))->fetchColumn());
+		$query = $this->query($this->select_context($table, $join, $column, $where, 'SUM'));
+
+		return $query ? 0 + $query->fetchColumn() : false;
+	}
+
+	public function debug()
+	{
+		$this->debug_mode = true;
+
+		return $this;
 	}
 
 	public function error()
