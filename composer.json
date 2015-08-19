@@ -17,6 +17,7 @@
         "facebook/php-sdk-v4": "4.0.11",
         "doctrine/orm": "2.4.0-RC2",
         "catfan/medoo": "v0.9.7",
-        "phpoffice/phpexcel": "1.8.1"
+        "phpoffice/phpexcel": "1.8.1",
+        "akeneo/spreadsheet-parser": "v1.1.6"
     }
 }

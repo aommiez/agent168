@@ -64,7 +64,7 @@ class Archive
      */
     public function __destruct()
     {
-        $this->deleteTemp();
+//        $this->deleteTemp();
         $this->closeArchive();
     }
 

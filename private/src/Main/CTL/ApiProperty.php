@@ -166,6 +166,23 @@ class ApiProperty extends BaseCTL {
     public function uploadexcel(){
         $file = $_FILES['excel'];
         $inputFileName = $file['tmp_name'];
+
+        $fileName = 'excel_tmp.xlsx';
+        move_uploaded_file($inputFileName, $fileName);
+
+        $workbook = \Akeneo\Component\SpreadsheetParser\SpreadsheetParser::open($fileName);
+        $myWorksheetIndex = $workbook->getWorksheetIndex('myworksheet');
+
+        $iterator = $workbook->createRowIterator($myWorksheetIndex);
+        foreach($iterator as $key=> $value){
+            if($key <=2) continue;
+            var_dump($key, $value);
+            flush();
+            if($key > 10) break;
+        }
+        return;
+
+
         try {
             $inputFileType = \PHPExcel_IOFactory::identify($inputFileName);
             $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
@@ -190,6 +207,7 @@ class ApiProperty extends BaseCTL {
                 NULL,
                 TRUE,
                 FALSE);
+            return $rowData;
             foreach($rowData[0] as $key => $value){
                 if(is_null($value)){
                     $rowData[0][$key] = "";

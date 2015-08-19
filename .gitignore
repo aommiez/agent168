@@ -48,3 +48,6 @@ crashlytics.properties
 crashlytics-build.properties
 
 
+
+private/AppConfig.php
+excel_tmp.xlsx
