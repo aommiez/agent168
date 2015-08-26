@@ -22,23 +22,39 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
 
 app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route){
     $scope.props = [];
+
+    $scope.form = {};
+    $scope.form.page = 1;
+    $scope.form.limit = 15;
     function getProps(query){
         var url = "../api/property";
         if(query){
             url = url + "?" + $.param($scope.form);
         }
         $http.get(url).success(function(data){
-            $scope.props = data.data;
+            $scope.props = data;
+            if(data.total > 0){
+              $scope.pagination = [];
+              for(var i = 1; i*15 <= data.total; i++) {
+                $scope.pagination.push(data.paging.page == i);
+              }
+            }
+            else {
+              $scope.pagination = null;
+            }
         });
     }
-    getProps();
+    getProps($scope.form);
+
+    $scope.setPage = function($index) {
+      $scope.form.page = $index + 1;
+      getProps($scope.form);
+    };
 
     $scope.filterProps = function(){
         console.log($scope.form);
         getProps($scope.form);
     };
-
-    $scope.form = {};
 
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;

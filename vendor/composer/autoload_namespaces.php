@@ -9,6 +9,7 @@ return array(
     'Valitron' => array($vendorDir . '/vlucas/valitron/src'),
     'Unirest' => array($vendorDir . '/mashape/unirest-php/src'),
     'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
+    'FileUpload\\' => array($vendorDir . '/gargron/fileupload/src'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),

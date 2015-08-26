@@ -5,7 +5,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Properties Search</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="display: none;">
                     <form ng-submit="filterProps()">
                         <div class="row">
                             <div class="col-md-3">
@@ -148,23 +148,41 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="prop in props">
-                <td>{{prop.property_type_code + prop.id}}</td>
+            <tr ng-repeat="prop in props.data">
+                <td>{{prop.reference_id}}</td>
                 <td>
-                    <div><strong>Developer</strong>: <span>{{prop.developer_name}}</span></div>
-                    <div><strong>Type</strong>: <span>{{prop.property_type_name}}</span></div>
-                    <div><strong>Bed room</strong>: <span>{{prop.bed_rooms}}</span></div>
-                    <div><strong>Transfer Status</strong>: <span>{{prop.transfer_status}}</span></div>
+                    <div><strong>Project</strong>: <span>{{prop.project_name}}</span></div>
+                    <!-- <div><strong>Type</strong>: <span>{{prop.property_type_name}}</span></div> -->
+                    <div><strong>Bed rooms</strong>: <span>{{prop.bedrooms}}</span></div>
+                    <div><strong>Bath rooms</strong>: <span>{{prop.bathrooms}}</span></div>
+                    <!-- <div><strong>Transfer Status</strong>: <span>{{prop.property_status_name}}</span></div> -->
                 </td>
-                <td>{{prop.requirement_type_name}}</td>
+                <td>{{prop.requirement_name}}</td>
                 <td>{{prop.size}} {{prop.size_unit_name}}</td>
-                <td>${{prop.selling_price}}</td>
-                <td>${{prop.rental_price}}</td>
-                <td>{{prop.status}} {{prop.status}}</td>
+                <td><span ng-hide="!prop.sell_price">${{prop.sell_price}}</span></td>
+                <td><span ng-hide="!prop.rent_price">${{prop.rent_price}}</span></td>
+                <td>{{prop.property_status_name}}</td>
                 <td><a href="#/{{prop.id}}/gallery">images</a></td>
                 <td><a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a></td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div>
+      <ul class="pagination">
+        <!-- <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li> -->
+        <li ng-repeat="page in pagination track by $index">
+          <a href="" ng-click="setPage($index)">{{($index+1)}}</a>
+        </li>
+        <!-- <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li> -->
+      </ul>
     </div>
 </div>

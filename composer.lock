@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c7181d2402caedd066ae0c73bda060cf",
+    "hash": "107494b64187209f90c4b79847edec6e",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -745,6 +745,36 @@
                 "sdk"
             ],
             "time": "2014-08-25 18:58:37"
+        },
+        {
+            "name": "gargron/fileupload",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gargron/fileupload.git",
+                "reference": "0883a61b614fff96ddc5b1d39b646eafe470e7f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gargron/fileupload/zipball/0883a61b614fff96ddc5b1d39b646eafe470e7f2",
+                "reference": "0883a61b614fff96ddc5b1d39b646eafe470e7f2",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "FileUpload\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "File uploading library capable of handling large/chunked/multiple file uploads",
+            "time": "2014-02-20 14:23:50"
         },
         {
             "name": "mashape/unirest-php",
