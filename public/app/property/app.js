@@ -11,6 +11,9 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
             }).
             when('/add', {
                 templateUrl: '../public/app/property/add.html'
+            })
+            .when('/edit/:id', {
+                templateUrl: '../public/app/property/edit.html'
             }).
             when('/:id/gallery', {
                 templateUrl: '../public/app/property/gallery.html'
@@ -69,6 +72,10 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
                 $route.reload();
             }
         });
+    };
+
+    $scope.edit = function(id){
+
     };
 
     $scope.inputExcelText = "Add by excel";
@@ -176,7 +183,19 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
     $('.rented_expire').datepicker();
 }]);
 
+app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  $scope.form = {};
 
+  $http.get("../api/collection").success(function(collection) {
+    $scope.collection = collection;
+  });
+  $http.get("../api/property/" + $routeParams.id).success(function(data) {
+    $scope.reference_id = data.reference_id;
+    $scope.owner = data.owner;
+    $scope.form = data;
+    window.a = $scope.form;
+  });
+}]);
 
 app.controller('GalleryCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams){
     $scope.images = [];

@@ -293,6 +293,17 @@ class ApiProperty extends BaseCTL {
     }
 
     /**
+     * @GET
+     * @uri /[i:id]
+     */
+    public function get() {
+      $id = $this->reqInfo->urlParam("id");
+      $db = MedooFactory::getInstance();
+      $item = $db->get("property", "*", ["id"=> $id]);
+      return $item;
+    }
+
+    /**
      * @DELETE
      * @uri /[i:id]/gallery
      */

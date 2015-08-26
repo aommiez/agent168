@@ -5,123 +5,173 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Properties Search</h3>
                 </div>
-                <div class="panel-body" style="display: none;">
+                <div class="panel-body" style="">
                     <form ng-submit="filterProps()">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Property Type</label>
-                                    <select class="form-control"
-                                        ng-options="item.id as item.name for item in collection.property_type.data"
-                                        ng-model="form.property_type_id">
-                                        <option value="">All</option>
-                                    </select>
+                      <div class="row">
+                          <div class="col-md-4 form-group">
+                              <label>reference no.</label>
+                              <input type="text" class="form-control" ng-model="form.reference_id">
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label class="control-label">Requirement</label>
+                              <select class="form-control"
+                                  ng-options="item.id as item.name for item in collection.requirement.data"
+                                  ng-model="form.requirement_id">
+                                  <option value="">All</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                            <label class="control-label">Property Type</label>
+                            <select class="form-control"
+                                ng-options="item.id as item.name for item in collection.property_type.data"
+                                ng-model="form.property_type_id">
+                                <option value="">All</option>
+                            </select>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label class="control-label">Project</label>
+                            <select class="form-control"
+                                ng-options="item.id as item.name for item in collection.project.data"
+                                ng-model="form.project_id">
+                                <option value="">All</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>bed rooms</label>
+                              <select class="form-control"
+                                  ng-model="form.requirement_id">
+                                  <option value="">All</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                  <option value="8">8</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label class="control-label">Size</label>
+                              <div class="row">
+                                  <div class="col-md-3">
+                                      <input type="text" class="form-control">
+                                  </div>
+                                  <div class="col-md-1">
+                                      To
+                                  </div>
+                                  <div class="col-md-3">
+                                      <input type="text" class="form-control">
+                                  </div>
+                                  <div class="col-md-3">
+                                      <select class="form-control">
+                                          <option value="1">Sq. m.</option>
+                                          <option value="2">Sq. wa</option>
+                                          <option value="3">Rai</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label class="control-label">Selling Price</label>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Bed rooms</label>
-                                    <select class="form-control" name="bed_rooms" ng-model="form.bed_rooms">
-                                        <option value="">All</option>
-                                        <option value="Studio">Studio</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
+                                <div class="col-md-2">
+                                    To
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Zone</label>
-                                    <select class="form-control"
-                                            name="zone"
-                                            ng-options="item.id as item.name for item in collection.zone_group.data"
-                                            ng-model="form.zone_group_id">
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Duplex</label>
-                                    <select class="form-control"
-                                            ng-model="form.duplex">
-                                        <option value="">All</option>
-                                        <option value="Duplex" selected>Duplex</option>
-                                        <option value="Non-Deplex">Non-Deplex</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Status</label>
-                                    <select class="form-control" ng-model="form.status">
-                                        <option value="">All</option>
-                                        <option value="Available" selected>Available</option>
-                                        <option value="Non-Available">Non-Available</option>
-                                        <option value="Prebook">Prebook</option>
-                                        <option value="Sold">Sold</option>
-                                        <option value="Rented">Rented</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Rented Expire</label>
-                                    <select class="form-control" ng-model="form.rented_expire">
-                                        <option value="">All</option>
-                                        <option>30-60 days</option>
-                                        <option>< 30 days</option>
-                                        <option>Expired</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Transfer Status</label>
-                                    <select class="form-control" ng-model="form.transfer_status">
-                                        <option value="">All</option>
-                                        <option>Booking-Form</option>
-                                        <option>Right</option>
-                                        <option>Ownership</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Requirement Type</label>
-                                    <div>
-                                        <label ng-repeat="item in collection.requirement_type.data" style="margin-right: 2px;">
-                                            <input
-                                                type="checkbox" name="requirement_type_id[]" ng-model="form.requirement_type_id[$index]" ng-true-value="{{item.id}}">
-                                            {{item.name}}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Developer</label>
-                                    <select class="form-control" ng-model="form.developer_id"
-                                            ng-options="item.id as item.name for item in collection.developer.data">
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Web Status</label>
-                                    <select class="form-control" ng-model="form.web_status">
-                                        <option value="">All</option>
-                                        <option>Offline</option>
-                                        <option>Online</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Property Highlight</label>
-                                    <select class="form-control" ng-model="form.property_highlight">
-                                        <option value="">All</option>
-                                        <option selected>Sale at Lost and Plus</option>
-                                        <option>Sale at Cost</option>
-                                        <option>Sale under market price</option>
-                                        <option>made over already</option>
-                                    </select>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-3"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-success" ng-click="filterProps()">Filter</button>
+                          </div>
+                          <div class="col-md-4 form-group">
+                            <label class="control-label">Rental Price</label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-1">
+                                    To
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control">
+                                </div>
                             </div>
-                        </div>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>Inc. 7% VAT</label>
+                              <select class="form-control">
+                                  <option value="">All</option>
+                                  <option value="1">yes</option>
+                                  <option value="0">no</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-4 form-group">
+                              <label>Zone</label>
+                              <select class="form-control">
+                                  <option value="">All</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>Address No.</label>
+                              <input type="text" class="form-control">
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>Status</label>
+                              <select class="form-control">
+                                  <option value="1">Non-Available</option>
+                                  <option value="2">Available</option>
+                                  <option value="3">Rented</option>
+                                  <option value="4">Individual</option>
+                                  <option value="5">Sold</option>
+                                  <option value="6">Tend to transfer</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-4 form-group">
+                              <label>Property Highlight</label>
+                              <select class="form-control">
+                                  <option value="">All</option>
+                                  <option value="1">Sale at Lost and Plus</option>
+                                  <option value="2">Sale at Cost</option>
+                                  <option value="3">Sale under Market Price</option>
+                                  <option value="4">Made Over already</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>Feature unit</label>
+                              <select class="form-control">
+                                  <option value="">All</option>
+                                  <option value="1">Best Buy</option>
+                                  <option value="2">Hot Rental</option>
+                                  <option value="3">With Tenant</option>
+                                  <option value="4">New Coming</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>Web status</label>
+                              <select class="form-control">
+                                  <option value="">All</option>
+                                  <option value="1">Online</option>
+                                  <option value="0">Offline</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                              <button type="submit" class="btn btn-success" ng-click="filterProps()">Filter</button>
+                          </div>
+                      </div>
                     </form>
                 </div>
             </div>
@@ -163,7 +213,10 @@
                 <td><span ng-hide="!prop.rent_price">${{prop.rent_price}}</span></td>
                 <td>{{prop.property_status_name}}</td>
                 <td><a href="#/{{prop.id}}/gallery">images</a></td>
-                <td><a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a></td>
+                <td>
+                  <a class="xcrud-action btn btn-warning btn-sm" href="#edit/{{prop.id}}"><i class="glyphicon glyphicon-edit"></i></a>
+                  <a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a>
+                </td>
             </tr>
             </tbody>
         </table>

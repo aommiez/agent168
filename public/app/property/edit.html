@@ -1,0 +1,189 @@
+<form ng-submit="submit()" ng-controller="EditCTL">
+  <div class="row">
+    <div class="col-md-4 form-group">
+      <label>Reference ID</label>
+      <input class="form-control" disabled="disabled" value="{{reference_id}}">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Owner</label>
+      <!-- <input class="form-control" disabled="disabled" value="{{owner}}"> -->
+      <input class="form-control" disabled="disabled" value="ปิดไว้จนกว่าจะเสร็จ">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 form-group">
+      <label>Property Type</label>
+      <select class="form-control"
+      ng-model="form.property_type_id"
+      ng-options="item.id as item.name for item in collection.property_type"
+      required>
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Project</label>
+      <select class="form-control"
+      ng-model="form.project_id"
+      ng-options="item.id as item.name for item in collection.project"
+      required>
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Address no</label>
+      <input type="text" class="form-control" ng-model="form.address_no">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Floors</label>
+      <input type="text" class="form-control" ng-model="form.floors">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Size</label>
+      <div class="row">
+        <div class="col-md-6">
+          <input ng-model="form.size" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <select ng-model="form.size_unit_id" class="form-control"
+          ng-options="item.id as item.name for item in collection.size_unit"
+          required>
+            <option value="">Please select</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>bedrooms</label>
+      <input type="text" class="form-control" ng-model="form.bedrooms">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>bathrooms</label>
+      <input type="text" class="form-control" ng-model="form.bathrooms">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>requirement</label>
+      <select class="form-control"
+      ng-model="form.requirement_id"
+      ng-options="item.id as item.name for item in collection.requirement"
+      required>
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>contract price</label>
+      <input type="text" class="form-control" ng-model="form.contract_price">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>sell price</label>
+      <input type="text" class="form-control" ng-model="form.sell_price">
+    </div>
+
+    <div class="col-md-4 form-group">
+      <label>key location</label>
+      <select class="form-control"
+      ng-model="form.key_location_id"
+      ng-options="item.id as item.name for item in collection.key_location"
+      required>
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>zone</label>
+      <input type="text" class="form-control" ng-model="form.zone_id">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>road</label>
+      <input type="text" class="form-control" ng-model="form.road">
+    </div>
+
+    <div class="col-md-4 form-group">
+      <label>District</label>
+      <select class="form-control"
+      ng-model=""
+      ng-options=""
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Sub District</label>
+      <select class="form-control"
+      ng-model=""
+      ng-options=""
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>bts</label>
+      <select class="form-control"
+      ng-model=""
+      ng-options=""
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>mrt</label>
+      <select class="form-control"
+      ng-model=""
+      ng-options=""
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Status</label>
+      <select class="form-control"
+      ng-model="form.property_status_id"
+      ng-options="item.id as item.name for item in collection.property_status"
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Status</label>
+      <select class="form-control"
+      ng-model="form.property_status_id"
+      ng-options="item.id as item.name for item in collection.property_status"
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Contract expire</label>
+      <input class="form-control" ng-model="form.contract_expire">
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Web Status</label>
+      <select class="form-control" ng-model="form.web_status" >
+          <option value="0">Offline</option>
+          <option value="1">Online</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Highlight</label>
+      <select class="form-control"
+      ng-model="form.property_highlight_id"
+      ng-options="item.id as item.name for item in collection.property_highlight"
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
+      <label>Feature Unit</label>
+      <select class="form-control"
+      ng-model="form.feature_unit_id"
+      ng-options="item.id as item.name for item in collection.feature_unit"
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 form-group">
+      <!-- <button class="btn btn-primary">Save</button> -->
+      <a class="btn btn-info" href="#/">Back</a>
+    </div>
+  </div>
+</form>

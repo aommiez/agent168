@@ -179,25 +179,25 @@ use Main\ThirdParty\Xcrud\Xcrud;
                 <h2><i class="mdi-action-face-unlock"></i> Requirement Type</h2>
                 <div id="requirementTypeAdd" class="crudAdd">
                     <?php
-                    $requirementType1 = Xcrud::get_instance();
-                    $requirementType1->table('requirement_type');
-                    $requirementType1->unset_title();
-                    $requirementType1->fields('name,name_for_enquiry');
-                    $requirementType1->hide_button('save_return,return,save_edit');
-                    $requirementType1->set_lang('save_new', 'Add');
-                    echo $requirementType1->render('create');
+                    // $requirementType1 = Xcrud::get_instance();
+                    // $requirementType1->table('requirement_type');
+                    // $requirementType1->unset_title();
+                    // $requirementType1->fields('name,name_for_enquiry');
+                    // $requirementType1->hide_button('save_return,return,save_edit');
+                    // $requirementType1->set_lang('save_new', 'Add');
+                    // echo $requirementType1->render('create');
                     ?>
                 </div>
                 <div id="requirementTypeShow" class="crudShow">
                     <?php
-                    $requirementType2 = Xcrud::get_instance();
-                    $requirementType2->table('requirement_type');
-                    $requirementType2->unset_title();
-                    $requirementType2->columns('name,name_for_enquiry');
-                    $requirementType2->hide_button('add');
-                    $requirementType2->hide_button('save_edit,save_new');
-                    $requirementType2->remove_confirm(false);
-                    echo $requirementType2->render();
+                    // $requirementType2 = Xcrud::get_instance();
+                    // $requirementType2->table('requirement_type');
+                    // $requirementType2->unset_title();
+                    // $requirementType2->columns('name,name_for_enquiry');
+                    // $requirementType2->hide_button('add');
+                    // $requirementType2->hide_button('save_edit,save_new');
+                    // $requirementType2->remove_confirm(false);
+                    // echo $requirementType2->render();
                     ?>
                 </div>
             </div>

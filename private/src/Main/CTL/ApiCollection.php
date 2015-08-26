@@ -7,12 +7,16 @@
  */
 
 namespace Main\CTL;
+
 use FileUpload\FileUpload;
 use Main\DAO\ListDAO;
 use Main\DB\Medoo\MedooFactory;
 use Main\Helper\ArrayHelper;
 use Main\Helper\ResponseHelper;
 use Main\Helper\URL;
+
+use Main\Service\PropertyHilightService;
+use Main\Service\FeatureUnitService;
 
 /**
  * @Restful
@@ -24,37 +28,34 @@ class ApiCollection extends BaseCTL {
      * @GET
      */
     public function index () {
+        $db = MedooFactory::getInstance();
         $collection = [];
-        $collection['property_type'] = ListDAO::gets("property_type", [
-            "limit"=> 100
-        ]);
+        $collection['property_type'] = $db->select("property_type", "*");
+        $collection['project'] = $db->select("project", ['name', 'id']);
+        $collection['key_location'] = $db->select("key_location", "*");
+        // $collection['district'] = $db->select("key_location", "*");
 
-        $collection['zone_zone_group'] = ListDAO::gets("zone_zone_group", [
-            "limit"=> 100
-        ]);
-        $collection['zone'] = ListDAO::gets("zone", [
-            "limit"=> 100
-        ]);
-        $collection['zone_group'] = ListDAO::gets("zone_group", [
-            "limit"=> 100
-        ]);
+        // $collection['zone_zone_group'] = ListDAO::gets("zone_zone_group", [
+        //     "limit"=> 100
+        // ]);
+        // $collection['zone'] = ListDAO::gets("zone", [
+        //     "limit"=> 100
+        // ]);
+        // $collection['zone_group'] = ListDAO::gets("zone_group", [
+        //     "limit"=> 100
+        // ]);
 //        foreach($collection['zone_group']['data'] as $key => $value){
 //
 //        }
 
-        $collection['status_type'] = ListDAO::gets("status_type", [
-            "limit"=> 100
-        ]);
+        $collection['property_status'] = $db->select("status_type", "*");
 
-        $collection['requirement_type'] = ListDAO::gets("requirement_type", [
-            "limit"=> 100
-        ]);
+        $collection['requirement'] = $db->select("requirement", "*");
+
         $collection['developer'] = ListDAO::gets("developer", [
             "limit"=> 100
         ]);
-        $collection['size_unit'] = ListDAO::gets("size_unit", [
-            "limit"=> 100
-        ]);
+        $collection['size_unit'] = $db->select("size_unit", "*");
         $collection['customer'] = ListDAO::gets("customer", [
             "limit"=> 100
         ]);
@@ -76,6 +77,10 @@ class ApiCollection extends BaseCTL {
         $collection['enquiry_plan_tobuy'] = ListDAO::gets("enquiry_plan_tobuy", [
             "limit"=> 100
         ]);
+
+        /* last collection */
+        $collection['property_highlight'] = PropertyHilightService::getItems();
+        $collection['feature_unit'] = FeatureUnitService::getItems();
 
         return $collection;
     }
