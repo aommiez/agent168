@@ -1,0 +1,14 @@
+textarea.form-control {
+    min-height: 74px;
+}
+
+.checkbox input[type=checkbox] {
+  opacity: 1;
+  width: 16px;
+  height: 16px;
+  pointer-events: all;
+}
+
+.form-horizontal .checkbox {
+  padding-top: 5px;
+}
