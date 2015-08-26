@@ -87,7 +87,54 @@ $this->import('/layout/header');
 <div class="highlightslide">
     <div class="container">
         <p>Highlight Properties</p>
-        <img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.jpg")?>"  /><img style="margin-left: 25px;" src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.jpg")?>"  /><img style="margin-left: 25px;" src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.jpg")?>"  /><img style="margin-left: 25px;" src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.jpg")?>"  />
+        <div class="highlight">
+            <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
+            <a class="name" href="">678 Bay Hills Lane</a>
+            <p class="add">Annapolls</p>
+            <div class="hr"></div>
+            <p class="sale"><a href="">For Sale</a><span class="price">$240,000</span></p>
+            <div class="detail">
+                <span class="ft">1025 sq ft</span>
+                <span class="bed">4 Beds</span>
+                <span class="bath">2 Baths</span>
+            </div>
+		</div><!--highlight-->
+        <div class="highlight">
+            <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
+            <a class="name" href="">678 Bay Hills Lane</a>
+            <p class="add">Annapolls</p>
+            <div class="hr"></div>
+            <p class="sale"><a href="">For Sale</a><span class="price">$240,000</span></p>
+            <div class="detail">
+                <span class="ft">1025 sq ft</span>
+                <span class="bed">4 Beds</span>
+                <span class="bath">2 Baths</span>
+            </div>
+		</div><!--highlight-->
+        <div class="highlight">
+            <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
+            <a class="name" href="">678 Bay Hills Lane</a>
+            <p class="add">Annapolls</p>
+            <div class="hr"></div>
+            <p class="sale"><a href="">For Sale</a><span class="price">$240,000</span></p>
+            <div class="detail">
+                <span class="ft">1025 sq ft</span>
+                <span class="bed">4 Beds</span>
+                <span class="bath">2 Baths</span>
+            </div>
+		</div><!--highlight-->
+        <div class="highlight">
+            <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
+            <a class="name" href="">678 Bay Hills Lane</a>
+            <p class="add">Annapolls</p>
+            <div class="hr"></div>
+            <p class="sale"><a href="">For Sale</a><span class="price">$240,000</span></p>
+            <div class="detail">
+                <span class="ft">1025 sq ft</span>
+                <span class="bed">4 Beds</span>
+                <span class="bath">2 Baths</span>
+            </div>
+		</div><!--highlight-->
     </div>
 </div>
 <div class="newsletter skrollable skrollable-between">
