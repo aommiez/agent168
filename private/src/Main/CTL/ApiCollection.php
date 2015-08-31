@@ -84,4 +84,19 @@ class ApiCollection extends BaseCTL {
 
         return $collection;
     }
+
+    /**
+     * @GET
+     * @uri /thailocation
+     */
+    public function province()
+    {
+      $db = MedooFactory::getInstance();
+      $collection = [];
+      $collection['province'] = $db->select("province", "*");
+      $collection['district'] = $db->select("district", "*");
+      $collection['sub_district'] = $db->select("sub_district", "*");
+
+      return $collection;
+    }
 }

@@ -1,4 +1,4 @@
-<form ng-submit="submit()" ng-controller="EditCTL">
+<form ng-submit="submit()" ng-controller="EditCTL" id="form-edit-prop" ng-show="initSuccess">
   <div class="row">
     <div class="col-md-4 form-group">
       <label>Reference ID</label>
@@ -25,7 +25,7 @@
       <select class="form-control"
       ng-model="form.project_id"
       ng-options="item.id as item.name for item in collection.project"
-      required>
+      >
           <option value="">Please select</option>
       </select>
     </div>
@@ -83,13 +83,18 @@
       <select class="form-control"
       ng-model="form.key_location_id"
       ng-options="item.id as item.name for item in collection.key_location"
-      required>
+      >
           <option value="">Please select</option>
       </select>
     </div>
     <div class="col-md-4 form-group">
       <label>zone</label>
-      <input type="text" class="form-control" ng-model="form.zone_id">
+      <select class="form-control"
+      ng-model="form.zone_id"
+      ng-options="item.id as item.name for item in collection.zone"
+      >
+          <option value="">Please select</option>
+      </select>
     </div>
     <div class="col-md-4 form-group">
       <label>road</label>
@@ -97,10 +102,19 @@
     </div>
 
     <div class="col-md-4 form-group">
+      <label>Province</label>
+      <select class="form-control"
+      ng-model="form.province_id"
+      ng-options="item.id as item.name for item in thailocation.province"
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
+    <div class="col-md-4 form-group">
       <label>District</label>
       <select class="form-control"
-      ng-model=""
-      ng-options=""
+      ng-model="form.district_id"
+      ng-options="item.id as item.name for item in getDistrict()"
       >
           <option value="">Please select</option>
       </select>
@@ -108,8 +122,8 @@
     <div class="col-md-4 form-group">
       <label>Sub District</label>
       <select class="form-control"
-      ng-model=""
-      ng-options=""
+      ng-model="form.sub_district_id"
+      ng-options="item.id as item.name for item in getSubDistrict()"
       >
           <option value="">Please select</option>
       </select>
@@ -117,8 +131,8 @@
     <div class="col-md-4 form-group">
       <label>bts</label>
       <select class="form-control"
-      ng-model=""
-      ng-options=""
+      ng-model="form.bts_id"
+      ng-options="item.id as item.name for item in []"
       >
           <option value="">Please select</option>
       </select>
@@ -126,17 +140,8 @@
     <div class="col-md-4 form-group">
       <label>mrt</label>
       <select class="form-control"
-      ng-model=""
-      ng-options=""
-      >
-          <option value="">Please select</option>
-      </select>
-    </div>
-    <div class="col-md-4 form-group">
-      <label>Status</label>
-      <select class="form-control"
-      ng-model="form.property_status_id"
-      ng-options="item.id as item.name for item in collection.property_status"
+      ng-model="form.mrt_id"
+      ng-options="item.id as item.name for item in []"
       >
           <option value="">Please select</option>
       </select>
@@ -152,7 +157,10 @@
     </div>
     <div class="col-md-4 form-group">
       <label>Contract expire</label>
-      <input class="form-control" ng-model="form.contract_expire">
+      <div class="input-group">
+        <input class="form-control datepicker" datepicker ng-model="form.contract_expire" placeholder="-">
+        <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+      </div>
     </div>
     <div class="col-md-4 form-group">
       <label>Web Status</label>
@@ -179,11 +187,19 @@
           <option value="">Please select</option>
       </select>
     </div>
+    <div class="col-md-4 form-group">
+      <label>Rented expire</label>
+      <div class="input-group">
+        <input class="form-control datepicker" datepicker ng-model="form.rented_expire" placeholder="-">
+        <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-12 form-group">
       <!-- <button class="btn btn-primary">Save</button> -->
       <a class="btn btn-info" href="#/">Back</a>
+      <button type="submit" class="btn btn-primary">Save</button>
     </div>
   </div>
 </form>

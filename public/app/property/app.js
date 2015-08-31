@@ -2,6 +2,8 @@
  * Created by NuizHome on 8/4/2558.
  */
 
+"use strict";
+
 var app = angular.module('property-app', ['ngRoute', 'angular-loading-bar']);
 app.config(['$routeProvider', 'cfpLoadingBarProvider',
     function($routeProvider, cfpLoadingBarProvider) {
@@ -32,7 +34,7 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
     function getProps(query){
         var url = "../api/property";
         if(query){
-            url = url + "?" + $.param($scope.form);
+            url += "?" + $.param($scope.form);
         }
         $http.get(url).success(function(data){
             $scope.props = data;
@@ -124,10 +126,10 @@ function getDate(date){
 
     var yyyy = date.getFullYear();
     if(dd<10){
-        dd='0'+dd
+        dd='0'+dd;
     }
     if(mm<10){
-        mm='0'+mm
+        mm='0'+mm;
     }
     return yyyy+'-'+mm+'-'+dd;
 }
@@ -184,17 +186,53 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
 }]);
 
 app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
-  $scope.form = {};
+  $scope.form = null;
+  $scope.collection = null;
+  $scope.thailocation = null;
 
   $http.get("../api/collection").success(function(collection) {
     $scope.collection = collection;
+  });
+  $http.get("../api/collection/thailocation").success(function(thailocation) {
+    $scope.thailocation = thailocation;
   });
   $http.get("../api/property/" + $routeParams.id).success(function(data) {
     $scope.reference_id = data.reference_id;
     $scope.owner = data.owner;
     $scope.form = data;
-    window.a = $scope.form;
   });
+
+  $scope.initSuccess = false;
+  var itv = setInterval(function() {
+    if($scope.form && $scope.collection && $scope.thailocation) {
+      $scope.initSuccess = true;
+      clearInterval(itv);
+    }
+  }, 100);
+
+  $scope.getDistrict = function() {
+    if(!$scope.initSuccess) return [];
+    return $scope.thailocation.district.filter(function(item){
+      return item.province_id == $scope.form.province_id;
+    });
+  };
+  $scope.getSubDistrict = function() {
+    if(!$scope.initSuccess) return [];
+    return $scope.thailocation.sub_district.filter(function(item){
+      return item.district_id == $scope.form.district_id;
+    });
+  };
+
+  $scope.submit = function() {
+    $.post("../api/property/edit/" + $routeParams.id, $scope.form, function(data){
+      if(data.error) {
+        alert(data.error.message);
+        return;
+      }
+
+      window.location.hash = "/";
+    }, 'json');
+  };
 }]);
 
 app.controller('GalleryCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams){
@@ -242,3 +280,19 @@ app.controller('GalleryCTL', ['$scope', '$http', '$location', '$route', '$routeP
         });
     };
 }]);
+
+app.directive('datepicker',function($compile){
+    return {
+        // replace:true,
+        // templateUrl:'custom-datepicker.html',
+        scope: {
+            ngModel: '=',
+            dateOptions: '='
+        },
+        link: function($scope, $element, $attrs, $controller){
+            $element.datepicker({
+              format: 'yyyy-mm-dd'
+            });
+        }
+    };
+});

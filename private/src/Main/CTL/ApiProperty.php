@@ -150,6 +150,38 @@ class ApiProperty extends BaseCTL {
     }
 
     /**
+     * @POST
+     * @uri /edit/[:id]
+     */
+    public function edit () {
+        $id = $this->reqInfo->urlParam("id");
+        $params = $this->reqInfo->params();
+        // $insert = ArrayHelper::filterKey([
+        //
+        // ], $params);
+        $set = $params;
+        $set = array_map(function($item) {
+          if(is_string($item)) {
+            $item = trim($item);
+          }
+          return $item;
+        }, $set);
+        $set['updated_at'] = date('Y-m-d H:i:s');
+        if(trim($set['contract_expire']) == "") $set['contract_expire'] = null;
+        if(trim($set['rented_expire']) == "") $set['rented_expire'] = null;
+
+        $where = ["id"=> $id];
+
+        $db = MedooFactory::getInstance();
+        $updated = $db->update($this->table, $set, $where);
+
+        if(!$updated){
+            return ResponseHelper::error("Error can't update property.");
+        }
+        return ["success"=> true];
+    }
+
+    /**
      * @DELETE
      * @uri /[i:id]
      */
