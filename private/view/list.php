@@ -69,161 +69,41 @@ $this->import('/layout/headProperty');
     <div class="container">
         <div class="labelText divTop"><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/map")?>">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/gallery")?>">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/table")?>">Table</a></div>
         <div class="labelText"><hr></div>
+        <?php foreach($params['items'] as $item){?>
         <div class="col-md-12 list">
             <div class="col-md-2">
                 <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขายคอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
+                    <div class="labelText labelText2"><a href="#"><?php echo $item['project']['name'];?></a></div>
                     <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
+                    <div class="labelText">
+                      <?php
+                      $detail = [];
+                      if(!empty($item['bedrooms'])) $detail[] = $item['bedrooms']." ห้องนอน";
+                      if(!empty($item['bathrooms'])) $detail[] = $item['bedrooms']." ห้องน้ำ";
+                      if(!empty($item['reference_id'])) $detail[] = "รหัส ".$item['reference_id'];
+                      echo implode(" / ", $detail);
+                      ?>
+                      <!-- 4 ห้องน้ำ /
+                      38 ตร.ม /
+                      รหัส C11091401
+                      คอนโด /
+                      ทำเล : สาทร, กรุงเทพมหานคร -->
                     </div>
                     <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท
+                      <?php if($item['requirement_id'] == 1 || $item['requirement_id'] == 3) {
+                        echo "ขาย : ".number_format($item['sell_price'], 0)." บาท";
+                       } ?>
+                      <?php if($item['requirement_id'] == 2 || $item['requirement_id'] == 3) {
+                        echo "เช่า : ".number_format($item['sell_price'], 0)." บาท";
+                      } ?>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขาย/เช่า คอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
-                    </div>
-                    <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท /
-                        เช่า : 50,000 บาท/เดือน
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขาย/เช่า คอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
-                    </div>
-                    <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท /
-                        เช่า : 50,000 บาท/เดือน
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขาย/เช่า คอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
-                    </div>
-                    <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท /
-                        เช่า : 50,000 บาท/เดือน
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขาย/เช่า คอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
-                    </div>
-                    <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท /
-                        เช่า : 50,000 บาท/เดือน
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขาย/เช่า คอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
-                    </div>
-                    <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท /
-                        เช่า : 50,000 บาท/เดือน
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขาย/เช่า คอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
-                    </div>
-                    <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท /
-                        เช่า : 50,000 บาท/เดือน
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-12 list">
-            <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#">ขาย/เช่า คอนโด เดอะ สุโขทัย เรสซิเด้นซ์ สาทร กรุงเทพมหานคร</a></div>
-                    <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">3 ห้องนอน / 4 ห้องน้ำ / 238 ตร.ม / รหัส C11091401<br>
-                        คอนโด / ทำเล : สาทร, กรุงเทพมหานคร<br>
-                    </div>
-                    <div class="labelText textRed">
-                        ขาย : 85,000,000 บาท /
-                        เช่า : 50,000 บาท/เดือน
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php }?>
 
     </div><br><br>
 </div>
