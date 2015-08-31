@@ -62,10 +62,10 @@ use Main\Helper;
                 <li class="dropdown" id="buy">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">BUY</a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">CONDOMINIUM</a></li>
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/house")?>">SINGLE DETACHED HOUSE</a></li>
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/townhome")?>">TOWNHOME</a></li>
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/office")?>">HOME OFFICE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=1&property_type_id=1")?>">CONDOMINIUM</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=1&property_type_id=2")?>">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=1&property_type_id=10")?>">TOWNHOME</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=1&property_type_id=7")?>">HOME OFFICE</a></li>
                     </ul>
                 </li>
                 <li class="dropdown" id="rent">

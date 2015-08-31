@@ -22,7 +22,7 @@ use Main\Helper;
                     </div>
                     <div class="col-lg-3">
                         <ul class="propsandlocation">
-                            <li id="subject">Property Serch</li>
+                            <li id="subject">Property Search</li>
                             <li><a href="#">Advance Search</a></li>
                             <li><a href="#">Transportation Search</a></li>
                             <li><a href="#">Map Search</a></li>

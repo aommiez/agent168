@@ -178,7 +178,7 @@ $this->import('/layout/header');
         <br><br>
         <span class="label label-default spanAll span1" >ติดต่อ agent168</span>
         <span class="label label-default spanAll span2" >รายละเอียดการติดต่อ</span>
-        <span class="label label-default spanAll span3" >Highlight Propoties</span>
+        <span class="label label-default spanAll span3" >Highlight Property</span>
         <span class="label label-default spanAll span4" >Newsletter Sign Up</span>
        <div class="contact row">
             <div class="block-a col-lg-8 mainLeft">
@@ -366,4 +366,3 @@ $this->import('/layout/header');
 <?php
 $this->import('/layout/footer');
 ?>
-

@@ -31,14 +31,17 @@ class ListCTL extends BaseCTL {
     public function index ()
     {
       $params = $this->reqInfo->params();
-      $reqTypeId = empty($params['reqTypeId'])? 1: $params['reqTypeId'];
+      $reqTypeId = empty($params['requirement_id'])? 1: $params['requirement_id'];
+      $propTypeId = empty($params['property_type_id'])? 1: $params['property_type_id'];
       $db = MedooFactory::getInstance();
       $stmt = $db->pdo->prepare("SELECT * FROM property
         WHERE web_status=1
         AND (requirement_id=:req1 OR requirement_id=3)
-        AND property_type_id=1 LIMIT 15");
+        AND property_type_id=:property_type_id
+        ORDER BY created_at DESC
+        LIMIT 15");
 
-      $stmt->execute([':req1'=> $reqTypeId]);
+      $stmt->execute([':req1'=> $reqTypeId, ':property_type_id'=> $propTypeId]);
       $items = $stmt->fetchAll(\PDO::FETCH_ASSOC);
       $this->_buildItems($items);
       return new HtmlView('/list', ['items'=> $items]);
