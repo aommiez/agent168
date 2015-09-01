@@ -29,17 +29,22 @@ use Main\Helper;
                             <li id="subject">Location</li>
                             <li><a href="">Bangkok</a></li>
                             <li><a href="">Pattaya</a></li>
+                            <li><a href="">Huahin</a></li>
+                            <li><a href="">Phuket</a></li>
                             <li><a href="">Chiang Mai</a></li>
-                            <li><a href="">Khon Khan</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-6">
                         <ul class="contactus">
                             <li id="subject">Contact Us</li>
-                            <li style="font-size: 2em; letter-spacing: 1px; font-family: 'cocogoose', 'Arial', sans-serif; font-weight: bold;">02 184 6914</li>
+                            <li style="font-size: 2em; letter-spacing: 1px; font-family: 'cocogoose', 'Arial', sans-serif; font-weight: bold;">087-7605555 </li>
                             <li style="font-size: 20px;">info@agent168th.com</li>
                             <li style="font-size: 16px;"><span class="glyphicon glyphicon-map-marker" style=" color: #000000;"></span> 189/87 Kreeta R.<br><p style="text-indent: 25px;">Thailand</p></li>
-                            <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Facebook2.png")?>" /></li>
+                            <li id="social">
+                              <a href="https://www.facebook.com/agent168th" target="_blank">
+                                <img src="<?php echo \Main\Helper\URL::absolute("/public/images/Facebook2.png")?>" />
+                              </a>
+                            </li>
                             <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Twitter2.png")?>" /></li>
                             <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Google+2.png")?>" /></li>
                             <li id="social"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Rss2.png")?>" /></li>

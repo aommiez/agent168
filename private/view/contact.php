@@ -193,7 +193,7 @@ $this->import('/layout/header');
                 <br>
                 <div class="h6">
                     <div class="labelText2">
-                        <span class="textHead">โทร :</span>  02-184-6914
+                        <span class="textHead">โทร :</span>  087-7605555 
                     </div>
                 </div>
 

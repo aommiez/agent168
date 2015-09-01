@@ -84,7 +84,15 @@ $this->import('/layout/headProperty');
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
-                    <div class="labelText labelText2"><a href="#"><?php echo $item['project']['name'];?></a></div>
+                    <div class="labelText labelText2">
+                      <a href="#">
+                        <?php echo $item['property_type']['name'];?>
+                        <?php echo $item['requirement']['name'];?>
+                        <?php echo $item['project']['name'];?>
+                        <?php echo $item['road'];?>
+                        Bangkok
+                      </a>
+                    </div>
                     <div class="labelText"><hr class="h"></div>
                     <div class="labelText">
                       <?php

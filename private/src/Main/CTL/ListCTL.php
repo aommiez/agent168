@@ -31,8 +31,8 @@ class ListCTL extends BaseCTL {
     public function index ()
     {
       $params = $this->reqInfo->params();
-      $reqTypeId = empty($params['requirement_id'])? 1: $params['requirement_id'];
-      $propTypeId = empty($params['property_type_id'])? 1: $params['property_type_id'];
+      $reqTypeId = empty($params['requirement_id'])? 0: $params['requirement_id'];
+      $propTypeId = empty($params['property_type_id'])? 0: $params['property_type_id'];
       $db = MedooFactory::getInstance();
       $stmt = $db->pdo->prepare("SELECT * FROM property
         WHERE web_status=1
@@ -51,11 +51,28 @@ class ListCTL extends BaseCTL {
     {
       foreach($items as &$item) {
         $item['project'] = $this->getProject($item['project_id']);
-
+        $this->_buildThumb($item);
+        $this->_buildPropertyType($item);
+        $this->_buildRequirement($item);
       }
     }
 
-    public function _buildThumb(&$item) {
+    public function _buildPropertyType(&$item)
+    {
+      $db = MedooFactory::getInstance();
+      $type = $db->get("property_type", "*", ["id"=> $item['property_type_id']]);
+      $item['property_type'] = $type;
+    }
+
+    public function _buildRequirement(&$item)
+    {
+      $db = MedooFactory::getInstance();
+      $type = $db->get("requirement", "*", ["id"=> $item['requirement_id']]);
+      $item['requirement'] = $type;
+    }
+
+    public function _buildThumb(&$item)
+    {
       $db = MedooFactory::getInstance();
       $pic = $db->get("property_image", "*", ["property_id"=> $item['id']]);
       if(!$pic){
