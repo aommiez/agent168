@@ -83,6 +83,14 @@ class ApiProperty extends BaseCTL {
         if(!empty($params['property_highlight'])){
             $where["AND"] = ['property.property_highlight'=> $params['property_highlight']];
         }
+
+
+        // new
+        if(!empty($params['web_status'])){
+            $where["AND"] = ['property.web_status'=> $params['web_status']];
+        }
+
+
         $page = !empty($params['page'])? $params['page']: 1;
 
         if(count($where["AND"]) > 0){

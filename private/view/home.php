@@ -87,6 +87,38 @@ $this->import('/layout/header');
 <div class="highlightslide">
     <div class="container">
         <p>Highlight Properties</p>
+        <?php foreach($params['highlight'] as $item){?>
+        <div class="highlight">
+            <a class="images-home" href="">
+              <img src="<?php echo $item['picture']['url'];?>" width="262" height="196" />
+            </a>
+            <a class="name" href=""><?php echo $item['project']['name'];?></a>
+            <p class="add">Annapolls</p>
+            <div class="hr"></div>
+            <p class="sale"><a href="">For Sale</a>
+              <span class="price">
+              <?php echo number_format($item['sell_price'], 0)." บาท";?>
+              </span>
+            </p>
+            <div class="detail">
+                <span class="ft">1025 sq ft</span>
+                <span class="bed">4 Beds</span>
+                <span class="bath">2 Baths</span>
+            </div>
+        </div>
+        <?php }?>
+        <!-- <div class="highlight">
+            <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
+            <a class="name" href="">678 Bay Hills Lane</a>
+            <p class="add">Annapolls</p>
+            <div class="hr"></div>
+            <p class="sale"><a href="">For Sale</a><span class="price">$240,000</span></p>
+            <div class="detail">
+                <span class="ft">1025 sq ft</span>
+                <span class="bed">4 Beds</span>
+                <span class="bath">2 Baths</span>
+            </div>
+        </div>
         <div class="highlight">
             <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
             <a class="name" href="">678 Bay Hills Lane</a>
@@ -98,7 +130,7 @@ $this->import('/layout/header');
                 <span class="bed">4 Beds</span>
                 <span class="bath">2 Baths</span>
             </div>
-		</div><!--highlight-->
+        </div>
         <div class="highlight">
             <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
             <a class="name" href="">678 Bay Hills Lane</a>
@@ -110,31 +142,7 @@ $this->import('/layout/header');
                 <span class="bed">4 Beds</span>
                 <span class="bath">2 Baths</span>
             </div>
-		</div><!--highlight-->
-        <div class="highlight">
-            <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
-            <a class="name" href="">678 Bay Hills Lane</a>
-            <p class="add">Annapolls</p>
-            <div class="hr"></div>
-            <p class="sale"><a href="">For Sale</a><span class="price">$240,000</span></p>
-            <div class="detail">
-                <span class="ft">1025 sq ft</span>
-                <span class="bed">4 Beds</span>
-                <span class="bath">2 Baths</span>
-            </div>
-		</div><!--highlight-->
-        <div class="highlight">
-            <a class="images-home" href=""><img src="<?php echo \Main\Helper\URL::absolute("/public/images/house.jpg")?>"  /></a>
-            <a class="name" href="">678 Bay Hills Lane</a>
-            <p class="add">Annapolls</p>
-            <div class="hr"></div>
-            <p class="sale"><a href="">For Sale</a><span class="price">$240,000</span></p>
-            <div class="detail">
-                <span class="ft">1025 sq ft</span>
-                <span class="bed">4 Beds</span>
-                <span class="bath">2 Baths</span>
-            </div>
-		</div><!--highlight-->
+        </div> -->
     </div>
 </div>
 <div class="newsletter skrollable skrollable-between">
@@ -375,5 +383,4 @@ $this->import('/layout/header');
 </script>
 <?php
 $this->import('/layout/footer');
-?>	
-
+?>

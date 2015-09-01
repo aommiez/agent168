@@ -58,7 +58,13 @@ class ListCTL extends BaseCTL {
     public function _buildThumb(&$item) {
       $db = MedooFactory::getInstance();
       $pic = $db->get("property_image", "*", ["property_id"=> $item['id']]);
-      if(!$pic) $pic['url'] = URL::absolute("/public/images/default-project.png");
+      if(!$pic){
+        $pic = [];
+        $pic['url'] = URL::absolute("/public/images/default-project.png");
+      }
+      else {
+        $pic['url'] = URL::absolute("/public/images/upload/".$pic['name']);
+      }
       $item['picture'] = $pic;
     }
 
@@ -70,7 +76,7 @@ class ListCTL extends BaseCTL {
 
       $db = MedooFactory::getInstance();
       $project = $db->get("project", "*", ["id"=> $id]);
-      if(!$project) $this->projects[] = $project;
+      if($project) $this->projects[] = $project;
 
       return $project;
     }
