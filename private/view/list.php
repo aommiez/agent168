@@ -82,7 +82,7 @@ $this->import('/layout/headProperty');
         <?php foreach($params['items'] as $item){?>
         <div class="col-md-12 list">
             <div class="col-md-2">
-                <div class="divImg"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/highlight.gif")?>"></div>
+                <div class="divImg"><img src="<?php echo $item['picture']['url'];?>" width="222" height="122" style="object-fit: cover;"></div>
             </div>
             <div class="col-md-8">
                 <div class="labelText2 formRight">
@@ -99,8 +99,8 @@ $this->import('/layout/headProperty');
                     <div class="labelText detail-text">
                       <?php
                       $detail = [];
-                      if(!empty($item['bedrooms'])) $detail[] = $item['bedrooms']." ห้องนอน";
-                      if(!empty($item['bathrooms'])) $detail[] = $item['bedrooms']." ห้องน้ำ";
+                      if(!empty($item['bedrooms']) && $item['bedrooms'] != 0) $detail[] = $item['bedrooms']." ห้องนอน";
+                      if(!empty($item['bathrooms']) && $item['bathrooms'] != 0) $detail[] = $item['bathrooms']." ห้องน้ำ";
                       if(!empty($item['reference_id'])) $detail[] = "รหัส ".$item['reference_id'];
                       echo implode(" / ", $detail);
                       ?>
@@ -115,7 +115,7 @@ $this->import('/layout/headProperty');
                         echo "ขาย : ".number_format($item['sell_price'], 0)." บาท";
                        } ?>
                       <?php if($item['requirement_id'] == 2 || $item['requirement_id'] == 3) {
-                        echo "เช่า : ".number_format($item['sell_price'], 0)." บาท";
+                        echo "เช่า : ".number_format($item['rent_price'], 0)." บาท";
                       } ?>
                     </div>
                 </div>
