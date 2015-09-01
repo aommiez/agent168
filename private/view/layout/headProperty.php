@@ -71,13 +71,13 @@ use Main\Helper;
                 <li class="dropdown" id="rent">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RENT</a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">CONDOMINIUM</a></li>
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/house")?>">SINGLE DETACHED HOUSE</a></li>
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/townhome")?>">TOWNHOME</a></li>
-                        <li><a href="<?php echo \Main\Helper\URL::absolute("/office")?>">HOME OFFICE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=2&property_type_id=1")?>">CONDOMINIUM</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=2&property_type_id=2")?>">SINGLE DETACHED HOUSE</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=2&property_type_id=10")?>">TOWNHOME</a></li>
+                        <li><a href="<?php echo \Main\Helper\URL::absolute("/list?requirement_id=2&property_type_id=7")?>">HOME OFFICE</a></li>
                     </ul>
                 </li>
-                <li><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">PROPERTY SEARCH</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute("/list")?>">PROPERTY SEARCH</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute("/listprops")?>">LIST YOUR PROPERTY</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute("/campaign")?>">EDITORIAL</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute("/contact")?>">CONTACT US</a></li>
