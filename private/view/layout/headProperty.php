@@ -308,7 +308,7 @@ use Main\Helper;
                 <br>
                 <ul>
                     <li>Advance Search</li><br>
-                    <li style="margin-top: 3px">Property</li><br>
+                    <li style="margin-top: 3px">Property Type</li><br>
                     <li style="margin-top: 3px">Bedroom(s)</li><br>
                     <li style="margin-top: 3px">Project Name / Keyword Search</li><br>
                 </ul>
@@ -316,22 +316,39 @@ use Main\Helper;
             </div>
             <div class="head-a2 col-lg-9"style="margin-top: -40px">
                 <br>
+                <form>
                 <ul>
                     <span class="glyphicon glyphicon-play" aria-hidden="true" style="color: #FFFFFF;height: 18px"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <li>  Requirement</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <li>
-                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rent</label><br><br>
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="requirement_id" value="1" checked />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="requirement_id" value="2" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rent</label><br><br>
                         <div class="head-aa col-lg-3">
-                            <form class="form-horizontal">
                                 <div class="form-group" style="margin-top: -15px">
                                     <ul>
-                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
-                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
-                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br>
+                                        <li>
+                                          <select name="property_type_id" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+                                            <option value="1" <?php if(@$_GET['property_type_id']==1) echo "selected";?>>Condominium</option>
+                                            <option value="2" <?php if(@$_GET['property_type_id']==2) echo "selected";?>>Single detached house</option>
+                                            <option value="10" <?php if(@$_GET['property_type_id']==10) echo "selected";?>>Townhome</option>
+                                            <option value="7" <?php if(@$_GET['property_type_id']==7) echo "selected";?>>Home office</option>
+                                          </select>
+                                        </li><br><br>
+                                        <li>
+                                          <select name="bedrooms" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+                                            <option value="1" <?php if(@$_GET['bedrooms']==1) echo "selected";?>>1</option>
+                                            <option value="2" <?php if(@$_GET['bedrooms']==2) echo "selected";?>>2</option>
+                                            <option value="3" <?php if(@$_GET['bedrooms']==3) echo "selected";?>>3</option>
+                                            <option value="4+" <?php if(@$_GET['bedrooms']=="4+") echo "selected";?>>4+</option>
+                                          </select>
+                                        </li><br><br>
+                                        <li>
+                                          <input name="keyword" type="text" class="form-control" style="font-size: 12px; width: 200px;  float: right">
+                                        </li><br>
                                     </ul>
                                 </div>
-                            </form>
                         </div>
                         <div class="head-ab col-lg-3">
                             <ul>
@@ -341,26 +358,89 @@ use Main\Helper;
                             </ul>
                         </div>
                         <div class="head-ac col-lg-3" style="margin-top: -13px">
-                            <form class="form-horizontal">
                                 <div class="form-group">
                                     <ul>
-                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
-                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br><br>
-                                        <li><input type="text" class="form-control" style="font-size: 12px;height: 24px; width: 200px;  float: right"></li><br>
+                                        <li>
+                                          <select class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+                                          </select>
+                                        </li><br><br>
+                                        <li>
+                                          <select name="bathrooms" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+                                            <option value="1" <?php if(@$_GET['bathrooms']==1) echo "selected";?>>1</option>
+                                            <option value="2" <?php if(@$_GET['bathrooms']==2) echo "selected";?>>2</option>
+                                            <option value="3" <?php if(@$_GET['bathrooms']==3) echo "selected";?>>3</option>
+                                            <option value="4+" <?php if(@$_GET['bathrooms']=="4+") echo "selected";?>>4+</option>
+                                          </select>
+                                        </li><br><br>
+                                        <li>
+                                          <select name="price-range" id="price-range" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+
+                                          </select>
+                                        </li><br>
                                     </ul>
                                 </div>
-                            </form>
                         </div>
                         <div class="head-ad col-lg-1">
-                            <form>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-default" style="background-color: #FFFFFF; color: #1957a4; border-radius: 10px;margin-left: 60px;margin-top: 40px; height: 35px">Search</button>
-                                </div>
-                            </form>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default" style="background-color: #FFFFFF; color: #1957a4; border-radius: 10px;margin-left: 60px;margin-top: 40px; height: 35px">Search</button>
+                            </div>
                         </div>
                     </li>
                 </ul>
+              </form>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+$(function(){
+  var buyPrice = [
+    [1000000,3000000],
+    [3000001,5000000],
+    [5000001,7000000],
+    [7000001,10000000],
+    [10000001,15000000],
+    [15000001,30000000],
+    [30000001]
+  ];
+  var rentPrice = [
+    [10000,30000],
+    [30001,50000],
+    [50001,70000],
+    [70001,100000],
+    [100001]
+  ];
+
+  function refreshPriceRage()
+  {
+    var reqTypeId = $("input[name='requirement_id']:checked").val();
+    $('#price-range option.price-js').remove();
+    var items = reqTypeId == 1? buyPrice: rentPrice;
+
+    $(items).each(function(key, item){
+      var value = item[0];
+      var text = item[0].toString().replace(/./g, function(c, i, a) {
+          return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+      });
+      if(item[1]){
+        value += '-' + item[1];
+        text += '-' + item[1].toString().replace(/./g, function(c, i, a) {
+            return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+        });
+      }
+      else {
+        text += '+';
+      }
+      $('#price-range').append('<option class="price-js" value="'+value+'">'+text+'</option>');
+    });
+  }
+  refreshPriceRage();
+  $("input[name='requirement_id']").change(function(e){
+    refreshPriceRage();
+  });
+});
+</script>

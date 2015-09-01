@@ -61,7 +61,9 @@ $this->import('/layout/headProperty');
         font-size: 14px;
     }
 
-
+    .detail-text {
+          margin-top: 44px;
+    }
 
 </style>
 
@@ -94,7 +96,7 @@ $this->import('/layout/headProperty');
                       </a>
                     </div>
                     <div class="labelText"><hr class="h"></div>
-                    <div class="labelText">
+                    <div class="labelText detail-text">
                       <?php
                       $detail = [];
                       if(!empty($item['bedrooms'])) $detail[] = $item['bedrooms']." ห้องนอน";

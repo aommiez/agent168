@@ -34,14 +34,63 @@ class ListCTL extends BaseCTL {
       $reqTypeId = empty($params['requirement_id'])? 0: $params['requirement_id'];
       $propTypeId = empty($params['property_type_id'])? 0: $params['property_type_id'];
       $db = MedooFactory::getInstance();
-      $stmt = $db->pdo->prepare("SELECT * FROM property
-        WHERE web_status=1
-        AND (requirement_id=:req1 OR requirement_id=3)
-        AND property_type_id=:property_type_id
-        ORDER BY created_at DESC
-        LIMIT 15");
 
-      $stmt->execute([':req1'=> $reqTypeId, ':property_type_id'=> $propTypeId]);
+      $searchQuery = "1";
+      $excParams = [];
+      if(!empty($params['property_type_id'])) {
+        $searchQuery .= " AND property.property_type_id=:property_type_id";
+        $excParams[":property_type_id"] = $params['property_type_id'];
+      }
+      if(!empty($params['requirement_id'])) {
+        $searchQuery .= " AND (property.requirement_id=:requirement_id OR property.requirement_id=3)";
+        $excParams[":requirement_id"] = $params['requirement_id'];
+      }
+      if(!empty($params['bedrooms'])) {
+        if($params['bedrooms'] == "4+") {
+          $searchQuery .= " AND property.bedrooms > 3";
+        }
+        else {
+          $searchQuery .= " AND property.bedrooms = :bedrooms";
+          $excParams[":bedrooms"] = $params['bedrooms'];
+        }
+      }
+      if(!empty($params['bathrooms'])) {
+        if($params['bathrooms'] == "4+") {
+          $searchQuery .= " AND property.bathrooms > 3";
+        }
+        else {
+          $searchQuery .= " AND property.bathrooms = :bathrooms";
+          $excParams[":bathrooms"] = $params['bathrooms'];
+        }
+      }
+      if(!empty($params['keyword'])) {
+        $searchQuery .= " AND project.name LIKE :keyword";
+        $excParams[":keyword"] = '%'.$params['keyword'].'%';
+      }
+      if(!empty($params['price-range']) && !empty($params['requirement_id'])) {
+        $field1 = $params['requirement_id'] == 1? "sell_price": "rent_price";
+        $priceRange = explode('-', $params['price-range']);
+        if(count($priceRange) == 0) {
+          $searchQuery .= " AND ({$field1} BETWEEN :price1 AND :price2 )";
+          $excParams[":price1"] = $priceRange[0];
+          $excParams[":price2"] = $priceRange[1];
+        }
+        else {
+          $searchQuery .= " AND ({$field1} >= :price)";
+          $excParams[":price"] = $priceRange[0];
+        }
+      }
+
+      $query = "SELECT property.*, project.name FROM property
+        JOIN project ON property.project_id = project.id
+        WHERE property.web_status=1
+        AND ({$searchQuery})
+        ORDER BY created_at DESC
+        LIMIT 15";
+
+      $stmt = $db->pdo->prepare($query);
+
+      $stmt->execute($excParams);
       $items = $stmt->fetchAll(\PDO::FETCH_ASSOC);
       $this->_buildItems($items);
       return new HtmlView('/list', ['items'=> $items]);
