@@ -67,8 +67,16 @@ $this->import('/layout/headProperty');
 
 <div class="bgList">
     <div class="container">
-        <div class="labelText divTop"><a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">List</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/map")?>">Map</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/gallery")?>">Gallery</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?php echo \Main\Helper\URL::absolute("/table")?>">Table</a></div>
-        <div class="labelText"><hr></div>
+        <!-- <div class="labelText divTop">
+          <a href="<?php echo \Main\Helper\URL::absolute("/condo")?>">List</a>
+          &nbsp;&nbsp;/&nbsp;&nbsp;
+          <a href="<?php echo \Main\Helper\URL::absolute("/map")?>">Map</a>
+          &nbsp;&nbsp;/&nbsp;&nbsp;
+          <a href="<?php echo \Main\Helper\URL::absolute("/gallery")?>">Gallery</a>
+          &nbsp;&nbsp;/&nbsp;&nbsp;
+          <a href="<?php echo \Main\Helper\URL::absolute("/table")?>">Table</a>
+        </div> -->
+        <!-- <div class="labelText"><hr></div> -->
         <?php foreach($params['items'] as $item){?>
         <div class="col-md-12 list">
             <div class="col-md-2">
