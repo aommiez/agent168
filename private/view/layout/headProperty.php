@@ -307,10 +307,10 @@ use Main\Helper;
             <div class="head-a1 col-lg-3" style="margin-top: -40px">
                 <br>
                 <ul>
-                    <li>ค้นหาอย่างละเอียด</li><br>
-                    <li style="margin-top: 3px">ประเภทอสังหาฯ</li><br>
-                    <li style="margin-top: 3px">ห้องนอน</li><br>
-                    <li style="margin-top: 3px">คำค้นหา</li><br>
+                    <li>Advance Search</li><br>
+                    <li style="margin-top: 3px">Property</li><br>
+                    <li style="margin-top: 3px">Bedroom(s)</li><br>
+                    <li style="margin-top: 3px">Project Name / Keyword Search</li><br>
                 </ul>
 
             </div>
@@ -318,10 +318,10 @@ use Main\Helper;
                 <br>
                 <ul>
                     <span class="glyphicon glyphicon-play" aria-hidden="true" style="color: #FFFFFF;height: 18px"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <li>  ฉันต้องการ</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <li>  Requirement</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <li>
-                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ซื้อ</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เช่า</label><br><br>
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="optradio">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rent</label><br><br>
                         <div class="head-aa col-lg-3">
                             <form class="form-horizontal">
                                 <div class="form-group" style="margin-top: -15px">
@@ -335,9 +335,9 @@ use Main\Helper;
                         </div>
                         <div class="head-ab col-lg-3">
                             <ul>
-                                <li>ทำเล</li> <br><br>
-                                <li>ห้องน้ำ</li> <br><br>
-                                <li>ช่วงราคา</li> <br><br>
+                                <li>Locations</li> <br><br>
+                                <li>Bathroom(s)</li> <br><br>
+                                <li>Price Range</li> <br><br>
                             </ul>
                         </div>
                         <div class="head-ac col-lg-3" style="margin-top: -13px">
@@ -354,7 +354,7 @@ use Main\Helper;
                         <div class="head-ad col-lg-1">
                             <form>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-default" style="background-color: #FFFFFF; color: #1957a4; border-radius: 10px;margin-left: 60px;margin-top: 40px; height: 30px">ค้นหา</button>
+                                    <button type="submit" class="btn btn-default" style="background-color: #FFFFFF; color: #1957a4; border-radius: 10px;margin-left: 60px;margin-top: 40px; height: 35px">Search</button>
                                 </div>
                             </form>
                         </div>
