@@ -4,7 +4,6 @@
 
 <link rel="icon" href="assets/img/favicon.png">
 <!-- Important stylesheet -->
-<!--<link rel="stylesheet" href="../public/js/assets/css/app/main.css" />-->
 <link rel="stylesheet" href="../public/js/assets/css/vendor/magic/magic.min.css">
 <link rel="stylesheet" href="../public/js/assets/css/vendor/animate/animate.min.css">
 <link rel="stylesheet" href="../public/css/jquery.desoslide.css">
@@ -29,13 +28,19 @@ $(function() {
     });
 });
 </script>
+ <script>
+
+$("slide>ul>li>a>img").click(function () {
+      $(this).toggleClass("transitions");
+    });
+    </script>
 
 		<div class="container">
         	<div class="content">
                 	<div id="slideshow"></div>
 						<div class="text-center">
                         	<div class="slide">
-                         	 <ul id="slideshow_thumbs" class="desoslide-thumbs-vertical list-inline">
+                         	 <ul id="slideshow_thumbs" class="desoslide-thumbs-vertical list-inline ">
                             	<li>
                                 	<a href="../public/images/home1.jpg"><img src="../public/images/home1_thumb.jpg" alt="images"></a>
                                 </li>
@@ -63,23 +68,7 @@ $(function() {
            </div><!--content-->
      </div>
      <div class="container">
-		<div class="box-price-main">
-                <!-- Best Deal -->
-                <div class="box-picture cf">
-                    <span class="ribbon best-buy"></span>
-                </div>
-                <div class="box-price cf">
-                <div class="box-left">
-                    <p class="price">
-                    ราคาขาย :<span>13,370,000</span> บาท<br>   
-                    </p>
-                </div>
-                <div class="box-cart">
-                    <a class="btn-cart" href="">สนใจยูนิตนี้<img src="../public/images/icon-cart2.svg" alt="icon-cart" width="48" height="33"></a>
-                </div>
-                </div>
-                <!-- Best Deal End -->            
-		</div>
+		
      </div>
      <div class="container">
             <div class="box-right">
@@ -128,7 +117,7 @@ $(function() {
 				<p><span>ห้องนอน</span> : 3</p>
 				<p><span>ห้องน้ำ</span> : 4</p>
 			</div>
-			<p><span>ทำเล</span> : <a href="" target="_blank">ประชาชื่น, นนทบุรี</a></p>
+			<p class="bor"><span>ทำเล</span> : <a href="" target="_blank">ประชาชื่น, นนทบุรี</a></p>
 			<p class="title-text">สิ่งอำนวยความสะดวก</p>
 			<div class="text2 cf">
           		<p>Swimming Pool</p>
@@ -139,6 +128,23 @@ $(function() {
 			<!-- Facilities End -->
 		</div>
 	</div>
+    <div class="box-price-main">
+                <!-- Best Deal -->
+                <div class="box-picture cf">
+                    <span class="ribbon best-buy"></span>
+                </div>
+                <div class="box-price cf">
+                <div class="box-left">
+                    <p class="price">ราคาขาย</p>
+                    <p class="num">13,370,000 บาท</p>
+                   
+                </div>
+                <div class="box-cart">
+                    <a class="btn-cart" href="">สนใจยูนิตนี้<img src="../public/images/shopping_cart.png" alt="images"></a>
+                </div>
+                </div>
+                <!-- Best Deal End -->            
+		</div>
 	</div><!--container-->
 	
  <?php $this->import("/layout/footer"); ?>

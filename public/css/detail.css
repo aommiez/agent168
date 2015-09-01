@@ -1,7 +1,9 @@
 @charset "UTF-8";
 /* CSS Document */
 
-
+.container{
+	font-family: 'thk2d', 'Arial', sans-serif;
+}
 .content{
 	float:left;
 	clear:both;
@@ -12,11 +14,11 @@
 .box-right{
 	width: 300px;
 	float:left;
-	/*background-color: #152860;*/
-	color:gray;
+	background-color:gainsboro;
+	color:#000;
 	padding:20px;
 	font-size: 16px;
-	margin-left:30px;
+	margin:30px 0 40px 0;
 	border:1px solid whitesmoke;
 }
 p.head-form{
@@ -49,7 +51,6 @@ p.head-form{
 	width:100%;
 	height: 28px;
 	font-size: 18px;
-	border-radius: 5px;
     color: #000;
     padding: 0 0 0 10px;
 	border:1px solid whitesmoke;
@@ -60,83 +61,95 @@ a.btn-search {
     display: block;
     margin: 20px auto 0 auto;
     color: #fff;
-    background-color: #ac7e26;
-    border: 1px solid #ac7e26;
+    background-color: #1957a4;;
+    border: 1px solid #1957a4;;
     text-align: center;
     line-height: 30px;
 	text-decoration:none;
 }
 p.remarkimg{
 	font-size: 15px;
-    margin-top: 10px;
+    padding-top: 5px;
+    clear: both;
 }
 
 .content-tab1-main{
-	clear:both;
-	width:750px;
-	padding:30px 0 40px 0;
+	float:left;
+	width:590px;
+	margin:15px 20px 40px 20px;
 }
 .box-picture span.ribbon.best-buy {
-    background-color: #9e0f24;
+    background:url(../images/banner_red_tag_bg.gif) no-repeat;
+	background-size: 100%;
+	background-position:50% 35%;
 }
 .box-picture span.ribbon {
-    width: 110px;
-    height: 30px;
+    width: 100%;
+    height: 55px;
     padding:10px 5px;
+	display:block;
 }
 .box-picture span.ribbon.best-buy:before {
     content: 'BEST BUY';
 }
 .box-picture span.ribbon:before {
-    font-size: 15px;
+    font-size: 20px;
     color: #fff;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+	display:block;
     width: 100%;
-	padding:5px 25px;
 }
-.box-price-main .box-price {
-    width: 100%;
-    border: 1px solid #e3e3e3;
-    padding: 11px 0px 11px 30px;
+.box-price-main{
+	width:18%;
+	float:left;
+	margin-top: 40px;
+	background-color: whitesmoke;
+}
+.box-price {
+    padding: 10px 0;
 	margin-top:10px;
 	float: left;
     clear: both;
 }
-.box-cart, .box-left {
-    float: left;
+.box-price p.price{
+	padding-bottom: 5px;
+    font-size: 25px;
+    text-align: center;
+    padding: 0;
+	margin:0;
+}
+.box-price p.num{
+	font-size: 24px;
+    text-align: center;
+    margin: 0;
 }
 .cf:after {
     clear: both;
 }
-.box-cart{
-	width: 220px;
-	float:right;
-}
-.box-price-main .box-price .price {
+
+.box-price-main .box-price {
     font-size: 20px;
     color: #152860;
     padding: 10px 0;
 }
 .box-cart a.btn-cart {
     display: block;
-    border-left: 1px solid #e3e3e3;
-    width: 220px;
     height: 86px;
     line-height: 86px;
-    font-size: 20px;
-    color: #ac7e26;
+    font-size: 28px;
+    color: #dc4638;
     text-align: center;
 	text-decoration:none;
 }
 .box-cart a.btn-cart img{
-	vertical-align:text-bottom;
-	margin-left:5px;
+	vertical-align:middle;
+	margin-left:7px;
+	width:20%;
 }
 .box-text-main p.title-text {
-    font-size: 16px;
+    font-size: 24px;
     color: cornflowerblue;
-    margin:30px 0 15px 0;
+    margin:15px 0 15px 0;
 }
 .box-text-main{
 	clear: both;
@@ -147,9 +160,8 @@ p.remarkimg{
     float: left;
 }
 .box-text-main p {
-    font-size: 12px;
+    font-size: 18px;
     color: #3c3c3c;
-    font-family: Arial, sans-serif;
 	margin: 5px 0;
 }
 .box-text-main p span {
@@ -167,20 +179,25 @@ a:link {
     clear: both;
 }
 .box-text-main .text2>p {
-    width: 50%;
+    width: 46%;
     float: left;
     display: list-item;
+	margin-left:20px;
+}
+p.bor{
+	border-bottom:1px solid whitesmoke;
+	padding-bottom:20px;
 }
 
 
 /* slide */
 #slideshow{
-	width:80%;
+	width:79%;
 	float:left;
 	margin-right:20px;
 }
 .text-center{
-	width:18%;
+	width:19%;
 	float:left;
 }
 .list-inline {
@@ -204,18 +221,6 @@ img.img-responsive.animated.fadeIn{
 }
 .text-center{
 	position:relative;
-	overflow: hidden;
-	height:608px;
+	overflow:scroll;
+	height: 600px;
 }
-.slide{   
-	height:1000px;
-	top:0;
-	display:block;
-	-webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    -webkit-transform: translate3d(0,0,0);
-    -moz-transform: translate3d(0,0,0);
-    -ms-transform: translate3d(0,0,0);
-}
-	
