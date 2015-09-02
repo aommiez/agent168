@@ -97,8 +97,12 @@ $this->import("/admin/layout/header");
                     crossDomain: true,
                     dataType: 'json',
                     data: $("#loginForm").serialize(),
-                    success: function (result) {
-                        $(location).attr('href', '<?php echo \Main\Helper\URL::absolute("/admin")?>');
+                    success: function (data) {
+                      if(data.error) {
+                        alert(data.error.message);
+                        return;
+                      }
+                      $(location).attr('href', '<?php echo \Main\Helper\URL::absolute("/admin")?>');
                     },
                     error: function (result) {
                         console.log(result);
