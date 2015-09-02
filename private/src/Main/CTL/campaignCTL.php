@@ -28,6 +28,12 @@ class campaignCTL extends BaseCTL {
         return new HtmlView('/campaign');
     }
 
-
-
+    /**
+     * @GET
+     * @uri /[:id]
+     */
+    public function campaignId () {
+      $id = $this->reqInfo->urlParam("id");
+      return new HtmlView('/campaign/'.$id);
+    }
 }

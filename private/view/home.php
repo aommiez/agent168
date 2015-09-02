@@ -9,10 +9,9 @@ $this->import('/layout/header');
             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
-            <div class="item active"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/condo.jpg")?>" /></div>
-            <div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/condo.jpg")?>" /></div>
-            <div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/condo.jpg")?>" /></div>
-            <div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/condo.jpg")?>" /></div>
+            <div class="item active"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/slide/slide01.png")?>" /></div>
+            <div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/slide/slide02.png")?>" /></div>
+            <div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/slide/slide03.png")?>" /></div>
         </div>
         <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -183,14 +182,15 @@ $this->import('/layout/header');
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentpic">
-                                    <img style="margin: 0 auto;" src="<?php echo \Main\Helper\URL::absolute("/public/images/Layer-12.png")?>"  />
+                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/pnews/bkk.jpg")?>"  style="margin: 0 auto; max-width: 100%;" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentdes">
-                                    <p id="headline">นักเศรษฐศาสตร์ 58.5% สนับสนุนภาษีที่ดินฯ แต่เสนอให้ยกเว้นภาษีบ้านที่ราคาไม่เกิน 3 ล้าน</p>
-                                    <p>เมื่อถามว่า "ภาษีที่ดินและสิ่งปลูกสร้าง" ที่กำหนดให้ยกเว้นการเสียภาษีให้กับที่อยู่อาศัยราคาไม่เกิน 1.5 ล้านบาท.........</p>
-                                    <button class="btn btn-primary">View All</button>
+                                    <p id="headline">เจาะทำเลน่าจับตาในกรุงเทพฯ พบโซนรัชดา-พระราม 9-ลาดพร้าวฮอตเป็นพิเศษ</p>
+                                    <p>หลังมีการพัฒนาทั้งเชิงพาณิชย์และที่อยู่อาศัยในพื้นที่ ในขณะที่ถนนพระราม 3 เป็นทำเลที่ราคาขายของคอนโดฯ เฉลี่ยออกมาถูกสุดในโซนกลางเมือง........</p>
+
+                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/2")?>">View All</a>
                                 </div>
                             </div>
                         </div>
@@ -200,16 +200,14 @@ $this->import('/layout/header');
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentpic">
-                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/Layer-15.png")?>"  />
+                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/tips/01.jpg")?>"  style="max-width: 100%;"  />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentdes">
-                                    <p id="headline">5 Reasons to rent rather than</p>
-                                    <p>Buying a property is one type of investment because you can
-                                        later rent out or resell. Unlike other assets whose values tend
-                                        to depreciate, property.......</p>
-                                    <button class="btn btn-primary">View All</button>
+                                    <p id="headline">เทคนิคการดูแลรักษาเฟอร์นิเจอร์บิ้วท์อิน</p>
+                                    <p>เฟอร์นิเจอร์เป็นทั้งของใช้และของตกแต่งไปในตัว.......</p>
+                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/3")?>">View All</a>
                                 </div>
                             </div>
                         </div>
@@ -219,14 +217,14 @@ $this->import('/layout/header');
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentpic">
-                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/Layer-14.png")?>"  />
+                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/lifea.jpg")?>" style="max-width: 100%;" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentdes">
-                                    <p id="headline">รีวิวโครงการ I CONDO พญาไท</p>
-                                    <p>รีวิวฉบับนี้เป็นของโครงการแถวสถานีรถไฟฟ้า BTS ราชเทวี เป็นคอนโด High Rise ของพฤกษา เรียลเอสเตท รีวิวฉบับนี้เป็นของโครงการแถวสถานีรถไฟฟ้า BTS ราชเทวี เป็นคอนโด High Rise ของพฤกษา เรียลเอสเตท.......</p>
-                                    <button class="btn btn-primary">View All</button>
+                                    <p id="headline">Life Asoke  คอนโด High Rise</p>
+                                    <p>Life Asoke  คอนโด High Rise โครงการใหม่จาก AP บนถนนอโศก-ดินแดง ใกล้ MRT เพชรบุรี และ Airport Link มักกะสัน</p>
+                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/1")?>">View All</a>
                                 </div>
                             </div>
                         </div>
