@@ -6,6 +6,11 @@ $this->import('/layout/header');
 {
   height: 17px;
 }
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
 </style>
 <div class="slide">
     <div class="carousel slide" data-ride="carousel">
@@ -153,10 +158,10 @@ $this->import('/layout/header');
 <div class="newsletter skrollable skrollable-between">
     <div class="container" id="subscribe">
         <div class="row">
-            <div class="col-lg-6">
-                <p id="letter">Newsletter Sign up</p>
+            <div style="display: inline-block;" id="letter">
+                Newsletter Sign up
             </div>
-            <div class="col-lg-3" style="margin-top: 10px; margin-left: -120px;">
+            <div style="margin-top: 10px; margin-left: 20px; display: inline-block; width: 262px;">
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Your Email address" style="font-size: 22px;"/>
                     <span class="input-group-btn">
@@ -287,6 +292,11 @@ $this->import('/layout/header');
 </div>
 <script>
     $(function(){
+      var ua = navigator.userAgent;
+
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(ua)){}
+      else if (/Chrome/i.test(ua))
+      {
         var $el = $('.newsletter');
         var wH = $(window).height();
         var top = $el.offset().top - wH;
@@ -303,6 +313,7 @@ $this->import('/layout/header');
                 mobileDeceleration: 0.004
             });
         },1000);
+      }
     });
 </script>
 <script>
@@ -313,13 +324,13 @@ $this->import('/layout/header');
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(ua)){}
             else if (/Chrome/i.test(ua))
             {
-                var $html = $("html");
-                $html.niceScroll({
-                    spacebarenabled: false
-                });
-
-                $html.css("overflow", "auto");
-                $(".nicescroll-rails").hide();
+                // var $html = $("html");
+                // $html.niceScroll({
+                //     spacebarenabled: false
+                // });
+                //
+                // $html.css("overflow", "auto");
+                // $(".nicescroll-rails").hide();
             }
         });
 

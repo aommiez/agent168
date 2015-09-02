@@ -215,11 +215,9 @@ body{
     height: 190px;
 }
 .newsletter #subscribe{
-    position: absolute;
-    left: 50%;
-    margin-left: -345px;
-    padding-top: 50px;
-    padding-bottom: 30px;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  text-align: center;
 }
 .newsletter #letter{
     /*font-family: 'cocogoose', 'Arial', sans-serif;*/
