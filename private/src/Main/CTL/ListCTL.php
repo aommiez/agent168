@@ -126,7 +126,13 @@ class ListCTL extends BaseCTL {
       $pic = $db->get("property_image", "*", ["property_id"=> $item['id']]);
       if(!$pic){
         $pic = [];
-        $pic['url'] = URL::absolute("/public/images/default-project.png");
+        $path = 'private/src/Main/ThirdParty/uploads/'.$item['project']['image_path'];
+        if(is_file($path)) {
+          $pic['url'] = URL::absolute("/".$path);
+        }
+        else {
+          $pic['url'] = URL::absolute("/public/images/default-project.png");
+        }
       }
       else {
         $pic['url'] = URL::absolute("/public/images/upload/".$pic['name']);

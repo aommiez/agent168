@@ -87,7 +87,7 @@ $this->import('/layout/headProperty');
             <div class="col-md-8">
                 <div class="labelText2 formRight">
                     <div class="labelText labelText2">
-                      <a href="#">
+                      <a href="<?php echo \Main\Helper\URL::absolute("/property/{$item['id']}")?>">
                         <?php echo $item['property_type']['name'];?>
                         <?php echo $item['requirement']['name'];?>
                         <?php echo $item['project']['name'];?>

@@ -1,6 +1,12 @@
 <?php
 $this->import('/layout/header');
 ?>
+<style>
+.slide .carousel-indicators
+{
+  height: 17px;
+}
+</style>
 <div class="slide">
     <div class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -11,7 +17,7 @@ $this->import('/layout/header');
         <div class="carousel-inner" role="listbox">
             <div class="item active"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/slide/slide01.png")?>" /></div>
             <div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/slide/slide02.png")?>" /></div>
-            <div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/slide/slide03.png")?>" /></div>
+            <div class="item"><a href="http://sevenseas.agent168th.com/"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/slide/slide03.png")?>" /></a></div>
         </div>
         <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -88,21 +94,21 @@ $this->import('/layout/header');
         <p>Highlight Properties</p>
         <?php foreach($params['highlight'] as $item){?>
         <div class="highlight">
-            <a class="images-home" href="">
+            <a class="images-home" href="<?php echo \Main\Helper\URL::absolute('/property/'.$item['id']);?>">
               <img src="<?php echo $item['picture']['url'];?>" width="262" height="196" />
             </a>
-            <a class="name" href=""><?php echo $item['project']['name'];?></a>
-            <p class="add">Annapolls</p>
+            <a class="name" href="<?php echo \Main\Helper\URL::absolute('/property/'.$item['id']);?>"><?php echo $item['project']['name'];?></a>
+            <!-- <p class="add">Annapolls</p> -->
             <div class="hr"></div>
-            <p class="sale"><a href="">For Sale</a>
+            <p class="sale"><a href="<?php echo \Main\Helper\URL::absolute('/property/'.$item['id']);?>"><?php echo $item['requirement']['name'];?></a>
               <span class="price">
-              <?php echo number_format($item['sell_price'], 0)." บาท";?>
+              <?php echo number_format($item['requirement_id']==1? $item['sell_price']: $item['rent_price'], 0)." บาท";?>
               </span>
             </p>
-            <div class="detail">
-                <span class="ft">1025 sq ft</span>
-                <span class="bed">4 Beds</span>
-                <span class="bath">2 Baths</span>
+            <div class="detail" style="font-size: 11px;">
+                <span class="ft"><?php echo $item['size']." ".$item['size_unit']['name'];?></span>
+                <span class="bed"><?php echo $item['bedrooms'];?> Beds</span>
+                <span class="bath"><?php echo $item['bathrooms'];?> Baths</span>
             </div>
         </div>
         <?php }?>

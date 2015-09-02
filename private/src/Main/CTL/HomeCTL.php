@@ -49,20 +49,41 @@ class HomeCTL extends BaseCTL {
       foreach($items as &$item) {
         $item['project'] = $this->getProject($item['project_id']);
         $this->_buildThumb($item);
+        $this->_buildSizeUnit($item);
+        $this->_buildRequirement($item);
       }
     }
 
-    public function _buildThumb(&$item) {
+    public function _buildThumb(&$item)
+    {
       $db = MedooFactory::getInstance();
       $pic = $db->get("property_image", "*", ["property_id"=> $item['id']]);
       if(!$pic){
         $pic = [];
-        $pic['url'] = URL::absolute("/public/images/default-project.png");
+        $path = 'private/src/Main/ThirdParty/uploads/'.$item['project']['image_path'];
+        if(is_file($path)) {
+          $pic['url'] = URL::absolute("/".$path);
+        }
+        else {
+          $pic['url'] = URL::absolute("/public/images/default-project.png");
+        }
       }
       else {
         $pic['url'] = URL::absolute("/public/images/upload/".$pic['name']);
       }
       $item['picture'] = $pic;
+    }
+
+    public function _buildSizeUnit(&$item)
+    {
+      $db = MedooFactory::getInstance();
+      $item['size_unit'] = $db->get("size_unit", "*", ["id"=> $item['size_unit_id']]);
+    }
+
+    public function _buildRequirement(&$item)
+    {
+      $db = MedooFactory::getInstance();
+      $item['requirement'] = $db->get("requirement", "*", ["id"=> $item['requirement_id']]);
     }
 
     public function getProject($id)
