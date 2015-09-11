@@ -63,6 +63,11 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
 
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;
+        $scope.collection.project = data.project.sort(function(a, b) {
+          if(a.name < b.name) return -1;
+          if(a.name > b.name) return 1;
+          return 0;
+        });
     });
 
     $scope.remove = function(id){
@@ -139,6 +144,12 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
 
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;
+        $scope.collection.project = data.project.sort(function(a, b) {
+          if(a.name < b.name) return -1;
+          if(a.name > b.name) return 1;
+          return 0;
+        });
+
         $scope.form = {};
         $scope.form.property_type_id = $scope.collection.property_type.data[0].id;
         $scope.form.bed_rooms = 'Studio';
@@ -190,8 +201,13 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   $scope.collection = null;
   $scope.thailocation = null;
 
-  $http.get("../api/collection").success(function(collection) {
-    $scope.collection = collection;
+  $http.get("../api/collection").success(function(data) {
+    $scope.collection = data;
+    $scope.collection.project = data.project.sort(function(a, b) {
+      if(a.name < b.name) return -1;
+      if(a.name > b.name) return 1;
+      return 0;
+    });
   });
   $http.get("../api/collection/thailocation").success(function(thailocation) {
     $scope.thailocation = thailocation;
