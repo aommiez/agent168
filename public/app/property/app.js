@@ -224,6 +224,10 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   };
 
   $scope.submit = function() {
+    if(!$scope.form.comment) {
+      alert("please comment when edit");
+      return;
+    }
     $.post("../api/property/edit/" + $routeParams.id, $scope.form, function(data){
       if(data.error) {
         alert(data.error.message);
@@ -281,6 +285,12 @@ app.controller('GalleryCTL', ['$scope', '$http', '$location', '$route', '$routeP
     };
 }]);
 
+app.controller('CommentCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  var propId = $routeParams.id;
+  $http.get("../api/property/" + $routeParams.id + "/comment").success(function(data){
+      $scope.comments = data.data;
+  });
+}]);
 app.directive('datepicker',function($compile){
     return {
         // replace:true,

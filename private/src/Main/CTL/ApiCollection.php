@@ -48,7 +48,7 @@ class ApiCollection extends BaseCTL {
 //
 //        }
 
-        $collection['property_status'] = $db->select("status_type", "*");
+        $collection['property_status'] = $db->select("property_status", "*");
 
         $collection['requirement'] = $db->select("requirement", "*");
 

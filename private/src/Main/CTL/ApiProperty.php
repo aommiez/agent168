@@ -49,54 +49,89 @@ class ApiProperty extends BaseCTL {
 
         $params = $this->reqInfo->params();
         if(!empty($params['property_type_id'])){
-            $where["AND"] = ['property.property_type_id'=> $params['property_type_id']];
+            $where["AND"]['property.property_type_id'] = $params['property_type_id'];
         }
-        if(!empty($params['bed_rooms'])){
-            $where["AND"] = ['property.bed_rooms'=> $params['bed_rooms']];
-        }
-        if(!empty($params['zone_group_id'])){
-            $where["AND"] = ['property.zone_group_id'=> $params['zone_group_id']];
-        }
-        if(!empty($params['duplex'])){
-            $where["AND"] = ['property.duplex'=> $params['duplex']];
-        }
-        if(!empty($params['status'])){
-            $where["AND"] = ['property.status'=> $params['status']];
-        }
-        if(!empty($params['rented_expire'])){
-            $where["AND"] = ['property.rented_expire'=> $params['rented_expire']];
-        }
-        if(!empty($params['transfer_status'])){
-            $where["AND"] = ['property.transfer_status'=> $params['transfer_status']];
-        }
-        if(!empty($params['requirement_type_id'])){
-            if(is_array($params['requirement_type_id']) && count($params['requirement_type_id']) > 0){
-                $where["AND"] = ['property.requirement_type_id'=> $params['requirement_type_id']];
+        if(!empty($params['bedrooms'])){
+            if($params['bedrooms'] == "4+") {
+              $where["AND"]['property.bedrooms[>=]'] = $params['bedrooms'];
+            }
+            else {
+              $where["AND"]['property.bedrooms'] = $params['bedrooms'];
             }
         }
-        if(!empty($params['developer_id'])){
-            $where["AND"] = ['property.developer_id'=> $params['developer_id']];
+        if(!empty($params['requirement_id'])){
+            $where["AND"]['property.requirement_id'] = $params['requirement_id'];
+        }
+        if(!empty($params['project_id'])){
+            $where["AND"]['property.project_id'] = $params['project_id'];
         }
         if(!empty($params['web_status'])){
-            $where["AND"] = ['property.web_status'=> $params['web_status']];
+            $where["AND"]['property.web_status'] = $params['web_status'];
         }
-        if(!empty($params['property_highlight'])){
-            $where["AND"] = ['property.property_highlight'=> $params['property_highlight']];
+        if(!empty($params['property_highlight_id'])){
+            $where["AND"]['property.property_highlight_id'] = $params['property_highlight_id'];
+        }
+        if(!empty($params['feature_unit_id'])){
+            $where["AND"]['property.feature_unit_id'] = $params['feature_unit_id'];
         }
 
 
         // new
         if(!empty($params['web_status'])){
-            $where["AND"] = ['property.web_status'=> $params['web_status']];
+            $where["AND"]['property.web_status'] = $params['web_status'];
         }
         if(!empty($params['reference_id'])){
-            $where["AND"] = ['property.reference_id'=> $params['reference_id']];
+            $where["AND"]['property.reference_id'] = $params['reference_id'];
+        }
+        if((!empty($params['size_start']) || !empty($params['size_end'])) && !empty($params['size_unit_id'])){
+            $where["AND"]['property.size_unit_id'] = $params['size_unit_id'];
+
+            if(!empty($params['size_start'])) {
+              $where["AND"]['property.size[>=]'] = $params['size_start'];
+            }
+            if(!empty($params['size_end'])) {
+              $where["AND"]['property.size[<=]'] = $params['size_end'];
+            }
         }
 
+        // sell price
+        if(!empty($params['sell_price_start'])) {
+          $where["AND"]['property.sell_price[>=]'] = $params['sell_price_start'];
+        }
+        if(!empty($params['sell_price_end'])) {
+          $where["AND"]['property.sell_price[<=]'] = $params['sell_price_end'];
+        }
+
+        // rent price
+        if(!empty($params['rent_price_start'])) {
+          $where["AND"]['property.rent_price[>=]'] = $params['rent_price_start'];
+        }
+        if(!empty($params['rent_price_end'])) {
+          $where["AND"]['property.rent_price[<=]'] = $params['rent_price_end'];
+        }
+
+        // vat
+        if(!empty($params['inc_vat'])) {
+          $where["AND"]['property.inc_vat'] = $params['inc_vat'];
+        }
+
+        // address_no
+        if(!empty($params['address_no'])) {
+          $where["AND"]['property.address_no[~]'] = $params['address_no'];
+        }
+
+        // status
+        if(!empty($params['property_status_id'])) {
+          $where["AND"]['property.property_status_id'] = $params['property_status_id'];
+        }
 
         $page = !empty($params['page'])? $params['page']: 1;
+        $orderType = !empty($params['orderType'])? $params['orderType']: "DESC";
+        $orderBy = !empty($params['orderBy'])? $params['orderBy']: "updated_at";
+        $order = "{$orderBy} {$orderType}";
 
         if(count($where["AND"]) > 0){
+            $where['ORDER'] = $order;
             $list = ListDAO::gets($this->table, [
                 "field"=> $field,
                 "join"=> $join,
@@ -110,6 +145,7 @@ class ApiProperty extends BaseCTL {
                 "field"=> $field,
                 "join"=> $join,
                 "page"=> $page,
+                'where'=> ["ORDER"=> $order],
                 "limit"=> 15
             ]);
         }
@@ -181,6 +217,10 @@ class ApiProperty extends BaseCTL {
         if(trim($set['contract_expire']) == "") $set['contract_expire'] = null;
         if(trim($set['rented_expire']) == "") $set['rented_expire'] = null;
 
+        if(isset($set['comment'])) {
+          unset($set['comment']);
+        }
+
         $where = ["id"=> $id];
 
         $db = MedooFactory::getInstance();
@@ -189,6 +229,10 @@ class ApiProperty extends BaseCTL {
         if(!$updated){
             return ResponseHelper::error("Error can't update property.");
         }
+
+        $commentStr = trim($params['comment']);
+        $db->insert("property_comment", ["property_id"=> $id, "comment"=> $commentStr, "updated_at"=> date('Y-m-d H:i:s')]);
+
         return ["success"=> true];
     }
 
@@ -364,6 +408,23 @@ class ApiProperty extends BaseCTL {
         }
 
         return ["success"=> true];
+    }
+
+    /**
+    * @GET
+    * @uri /[i:id]/comment
+    */
+    public function getComments()
+    {
+      $id = $this->reqInfo->urlParam("id");
+      $list = ListDAO::gets("property_comment", [
+          "limit"=> 100,
+          "where"=> [
+              "property_id"=> $id
+          ]
+      ]);
+
+      return $list;
     }
 
     public function _buildImage(&$item){

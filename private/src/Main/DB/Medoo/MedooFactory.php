@@ -33,7 +33,8 @@ class MedooFactory {
                 'port' => AppConfig::get($paramPath.'.port'),
                 'charset' => AppConfig::get($paramPath.'.charset'),
                 'option' => [
-                    \PDO::ATTR_CASE => \PDO::CASE_NATURAL
+                    \PDO::ATTR_CASE => \PDO::CASE_NATURAL,
+                    \PDO::ATTR_EMULATE_PREPARES => false
                 ]
             ]);
         }
