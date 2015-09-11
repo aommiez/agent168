@@ -231,7 +231,13 @@ class ApiProperty extends BaseCTL {
         }
 
         $commentStr = trim($params['comment']);
-        $db->insert("property_comment", ["property_id"=> $id, "comment"=> $commentStr, "updated_at"=> date('Y-m-d H:i:s')]);
+        $db->insert("property_comment",
+          [
+            "property_id"=> $id,
+            "comment"=> $commentStr,
+            "comment_by"=> 0,
+            "updated_at"=> date('Y-m-d H:i:s')
+            ]);
 
         return ["success"=> true];
     }
