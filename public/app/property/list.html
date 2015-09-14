@@ -195,8 +195,8 @@
     </div>
     <div>
         <a href="#add" class="btn btn-primary">Add</a>
-        <a class="btn btn-primary" id="add_excel-btn" ng-click="addExcelClick()">{{inputExcelText}}</a>
-        <input type="file" class="hidden" id="add_excel-input">
+        <!-- <a class="btn btn-primary" id="add_excel-btn" ng-click="addExcelClick()">{{inputExcelText}}</a> -->
+        <!-- <input type="file" class="hidden" id="add_excel-input"> -->
     </div>
     <div>
         <table class="table table-striped table-hover ">
@@ -230,7 +230,7 @@
                 <td>{{prop.property_status_name}}</td>
                 <td><a href="#/{{prop.id}}/gallery">images</a></td>
                 <td>
-                  <a class="xcrud-action btn btn-warning btn-sm" href="#edit/{{prop.id}}"><i class="glyphicon glyphicon-edit"></i></a>
+                  <a class="xcrud-action btn btn-warning btn-sm" href="#edit/{{prop.id}}" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
                   <a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a>
                 </td>
             </tr>
