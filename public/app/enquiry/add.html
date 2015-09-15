@@ -1,50 +1,347 @@
-<form class="form" ng-controller="AddCTL" ng-submit="addSubmit()">
-    <fieldset ng-disabled="isSaving">
-      <div class="row">
-        <div class="col-md-4 form-group">
-          <label>Property Type</label>
-          <select class="form-control"
-          ng-model="form.property_type_id"
-          ng-options="item.id as item.name for item in collection.property_type"
-          required>
-              <option value="">Please select</option>
-          </select>
-        </div>
-        <div class="col-md-4 form-group">
-          <label>Project</label>
-          <select class="form-control"
-          ng-model="form.project_id"
-          ng-options="item.id as item.name for item in collection.project"
-          >
-              <option value="">Please select</option>
-          </select>
-        </div>
-        <div class="col-md-4 form-group">
-          <label>Project</label>
-          <select class="form-control"
-          ng-model="form.project_id"
-          ng-options="item.id as item.name for item in collection.project"
-          >
-              <option value="">Please select</option>
-          </select>
-        </div>
-        <div class="col-md-4 form-group">
-          <label>Project</label>
-          <select class="form-control"
-          ng-model="form.project_id"
-          ng-options="item.id as item.name for item in collection.project"
-          >
-              <option value="">Please select</option>
-          </select>
-        </div>
-        <div class="col-md-4 form-group">
-          <label>Project</label>
-          <select class="form-control"
-          ng-model="form.project_id"
-          ng-options="item.id as item.name for item in collection.project"
-          >
-              <option value="">Please select</option>
-          </select>
-        </div>
-    </fieldset>
-</form>
+<link href="../public/app/enquiry/add.css" rel="stylesheet">
+
+<div class="container">
+	<ul class="nav nav-tabs tabs-add" >
+    	<li class="active"><a href="">Enquiry</a></li>
+    	<li><a href="">Match Property</a></li>
+    	<li><a href="">Touring Report</a></li>
+  	</ul><!-- nav-tab-->
+
+  	<div class="tab-content">
+    	<div id="enquiry" class="tab-pane fade in active tab-1">
+      		<div class="row detail-create">
+            	<div class="col-md-5">
+                	<div class="enq-id">
+                    	<span><i class="id"><strong>Enquiry ID:</strong></i>
+                        <i class="num-id">S07031520</i></span>
+                        <i class="name-id">Rangsilkarn Maneerungraungroj</i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                	<div class="remark">
+                    	<i class="rm"><strong>Remark:</strong></i>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                	<div class="rating">
+                    	<i class="col-md-2 rat"><strong>Rating:</strong> N/A</i>
+                        <ul class="col-md-2 member">
+                        	<li>sale</li>
+                            <li>customer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div><!--row-->
+            <div class="row detail-type">
+            	<div class="col-md-12 form-group">
+                  <label for="type">Enquiry Type</label><strong>:</strong>
+                  <select class="form-control" id="type">
+                    <option>Individual</option>
+                    <option>Investment</option>
+                  </select>
+				</div>
+                <div class="col-md-6">
+               		<form class="form-inline" role="form">
+                  		<div class="form-group">
+                            <label for="costomer-name">Customer 1</label><strong>: </strong>
+                            <input type="text" class="form-control" id="name" placeholder="name , tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="costomer-name">Customer 2</label><strong>: </strong>
+                            <input type="text" class="form-control" id="name" placeholder="name , tel">
+                        </div>
+                    </form>
+            	</div>
+                <div class="col-md-6">
+               		<form class="form-inline" role="form">
+                  		<div class="form-group">
+                            <label for="contact-sale">Contact (sale) 1</label><strong>: </strong>
+                            <input type="text" class="form-control" id="contact">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-sale">Contact (sale) 2</label><strong>: </strong>
+                            <input type="text" class="form-control" id="contact">
+                        </div>
+                    </form>
+            	</div>
+                <div id="owner" class="col-md-6">
+               		<form class="form-inline" role="form">
+                  		<div class="form-group">
+                            <label for="contact-owner">Contact (Owner)</label><strong>: </strong>
+                            <input type="text" class="form-control">
+                        </div>
+                    </form>
+            	</div>
+                <div class="col-md-12 hr"></div>
+                
+                <div class="col-md-6">
+                	<div class="form-group">
+                  		<i class="col-md-6 box-1"><label for="type">Requirement Type</label><strong>:</strong></i>
+                        <i class="col-md-5 box-2">
+                        	<select class="form-control">
+                            	<option>Want to buy</option>
+                            	<option>...</option>
+                            	<option>...</option>
+                          	</select>
+                       		<span><input type="checkbox" value=""> With Tenants</span>
+                        </i>
+                    </div>
+                    
+                  	<div class="form-group">
+                    	<i class="col-md-6 box-1"><label for="type">Property Type</label><strong>:</strong></i>
+                      	<i class="col-md-5 box-2">
+                        	<select class="form-control">
+                        		<option>Condominium</option>
+                        		<option>...</option>
+                        		<option>...</option>
+                      		</select>
+                    	</i>
+                    </div>
+                    
+                  	<div class="form-group">
+                  		<i class="col-md-6 box-1"><label for="type">Branch</label><strong>:</strong></i>
+                  		<i class="col-md-5 box-2">
+                        	<select class="form-control">
+                    			<option>Bangkok</option>
+                    			<option>...</option>
+                    			<option>...</option>
+                  			</select>
+                    	</i>
+                  	</div>
+                    <div class="form-group">
+                  		<i class="col-md-6 box-1"><label for="type">Project</label><strong>:</strong></i>
+                  		<i class="col-md-5 box-2">
+                        	<select class="form-control">
+                    			<option>AP</option>
+                    			<option>...</option>
+                    			<option>...</option>
+                  			</select>
+                    	</i>
+					</div>
+                    <div class="form-group">
+            	        <i class="col-md-6 box-1"><label>Buying Budget</label><strong>:</strong></i>
+           	            <i class="col-md-5 box-2">
+       	                	<span><input type="text" class="form-control"> to 
+                      		<input type="text" class="form-control"></span>
+                      	</i>
+                    </div>
+                    <div class="form-group">
+            	        <i class="col-md-6 box-1"><label>Rental Budget</label><strong>:</strong></i>
+           	            <i class="col-md-5 box-2">
+       	                	<span><input type="text" class="form-control"> to 
+                      		<input type="text" class="form-control"></span>
+                      	</i>
+                    </div>
+                    <div class="form-group">
+            	        <i class="col-md-6 box-1"><strong>Exact location required:</strong></i>
+           	            <i class="col-md-5 box-2">
+       	                	<textarea class="form-control" rows="2" id="comment"></textarea>
+                      	</i>
+                    </div>
+                </div><!--col-md-6-->  
+                <div class="col-md-6">
+                	<div class="form-group">
+            	        <i class="col-md-3 box-1"><strong>No. of bed Roooms: </strong></i>
+           	            <i class="col-md-8 box-2">
+       	                	<input type="text" class="form-control">
+                      		<span><input type="checkbox" value=""> Studio</span>
+                      	</i>
+                    </div>
+                	<div class="form-group">
+                 		<i class="col-md-3 box-1"><strong>Size: </strong></i>
+                    	<i class="col-md-8 box-2">
+                        	<input type="text" class="form-control">
+                  			<select class="form-control size">
+                    			<option>Sq.m</option>
+                    			<option>...</option>
+                    			<option>...</option>
+                  			</select>
+                    	</i>
+                  	</div>
+                    <div class="form-group">
+                 		<i class="col-md-3 box-1"><strong>Nearest BTS: </strong></i>
+                  		<i class="col-md-8 box-2">
+                        	<select class="form-control">
+                    			<option>--</option>
+                   				<option>...</option>
+                    			<option>...</option>
+                  			</select>
+                  		</i>
+                     </div>
+                     <div class="form-group">
+             	        <i class="col-md-3 box-1"><strong>Nearest MRT: </strong></i>
+                        <i class="col-md-8 box-2">
+    	                    <select class="form-control">
+	                            <option>--</option>
+                            	<option>...</option>
+                                <option>...</option>
+                            </select>
+                        </i>
+                   	</div>
+                   <div class="form-group">
+            	       <i class="col-md-3 box-1"><strong>Nearest BRT: </strong></i>
+                       <i class="col-md-8 box-2">
+          	             <select class="form-control">
+     	                    <option>--</option>
+                            <option>...</option>
+                            <option>...</option>
+                         </select>
+                     	</i>
+					</div>
+                    <div class="form-group">
+            	       <i class="col-md-3 box-1"><strong>Status: </strong></i>
+                       <i class="col-md-8 box-2">
+          	             <select class="form-control">
+     	                    <option>In Progress</option>
+                            <option>...</option>
+                            <option>...</option>
+                         </select>
+                         <select class="form-control case">
+     	                    <option>5% Case Accepted</option>
+                            <option>...</option>
+                            <option>...</option>
+                         </select>
+                         <textarea class="form-control" rows="2" id="comment" style="min-height:50px; margin-top:10px; width:450px;"></textarea>
+                     	</i>
+					</div>
+                    <div class="form-group">
+            	       <i class="col-md-3 box-1"><strong>Zone: </strong></i>
+                       <i class="col-md-8 box-2">
+          	             <select class="form-control">
+     	                    <option>--</option>
+                            <option>...</option>
+                            <option>...</option>
+                         </select>
+                    	</i>
+					</div>
+                    <div class="form-group">
+            	       <i class="col-md-3 box-1"><strong>Period time to purchasing or leasing: </strong></i>
+                       <i class="col-md-8 box-2">
+          	             <select class="form-control">
+     	                    <option>Within a week</option>
+                            <option>Within a month</option>
+                            <option>Within 3 months</option>
+                         </select>
+                     	</i>
+					</div>
+                </div><!--col-md-6-->  
+               <div class="col-md-12 maker">
+               			<fieldset>
+							<legend>Enquiry is the desicion maker</legend>
+                            <div class="col-md-3">
+                                <i class="box-1"><strong>budget for purchases: </strong></i>
+                                <i class="box-2">
+                                    <select class="form-control">
+                                        <option>Please select</option>
+                                        <option>--</option>
+                                        <option>--</option>
+                                    </select>
+                                </i>
+							</div>
+                            <div class="col-md-3">
+                                <i class="box-1"><strong>budget for rent: </strong></i>
+                                <i class="box-2">
+                                     <select class="form-control">
+                                        <option>Please select</option>
+                                        <option>--</option>
+                                        <option>--</option>
+                                    </select>
+                                </i>
+							</div>
+                            <div class="col-md-6 leasing">
+                                <i class="col-md-6 box-1"><strong>The reason for purchasing or leasing new residence: </strong></i>
+                                <i class="col-md-6 box-2">
+                                    <select class="form-control">
+                                        <option>Convenience for trar</option>
+                                        <option>Residential</option>
+                                        <option>New couple</option>
+                                        <option>Convenience for traffic</option>
+                                        <option>Investment</option>
+                                    </select>
+                                </i>
+							</div>
+                   	 	</fieldset>
+               </div>
+        	</div><!--detail-type-->
+            <div class="row detail-type">
+            	<div class="col-md-12 specific">
+                	<div class="col-md-2">
+                    	<p><label>Specific requirement</label><strong>:</strong></p>
+                    </div>
+                    <div class="col-md-3">
+                    	<div><input type="checkbox" value=""> Fully Furnish / ตกแต่งครบ</div>
+                        <div><input type="checkbox" value=""> Near park / ใกล้สวนสาธรณะ</div>
+                        <div><input type="checkbox" value=""> Near airport / ใกล้สนามบิน</div>
+                        <div><input type="checkbox" value=""> No / ไม่มี</div>
+                    </div>
+                    <div class="col-md-3">
+                    	<div><input type="checkbox" value=""> Fully hospital / ใกล้โรงพยาบาล</div>
+                        <div><input type="checkbox" value=""> Next to BTS/MRT / ติดรถไฟฟ้า</div>
+                        <div><input type="checkbox" value=""> Next to main road / ติดถนนใหญ่</div>
+                    </div>
+                    <div class="col-md-3">
+                    	<div><input type="checkbox" value=""> Near school / University / ใกล้โรงเรียน</div>
+                        <div><input type="checkbox" value=""> Near shopping mall / ใกล้ห้างสรรพสินค้า</div>
+                        <div>Others / อื่นๆ <input type="text"> </div>
+                    </div>
+                </div>
+            </div><!--detail-type-->
+      		<div class="row detail-type">
+            	<div class="col-md-12">
+            	    <label>Source</label><strong>:</strong>
+                    <select name="firstSelection" id="firstSelection">
+                        <option>--Select--</option>
+                        <option value='online'>Online Marketing</option>
+                        <option value='walkin'>Walkin</option>
+                        <option value='call'>Call</option>
+                        <option value='referal'>Referal</option>
+                        <option value='event'>Event</option>
+                    </select>
+                    <select name="secondSelection" id="online">
+                        <option>Website</option>
+                        <option>Social Media</option>
+                        <option>Online Ads.</option>
+                        <option>Email</option>
+                    </select>
+                    <select name="secondSelection" id="walkin">
+                        <option>Site</option>
+                        <option>Head ofince</option>
+                    </select>
+                    <select name="secondSelection" id="call">
+                        <option>Callcenter</option>
+                        <option>Site</option>
+                    </select>
+                    <select name="secondSelection" id="referal">
+                        <option>Friends</option>
+                        <option>Customers</option>
+                    </select>
+					<select name="thirdSelection" id="website">
+                        <option>agent168th.com</option>
+                        <option>prakard.com</option>
+                        <option>thinkofliving.com</option>
+                        <option>ddproperty.com</option>
+                        <option>kobkid.com</option>
+                        <option>bangkokpost.com</option>
+                    </select>
+                </div><!--col-md-12-->
+                <div class="col-md-12 contact-type">
+                	<label>Contact Type</label><strong>:</strong>
+                    <select>
+                        <option>Online</option>
+                        <option>Walkin</option>
+                        <option>Call</option>
+                    </select>
+                </div><!--col-md-12-->
+                <div class="col-md-12">
+                	<strong>Remark.</strong>
+                	<textarea class="form-control" rows="2" id="comment" style="min-height:80px; margin:10px 0 10px 10px; width:600px; display: inline; vertical-align: middle;"></textarea>
+                </div>
+            </div><!--detail-type-->
+            <div class="col-md-12 comment" style="margin:20px 0; text-align:center;">
+            	<label>Comment/Remark</label><strong>:</strong>
+               	<textarea class="form-control" rows="2" id="comment" style="min-height:100px; margin-top:10px; margin-left:10px; width:1000px; display: inline; vertical-align: middle; background-color: #fff; padding:5px;"></textarea>
+          	     <button class="update" type="submit" style="display:block; margin:20px auto;  background: #009688; color:#fff; border:none; padding:5px 25px; border-radius:5px;">Update</button>
+            </div>
+    	</div><!--enquiry-->
+  	</div><!--tab-conent-->
+</div><!--container-->
