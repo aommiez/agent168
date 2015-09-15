@@ -58,6 +58,9 @@ class AdminCTL extends BaseCTL {
      * @uri /login
      */
     public function postLogin () {
+        $db = MedooFactory::getInstance();
+        $db->get("account");
+
         $email = $this->reqInfo->param('email');
         $password = $this->reqInfo->param('password');
         if($email == 'admin@admin.com' && $password == '111111') {

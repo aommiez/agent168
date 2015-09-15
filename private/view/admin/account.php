@@ -13,5 +13,5 @@ use Main\ThirdParty\Xcrud\Xcrud;
 
 $xcrud = Xcrud::get_instance();
 $xcrud->table('account');
+$xcrud->relation('level_id', 'level', 'id', 'name');
 echo $xcrud->render();
-?>
