@@ -75,15 +75,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">Transfer Status</label>
-                                    <select class="form-control" ng-model="form.transfer_status">
-                                        <option value="">All</option>
-                                        <option>Booking-Form</option>
-                                        <option>Right</option>
-                                        <option>Ownership</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label">Requirement Type</label>
                                     <div>
                                         <label ng-repeat="item in collection.requirement_type.data" style="margin-right: 2px;">
@@ -100,24 +91,6 @@
                                     <select class="form-control" ng-model="form.developer_id"
                                             ng-options="item.id as item.name for item in collection.developer.data">
                                         <option value="">All</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Web Status</label>
-                                    <select class="form-control" ng-model="form.web_status">
-                                        <option value="">All</option>
-                                        <option>Offline</option>
-                                        <option>Online</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Property Highlight</label>
-                                    <select class="form-control" ng-model="form.property_highlight">
-                                        <option value="">All</option>
-                                        <option selected>Sale at Lost and Plus</option>
-                                        <option>Sale at Cost</option>
-                                        <option>Sale under market price</option>
-                                        <option>made over already</option>
                                     </select>
                                 </div>
                             </div>

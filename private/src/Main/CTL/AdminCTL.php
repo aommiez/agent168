@@ -60,17 +60,28 @@ class AdminCTL extends BaseCTL {
      */
     public function postLogin () {
         $db = MedooFactory::getInstance();
-        $db->get("account");
 
         $email = $this->reqInfo->param('email');
         $password = $this->reqInfo->param('password');
-        if($email == 'admin@admin.com' && $password == '111111') {
-          $_SESSION['login'] = "admin@admin.com";
-          return new JsonView(["success"=> true]);
+
+        $account = $db->get("account", "*", ["email"=> $email]);
+
+        if(!$account) {
+          unset($_SESSION['login']);
+          return new JsonView(["error"=> ["message"=> "Not found email"]]);
+        }
+        else if($account['password'] != $password) {
+          unset($_SESSION['login']);
+          return new JsonView(["error"=> ["message"=> "Wrong password"]]);
         }
         else {
-          unset($_SESSION['login']);
-          return new JsonView(["error"=> ["message"=> "Login failed username or password wrong"]]);
+          $now = date('Y-m-d H:i:s');
+          $db->update("account", ['last_login'=> $now], ['id'=> $account['id']]);
+          $level = $db->get("level", "*", ["id"=> $account['level_id']]);
+          $account['last_login'] = $now;
+          $account['level'] = $level;
+          $_SESSION['login'] = $account;
+          return new JsonView(["success"=> true]);
         }
     }
 }

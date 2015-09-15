@@ -155,7 +155,21 @@ $this->import("/admin/layout/header");
                 <span class="bar"></span>
                 <span class="bar"></span>
             </a>
-
+            <div class="navbar" style="margin-left: 26px; padding: 0 30px;">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><?php echo $_SESSION['login']['email'];?> [<?php echo $_SESSION['login']['level']['name'];?>]</a></li>
+                <!-- <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </li> -->
+              </ul>
+            </div>
             <div class="content">
                 <?php
                 if (empty($params['view'])) {
