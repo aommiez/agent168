@@ -9,7 +9,7 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
     function($routeProvider, cfpLoadingBarProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: '../public/app/property/list.html'
+                templateUrl: '../public/app/property/list.php'
             }).
             when('/add', {
                 templateUrl: '../public/app/property/add.html'

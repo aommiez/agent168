@@ -1,3 +1,4 @@
+<?php session_start();?>
 <div ng-controller="ListCTL">
     <div>
             <div class="panel panel-primary">
@@ -194,7 +195,7 @@
             </div>
     </div>
     <div>
-        <a href="#add" class="btn btn-primary">Add</a>
+        <?php if(@$_SESSION['login']['level_id'] <= 2){?><a href="#add" class="btn btn-primary">Add</a><?php }?>
         <!-- <a class="btn btn-primary" id="add_excel-btn" ng-click="addExcelClick()">{{inputExcelText}}</a> -->
         <!-- <input type="file" class="hidden" id="add_excel-input"> -->
     </div>

@@ -150,6 +150,8 @@ class ApiProperty extends BaseCTL {
             ]);
         }
 
+        $this->_builds($list['data']);
+
         return $list;
     }
 
@@ -393,7 +395,22 @@ class ApiProperty extends BaseCTL {
       $id = $this->reqInfo->urlParam("id");
       $db = MedooFactory::getInstance();
       $item = $db->get("property", "*", ["id"=> $id]);
+      $this->_build($item);
       return $item;
+    }
+
+    public function _builds(&$items)
+    {
+      foreach($items as &$item) {
+        $this->_build($item);
+      }
+    }
+
+    public function _build(&$item)
+    {
+      if(@$_SESSION['login']['level_id'] > 2) {
+        $item['owner'] = "";
+      }
     }
 
     /**

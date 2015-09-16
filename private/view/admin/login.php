@@ -80,7 +80,7 @@ $this->import("/admin/layout/header");
 
             <div class="box">
                 <form data-toggle="validator" role="form" name="loginForm" id="loginForm">
-                    <input type="email" placeholder="email" required name="email">
+                    <input type="text" placeholder="username" required name="username">
                     <input type="password" placeholder="password" required name="password">
                     <button class="btn btn-primary full-width"><span class="glyphicon glyphicon-ok"></span></button>
                 </form>

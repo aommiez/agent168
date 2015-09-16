@@ -107,10 +107,7 @@ class ApiEnquiry extends BaseCTL {
     public function add () {
         $params = $this->reqInfo->params();
         $insert = ArrayHelper::filterKey([
-            "customer_id", "bed_rooms", "buying_budget_end", "buying_budget_start", "comment","decision", "developer_id", "enquiry_budget_payment_id",
-            "enquiry_budget_purchases_id", "enquiry_plan_tobuy_id", "enquiry_reason_id", "enquiry_status_id", "exact_location_require", "property_type_id", "rating",
-            "remark", "rental_budget_end", "rental_budget_start", "requirement_type_id", "size_end", "size_start", "size_start", "zone_1_id", "zone_2_id",
-            "zone_group_1_id", "zone_group_2_id"
+          
         ], $params);
         $insert['created_at'] = date('Y-m-d H:i:s');
         $insert['updated_at'] = $insert['created_at'];
@@ -136,85 +133,5 @@ class ApiEnquiry extends BaseCTL {
         }
 
         return ["success"=> true];
-    }
-
-    /**
-     * @GET
-     * @uri /[i:id]/gallery
-     */
-    public function getGallery(){
-        $id = $this->reqInfo->urlParam("id");
-
-        $list = ListDAO::gets("property_image", [
-            "limit"=> 100,
-            "where"=> [
-                "property_id"=> $id
-            ]
-        ]);
-
-        $this->_buildImages($list["data"]);
-
-        return $list;
-    }
-
-    /**
-     * @POST
-     * @uri /[i:id]/gallery
-     */
-    public function postGallery(){
-        $id = $this->reqInfo->urlParam("id");
-
-        $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);
-        $pathresolver = new \FileUpload\PathResolver\Simple('public/images/upload');
-        $filesystem = new \FileUpload\FileSystem\Simple();
-        $filenamegenerator = new \FileUpload\FileNameGenerator\Random();
-
-        $fileupload = new \FileUpload\FileUpload($_FILES['images'], $_SERVER);
-        $fileupload->setPathResolver($pathresolver);
-        $fileupload->setFileSystem($filesystem);
-        $fileupload->addValidator($validator);
-
-        $fileupload->setFileNameGenerator($filenamegenerator);
-
-        list($files, $headers) = $fileupload->processAll();
-
-        $db = MedooFactory::getInstance();
-        foreach($files as $file){
-            if($file->error == 0){
-                $db->insert("property_image", ["property_id"=> $id, "name"=> $file->name]);
-            }
-        }
-
-        return ["success"=> true];
-    }
-
-    /**
-     * @DELETE
-     * @uri /[i:id]/gallery
-     */
-    public function deleteGallery(){
-        $id = $this->reqInfo->urlParam("id");
-        $params = $this->reqInfo->inputs();
-
-        if(!is_array($params['id'])){
-            $params['id'] = [$params['id']];
-        }
-
-        $db = MedooFactory::getInstance();
-        foreach($params['id'] as $imgId){
-            $db->delete("property_image", ["AND"=> ["property_id"=> $id, "id"=> $imgId]]);
-        }
-
-        return ["success"=> true];
-    }
-
-    public function _buildImage(&$item){
-        $item['url'] = URL::absolute("/public/images/upload/".$item['name']);
-    }
-
-    public function _buildImages(&$items){
-        foreach($items as $key=> $value){
-            $this->_buildImage($items[$key]);
-        }
     }
 }

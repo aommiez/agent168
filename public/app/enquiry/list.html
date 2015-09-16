@@ -8,93 +8,144 @@
                 <div class="panel-body">
                     <form ng-submit="filterItems()">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Enquiry No.</label>
-                                    <div>
-                                        <input type="text" class="form-control" ng-model="form.id">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Property Type</label>
-                                    <select class="form-control"
-                                        ng-options="item.id as item.name for item in collection.property_type.data"
-                                        ng-model="form.property_type_id">
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Bed rooms</label>
-                                    <select class="form-control" name="bed_rooms" ng-model="form.bed_rooms">
-                                        <option value="">All</option>
-                                        <option value="Studio">Studio</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Zone</label>
-                                    <select class="form-control"
-                                            name="zone"
-                                            ng-options="item.id as item.name for item in collection.zone_group.data"
-                                            ng-model="form.zone_group_id">
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Duplex</label>
-                                    <select class="form-control"
-                                            ng-model="form.duplex">
-                                        <option value="">All</option>
-                                        <option value="Duplex" selected>Duplex</option>
-                                        <option value="Non-Deplex">Non-Deplex</option>
-                                    </select>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Status</label>
-                                    <select class="form-control" ng-model="form.status">
-                                        <option value="">All</option>
-                                        <option value="Available" selected>Available</option>
-                                        <option value="Non-Available">Non-Available</option>
-                                        <option value="Prebook">Prebook</option>
-                                        <option value="Sold">Sold</option>
-                                        <option value="Rented">Rented</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Rented Expire</label>
-                                    <select class="form-control" ng-model="form.rented_expire">
-                                        <option value="">All</option>
-                                        <option>30-60 days</option>
-                                        <option>< 30 days</option>
-                                        <option>Expired</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Requirement Type</label>
-                                    <div>
-                                        <label ng-repeat="item in collection.requirement_type.data" style="margin-right: 2px;">
-                                            <input
-                                                type="checkbox" name="requirement_type_id[]" ng-model="form.requirement_type_id[$index]" ng-true-value="{{item.id}}">
-                                            {{item.name}}
-                                        </label>
-                                    </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Customer name</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">Developer</label>
-                                    <select class="form-control" ng-model="form.developer_id"
-                                            ng-options="item.id as item.name for item in collection.developer.data">
-                                        <option value="">All</option>
-                                    </select>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
                                 </div>
                             </div>
-                            <div class="col-md-3"></div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="control-label">Enquiry No.</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="form.id">
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
