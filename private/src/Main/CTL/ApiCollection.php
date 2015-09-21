@@ -35,6 +35,13 @@ class ApiCollection extends BaseCTL {
         $collection['key_location'] = $db->select("key_location", "*");
         // $collection['district'] = $db->select("key_location", "*");
 
+        $collection['zone_group'] = $db->select("zone_group", "*");
+        $collection['zone'] = $db->select("zone", "*");
+
+        $collection['bts'] = $db->select("bts", "*");
+        $collection['mrt'] = $db->select("mrt", "*");
+        $collection['airport_link'] = $db->select("airport_link", "*");
+
         // $collection['zone_zone_group'] = ListDAO::gets("zone_zone_group", [
         //     "limit"=> 100
         // ]);
@@ -62,9 +69,8 @@ class ApiCollection extends BaseCTL {
 
         /** enquiry collection */
 
-        $collection['enquiry_status'] = ListDAO::gets("enquiry_status", [
-            "limit"=> 100
-        ]);
+        $collection['enquiry_status'] = $db->select("enquiry_status", "*");
+
         $collection['enquiry_budget_payment'] = ListDAO::gets("enquiry_budget_payment", [
             "limit"=> 100
         ]);

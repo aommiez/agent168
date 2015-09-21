@@ -13,6 +13,10 @@
                               <input type="text" class="form-control" ng-model="form.reference_id">
                           </div>
                           <div class="col-md-4 form-group">
+                              <label>Owner</label>
+                              <input type="text" class="form-control" ng-model="form.owner">
+                          </div>
+                          <div class="col-md-4 form-group">
                               <label class="control-label">Requirement</label>
                               <select class="form-control"
                                   ng-options="item.id as item.name for item in collection.requirement"
@@ -187,7 +191,7 @@
                       </div>
                       <div class="row">
                           <div class="col-md-12">
-                              <button type="submit" class="btn btn-success" ng-click="filterProps()">Filter</button>
+                              <button type="submit" class="btn btn-success" ng-click="filterProps()">Search</button>
                           </div>
                       </div>
                     </form>
@@ -226,8 +230,8 @@
                 </td>
                 <td>{{prop.requirement_name}}</td>
                 <td>{{prop.size}} {{prop.size_unit_name}}</td>
-                <td><span ng-hide="!prop.sell_price">${{prop.sell_price}}</span></td>
-                <td><span ng-hide="!prop.rent_price">${{prop.rent_price}}</span></td>
+                <td><span ng-hide="!prop.sell_price">฿{{commaNumber(prop.sell_price)}}</span></td>
+                <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
                 <td>{{prop.property_status_name}}</td>
                 <td><a href="#/{{prop.id}}/gallery">images</a></td>
                 <td>

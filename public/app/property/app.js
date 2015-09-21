@@ -4,6 +4,13 @@
 
 "use strict";
 
+function numberWithCommas(x) {
+  if(!x) {
+     return "";
+  }
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 var app = angular.module('property-app', ['ngRoute', 'angular-loading-bar']);
 app.config(['$routeProvider', 'cfpLoadingBarProvider',
     function($routeProvider, cfpLoadingBarProvider) {
@@ -12,10 +19,10 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
                 templateUrl: '../public/app/property/list.php'
             }).
             when('/add', {
-                templateUrl: '../public/app/property/add.html'
+                templateUrl: '../public/app/property/add.php'
             })
             .when('/edit/:id', {
-                templateUrl: '../public/app/property/edit.html'
+                templateUrl: '../public/app/property/edit.php'
             }).
             when('/:id/gallery', {
                 templateUrl: '../public/app/property/gallery.html'
@@ -122,6 +129,8 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
 
         $scope.$apply();
     });
+
+    $scope.commaNumber = numberWithCommas;
 }]);
 
 
@@ -141,6 +150,13 @@ function getDate(date){
 
 app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http, $location){
     $scope.isSaving = false;
+    $scope.initSuccess = false;
+    var itv = setInterval(function() {
+      if($scope.collection && $scope.thailocation) {
+        $scope.initSuccess = true;
+        clearInterval(itv);
+      }
+    }, 100);
 
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;
@@ -149,42 +165,52 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
           if(a.name > b.name) return 1;
           return 0;
         });
-
-        $scope.form = {};
-        $scope.form.property_type_id = $scope.collection.property_type.data[0].id;
-        $scope.form.bed_rooms = 'Studio';
-        $scope.form.developer_id = $scope.collection.developer.data[0].id;
-        $scope.form.zone_group_id = $scope.collection.zone_group.data[0].id;
-        $scope.form.duplex = "Duplex";
-        $scope.form.status = 'Available';
-        $scope.form.rented_expire = getDate(new Date());
-        $scope.form.transfer_status='Booking-Form';
-        $scope.form.requirement_type_id = $scope.collection.requirement_type.data[0].id;
-        $scope.form.size_unit_id = $scope.collection.size_unit.data[0].id;
-        $scope.form.web_status = 'Offline';
-        $scope.form.property_highlight = 'Sale at Lost and Plus';
-        $scope.form.feature_unit = 'Best Buy';
     });
 
-    $scope.addSubmit = function(){
-        var fd = new FormData();
-        angular.forEach($scope.form, function(value, key) {
-            fd.append(key, value);
-        });
-        angular.forEach($scope.images, function(value, key) {
-            fd.append('images['+key+']', value);
-        });
+    $http.get("../api/collection/thailocation").success(function(thailocation) {
+      $scope.thailocation = thailocation;
+    });
 
-        $scope.isSaving = true;
-        $http.post("../api/property", fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).success(function(data){
-            $scope.isSaving = false;
-            if(typeof data.error == 'undefined'){
-                $location.path("/");
-            }
-        });
+    $scope.getDistrict = function() {
+      if(!$scope.initSuccess) return [];
+      return $scope.thailocation.district.filter(function(item){
+        return item.province_id == $scope.form.province_id;
+      });
+    };
+    $scope.getSubDistrict = function() {
+      if(!$scope.initSuccess) return [];
+      return $scope.thailocation.sub_district.filter(function(item){
+        return item.
+        district_id == $scope.form.district_id;
+      });
+    };
+
+    $scope.submit = function(){
+        // var fd = new FormData();
+        // angular.forEach($scope.form, function(value, key) {
+        //     fd.append(key, value);
+        // });
+
+      //   $scope.isSaving = true;
+      //   $http.post("../api/property", $scope.form
+      //   // , {
+      //   //     transformRequest: angular.identity,
+      //   //     headers: {'Content-Type': undefined}
+      //   // }
+      // ).success(function(data){
+      //       $scope.isSaving = false;
+      //       if(typeof data.error == 'undefined'){
+      //           $location.path("/");
+      //       }
+      //   });
+      $.post("../api/property", $scope.form, function(data){
+        if(data.error) {
+          alert(data.error.message);
+          return;
+        }
+
+        window.location.hash = "/";
+      }, 'json');
     };
 
     $scope.images = [];
@@ -235,7 +261,8 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   $scope.getSubDistrict = function() {
     if(!$scope.initSuccess) return [];
     return $scope.thailocation.sub_district.filter(function(item){
-      return item.district_id == $scope.form.district_id;
+      return item.
+      district_id == $scope.form.district_id;
     });
   };
 
@@ -244,7 +271,17 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
       alert("please comment when edit");
       return;
     }
-    $.post("../api/property/edit/" + $routeParams.id, $scope.form, function(data){
+    var form;
+    if($scope.editAllow) {
+      form = $scope.form;
+    }
+    else {
+      form = {
+        comment: $scope.form.comment
+      };
+    }
+
+    $.post("../api/property/edit/" + $routeParams.id, form, function(data){
       if(data.error) {
         alert(data.error.message);
         return;

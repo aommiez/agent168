@@ -83,6 +83,9 @@ class ApiProperty extends BaseCTL {
         if(!empty($params['reference_id'])){
             $where["AND"]['property.reference_id'] = $params['reference_id'];
         }
+        if(!empty($params['owner'])){
+            $where["AND"]['property.owner[~]'] = $params['owner'];
+        }
         if((!empty($params['size_start']) || !empty($params['size_end'])) && !empty($params['size_unit_id'])){
             $where["AND"]['property.size_unit_id'] = $params['size_unit_id'];
 
@@ -161,38 +164,60 @@ class ApiProperty extends BaseCTL {
     public function add () {
         $params = $this->reqInfo->params();
         $insert = ArrayHelper::filterKey([
-            "property_type_id", "bed_rooms", "selling_price", "zone_group_id", "duplex","status", "rented_expire", "transfer_status",
-            "requirement_type_id", "developer_id", "size_start", "size_end", "size_unit_id", "rental_price_start", "rental_price_end",
-            "web_status", "inc_vat", "address_no", "unit_no", "property_highlight", "feature_unit"
+          "property_type_id", "project_id", "address_no", "floors", "size", "size_unit_id", "bedrooms", "bathrooms",
+          "requirement_id", "contract_price", "sell_price", "net_sell_price", "rent_price", "net_rent_price", "owner",
+          "key_location_id", "zone_id", "road", "province_id", "district_id", "sub_district_id", "bts_id", "mrt_id",
+          "airport_link_id", "property_status_id", "contract_expire", "web_status", "property_highlight_id",
+          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner"
         ], $params);
-        $insert['created_at'] = date('Y-m-d H:i:s');
+
+        if(!isset($insert['property_type_id'])) {
+          return ResponseHelper::error("require property_type_id");
+        }
+        $insert['reference_id'] = $this->_generateReferenceId($insert['property_type_id']);
+        if(!$insert['reference_id']) {
+          return ResponseHelper::error("property_type_id '{$insert['property_type_id']}' is invalid");
+        }
+
+        if(isset($set['contract_expire']) && trim($set['contract_expire']) == "") $set['contract_expire'] = null;
+        if(isset($set['contract_expire']) && trim($set['rented_expire']) == "") $set['rented_expire'] = null;
+
+        $now = date('Y-m-d H:i:s');
+        $insert['created_at'] = $now;
+        $insert['updated_at'] = $now;
+        $insert = array_map(function($item) {
+          if(is_string($item)) {
+            $item = trim($item);
+          }
+          return $item;
+        }, $insert);
 
         $db = MedooFactory::getInstance();
         $id = $db->insert($this->table, $insert);
 
-        if(!$id){
+        if(!$id) {
             return ResponseHelper::error("Error can't add property.");
         }
 
-        $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);
-        $pathresolver = new \FileUpload\PathResolver\Simple('public/images/upload');
-        $filesystem = new \FileUpload\FileSystem\Simple();
-        $filenamegenerator = new \FileUpload\FileNameGenerator\Random();
-
-        $fileupload = new \FileUpload\FileUpload($_FILES['images'], $_SERVER);
-        $fileupload->setPathResolver($pathresolver);
-        $fileupload->setFileSystem($filesystem);
-        $fileupload->addValidator($validator);
-
-        $fileupload->setFileNameGenerator($filenamegenerator);
-
-        list($files, $headers) = $fileupload->processAll();
-
-        foreach($files as $file){
-            if($file->error == 0){
-                $db->insert("property_image", ["property_id"=> $id, "name"=> $file->name]);
-            }
-        }
+        // $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);
+        // $pathresolver = new \FileUpload\PathResolver\Simple('public/images/upload');
+        // $filesystem = new \FileUpload\FileSystem\Simple();
+        // $filenamegenerator = new \FileUpload\FileNameGenerator\Random();
+        //
+        // $fileupload = new \FileUpload\FileUpload($_FILES['images'], $_SERVER);
+        // $fileupload->setPathResolver($pathresolver);
+        // $fileupload->setFileSystem($filesystem);
+        // $fileupload->addValidator($validator);
+        //
+        // $fileupload->setFileNameGenerator($filenamegenerator);
+        //
+        // list($files, $headers) = $fileupload->processAll();
+        //
+        // foreach($files as $file){
+        //     if($file->error == 0){
+        //         $db->insert("property_image", ["property_id"=> $id, "name"=> $file->name]);
+        //     }
+        // }
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
         return $item;
@@ -216,8 +241,8 @@ class ApiProperty extends BaseCTL {
           return $item;
         }, $set);
         $set['updated_at'] = date('Y-m-d H:i:s');
-        if(trim($set['contract_expire']) == "") $set['contract_expire'] = null;
-        if(trim($set['rented_expire']) == "") $set['rented_expire'] = null;
+        if(isset($set['contract_expire']) && trim($set['contract_expire']) == "") $set['contract_expire'] = null;
+        if(isset($set['contract_expire']) && trim($set['rented_expire']) == "") $set['rented_expire'] = null;
 
         if(isset($set['comment'])) {
           unset($set['comment']);
@@ -226,6 +251,12 @@ class ApiProperty extends BaseCTL {
         $where = ["id"=> $id];
 
         $db = MedooFactory::getInstance();
+
+        if(!(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0)) {
+          $set = [
+            'updated_at'=> date('Y-m-d H:i:s')
+          ];
+        }
         $updated = $db->update($this->table, $set, $where);
 
         if(!$updated){
@@ -458,5 +489,41 @@ class ApiProperty extends BaseCTL {
         foreach($items as $key=> $value){
             $this->_buildImage($items[$key]);
         }
+    }
+
+    public function _generateReferenceId($propTypeId)
+    {
+      $db = MedooFactory::getInstance();
+      $propType = $db->get("property_type", "*", ["id"=> $propTypeId]);
+      if(!$propType) {
+        return false;
+      }
+
+      $code = "A".$propType["code"];
+      $dt = new \DateTime();
+      return $this->_generateReferenceId2($code, $dt);
+    }
+
+    public function _generateReferenceId2($code, $dt) {
+      $dtStr = $code.$dt->format('dmy');
+
+      $db = MedooFactory::getInstance();
+      $sql = "SELECT reference_id FROM property WHERE SUBSTRING(reference_id, 1, 8) = '{$dtStr}' ORDER BY reference_id DESC LIMIT 1";
+      $r = $db->query($sql);
+      $row = $r->fetch(\PDO::FETCH_ASSOC);
+      if(!empty($row)) {
+        $n = substr($row['reference_id'], -2);
+        if($n == '99') {
+          $dt->add(new \DateInterval('P1D'));
+          return $this->_generateReferenceId2($code, $dt);
+        }
+        else {
+          $n = intval($n) + 1;
+          return $code.$dt->format("dmy").sprintf("%02d", $n);
+        }
+      }
+      else {
+        return $code.$dt->format("dmy")."00";
+      }
     }
 }

@@ -1,15 +1,16 @@
 <link href="../public/app/enquiry/add.css" rel="stylesheet">
 
-<div class="container">
-	<ul class="nav nav-tabs tabs-add" >
+<div class="container" ng-controller="AddCTL">
+		<!-- <ul class="nav nav-tabs tabs-add" >
     	<li class="active"><a href="">Enquiry</a></li>
     	<li><a href="">Match Property</a></li>
     	<li><a href="">Touring Report</a></li>
-  	</ul><!-- nav-tab-->
+  	</ul> -->
+		<!-- nav-tab-->
 
   	<div class="tab-content">
     	<div id="enquiry" class="tab-pane fade in active tab-1">
-      		<div class="row detail-create">
+      		<!-- <div class="row detail-create">
             	<div class="col-md-5">
                 	<div class="enq-id">
                     	<span><i class="id"><strong>Enquiry ID:</strong></i>
@@ -31,120 +32,129 @@
                         </ul>
                     </div>
                 </div>
-            </div><!--row-->
+            </div> -->
+						<!--row-->
             <div class="row detail-type">
             	<div class="col-md-12 form-group">
                   <label for="type">Enquiry Type</label><strong>:</strong>
-                  <select class="form-control" id="type">
-                    <option>Individual</option>
-                    <option>Investment</option>
+                  <select class="form-control" id="type" ng-model="form.enquiry_type_id" ng-init="form.enquiry_type_id=1" required>
+                    <option value="1">Individual</option>
+                    <option value="2">Investment</option>
+                    <option value="3">Corporate</option>
                   </select>
-				</div>
+							</div>
                 <div class="col-md-6">
-               		<form class="form-inline" role="form">
-                  		<div class="form-group">
-                            <label for="costomer-name">Customer 1</label><strong>: </strong>
-                            <input type="text" class="form-control" id="name" placeholder="name , tel">
-                        </div>
-                        <div class="form-group">
-                            <label for="costomer-name">Customer 2</label><strong>: </strong>
-                            <input type="text" class="form-control" id="name" placeholder="name , tel">
-                        </div>
-                    </form>
+            			<div class="form-group">
+                    <label for="customer-name">Customer</label><strong>: </strong>
+                    <input type="text" class="form-control" id="name" placeholder="name,tel,email" ng-model="form.customer" required>
+                    <br><small style="margin-left: 88px;">คั่นรายละเอียดการติดต่อด้วยลูกน้ำ " , "</small>
+                  </div>
             	</div>
                 <div class="col-md-6">
-               		<form class="form-inline" role="form">
+									<div class="form-inline">
                   		<div class="form-group">
-                            <label for="contact-sale">Contact (sale) 1</label><strong>: </strong>
-                            <input type="text" class="form-control" id="contact">
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-sale">Contact (sale) 2</label><strong>: </strong>
-                            <input type="text" class="form-control" id="contact">
-                        </div>
-                    </form>
-            	</div>
-                <div id="owner" class="col-md-6">
-               		<form class="form-inline" role="form">
+                            <label for="contact-sale">Contact (manager)</label><strong>: </strong>
+                            <select class="form-control" id="contact" ng-model="form.sale_id">
+															<option value="">Please select</option>
+														</select>
+                      </div>
+                  </div>
+									<div class="form-inline">
                   		<div class="form-group">
-                            <label for="contact-owner">Contact (Owner)</label><strong>: </strong>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-            	</div>
+                            <label for="contact-sale">Contact (sale)</label><strong>: </strong>
+                            <select class="form-control" id="contact" ng-model="form.sale_id">
+															<option value="">Please select</option>
+														</select>
+                      </div>
+                  </div>
+            	  </div>
                 <div class="col-md-12 hr"></div>
-                
+
                 <div class="col-md-6">
                 	<div class="form-group">
                   		<i class="col-md-6 box-1"><label for="type">Requirement Type</label><strong>:</strong></i>
                         <i class="col-md-5 box-2">
-                        	<select class="form-control">
-                            	<option>Want to buy</option>
-                            	<option>...</option>
-                            	<option>...</option>
-                          	</select>
-                       		<span><input type="checkbox" value=""> With Tenants</span>
+                        	<select class="form-control"
+													ng-model="form.requirement_id"
+													ng-options="item.id as item.name_for_enquiry for item in collection.requirement"
+													ng-init="form.requirement_id=1"
+                          required>
+                        	</select>
                         </i>
                     </div>
-                    
                   	<div class="form-group">
                     	<i class="col-md-6 box-1"><label for="type">Property Type</label><strong>:</strong></i>
                       	<i class="col-md-5 box-2">
-                        	<select class="form-control">
-                        		<option>Condominium</option>
-                        		<option>...</option>
-                        		<option>...</option>
+                        	<select class="form-control"
+													ng-model="form.property_type_id"
+													ng-options="item.id as item.name for item in collection.property_type"
+													ng-init="form.property_type_id=1"
+													required>
                       		</select>
                     	</i>
                     </div>
-                    
+
                   	<div class="form-group">
                   		<i class="col-md-6 box-1"><label for="type">Branch</label><strong>:</strong></i>
                   		<i class="col-md-5 box-2">
-                        	<select class="form-control">
-                    			<option>Bangkok</option>
-                    			<option>...</option>
-                    			<option>...</option>
+                        	<select class="form-control"
+													ng-model="form.province_id"
+													ng-options="item.id as item.name for item in thailocation.province"
+													ng-init="form.province_id=1"
+													required>
                   			</select>
                     	</i>
                   	</div>
                     <div class="form-group">
                   		<i class="col-md-6 box-1"><label for="type">Project</label><strong>:</strong></i>
                   		<i class="col-md-5 box-2">
-                        	<select class="form-control">
-                    			<option>AP</option>
-                    			<option>...</option>
-                    			<option>...</option>
+                        	<select class="form-control"
+													ng-model="form.project_id"
+										      ng-options="item.id as item.name for item in collection.project"
+													required>
+                          <option value="">-Please Select-</option>
                   			</select>
                     	</i>
-					</div>
+					          </div>
                     <div class="form-group">
             	        <i class="col-md-6 box-1"><label>Buying Budget</label><strong>:</strong></i>
            	            <i class="col-md-5 box-2">
-       	                	<span><input type="text" class="form-control"> to 
+       	                	<span><input type="text" class="form-control" ng-model="form.buying_budget_start" required> to
                       		<input type="text" class="form-control"></span>
                       	</i>
                     </div>
                     <div class="form-group">
             	        <i class="col-md-6 box-1"><label>Rental Budget</label><strong>:</strong></i>
            	            <i class="col-md-5 box-2">
-       	                	<span><input type="text" class="form-control"> to 
+       	                	<span><input type="text" class="form-control" ng-model="form.buying_budget_end" required> to
                       		<input type="text" class="form-control"></span>
                       	</i>
                     </div>
                     <div class="form-group">
-            	        <i class="col-md-6 box-1"><strong>Exact location required:</strong></i>
-           	            <i class="col-md-5 box-2">
-       	                	<textarea class="form-control" rows="2" id="comment"></textarea>
-                      	</i>
+            	       <i class="col-md-6 box-1"><strong>Zone: </strong></i>
+                       <i class="col-md-5 box-2">
+          	             <select class="form-control"
+                         ng-model="form.zone_id"
+                         ng-options="item.id as item.name group by getZoneGroupName(item.zone_group_id) for item in collection.zone"
+                         required>
+                         <option value="">-Please Select-</option>
+                         </select>
+                    	</i>
+					          </div>
+                    <div class="form-group">
+            	        <i class="col-md-6 box-1"><strong>Enquiry is the desicion maker:</strong></i>
+           	            <select class="form-control" style="width: 100px;">
+           	              <option value="1">Yes</option>
+           	              <option value="0">No</option>
+           	            </select>
                     </div>
-                </div><!--col-md-6-->  
+                </div><!--col-md-6-->
                 <div class="col-md-6">
                 	<div class="form-group">
             	        <i class="col-md-3 box-1"><strong>No. of bed Roooms: </strong></i>
            	            <i class="col-md-8 box-2">
-       	                	<input type="text" class="form-control">
-                      		<span><input type="checkbox" value=""> Studio</span>
+       	                	<input type="text" class="form-control" ng-model="form.bedroom" ng-disabled="vm.buffer.is_studio">
+                      		<span><input type="checkbox" ng-model="vm.buffer.is_studio" ng-change="vm.changeStudio()"> Studio</span>
                       	</i>
                     </div>
                 	<div class="form-group">
@@ -152,68 +162,65 @@
                     	<i class="col-md-8 box-2">
                         	<input type="text" class="form-control">
                   			<select class="form-control size">
-                    			<option>Sq.m</option>
-                    			<option>...</option>
-                    			<option>...</option>
+                    			<option value="1">Sq. m.</option>
+                    			<option value="2">Sq. wa</option>
+                    			<option value="3">Rai</option>
                   			</select>
                     	</i>
                   	</div>
                     <div class="form-group">
                  		<i class="col-md-3 box-1"><strong>Nearest BTS: </strong></i>
                   		<i class="col-md-8 box-2">
-                        	<select class="form-control">
-                    			<option>--</option>
-                   				<option>...</option>
-                    			<option>...</option>
+                        	<select class="form-control"
+                          ng-model="form.bts_id"
+                          ng-options="item.id as item.name for item in collection.bts"
+                          >
+                    			<option value="">Please select</option>
                   			</select>
                   		</i>
                      </div>
                      <div class="form-group">
              	        <i class="col-md-3 box-1"><strong>Nearest MRT: </strong></i>
                         <i class="col-md-8 box-2">
-    	                    <select class="form-control">
-	                            <option>--</option>
-                            	<option>...</option>
-                                <option>...</option>
+    	                    <select class="form-control"
+                          ng-model="form.mrt_id"
+                          ng-options="item.id as item.name for item in collection.mrt"
+                          >
+                            <option value="">Please select</option>
                             </select>
                         </i>
                    	</div>
-                   <div class="form-group">
-            	       <i class="col-md-3 box-1"><strong>Nearest BRT: </strong></i>
+                    <div class="form-group">
+                     <i class="col-md-3 box-1"><strong>Nearest Airport-link: </strong></i>
                        <i class="col-md-8 box-2">
-          	             <select class="form-control">
-     	                    <option>--</option>
-                            <option>...</option>
-                            <option>...</option>
-                         </select>
-                     	</i>
-					</div>
+                         <select class="form-control"
+                         ng-model="form.airport_link_id"
+                         ng-options="item.id as item.name for item in collection.airport_link"
+                         >
+                           <option value="">Please select</option>
+                           </select>
+                       </i>
+                   </div>
                     <div class="form-group">
             	       <i class="col-md-3 box-1"><strong>Status: </strong></i>
                        <i class="col-md-8 box-2">
-          	             <select class="form-control">
-     	                    <option>In Progress</option>
-                            <option>...</option>
-                            <option>...</option>
-                         </select>
-                         <select class="form-control case">
-     	                    <option>5% Case Accepted</option>
-                            <option>...</option>
-                            <option>...</option>
+          	             <select class="form-control"
+                         ng-model="form.enquiry_status"
+                         ng-options="item.id as item.name for item in collection.enquiry_status"
+                         ng-init="form.enquiry_status=1"
+                         required>
+                         <option value="">Please select</option>
                          </select>
                          <textarea class="form-control" rows="2" id="comment" style="min-height:50px; margin-top:10px; width:450px;"></textarea>
                      	</i>
-					</div>
+					          </div>
                     <div class="form-group">
-            	       <i class="col-md-3 box-1"><strong>Zone: </strong></i>
-                       <i class="col-md-8 box-2">
-          	             <select class="form-control">
-     	                    <option>--</option>
-                            <option>...</option>
-                            <option>...</option>
-                         </select>
-                    	</i>
-					</div>
+            	        <i class="col-md-3 box-1"><strong>Exact location required:</strong></i>
+           	            <i class="col-md-8 box-2">
+       	                	<textarea class="form-control" rows="2" id="comment"></textarea>
+                      	</i>
+                    </div>
+
                     <div class="form-group">
             	       <i class="col-md-3 box-1"><strong>Period time to purchasing or leasing: </strong></i>
                        <i class="col-md-8 box-2">
@@ -224,35 +231,16 @@
                          </select>
                      	</i>
 					</div>
-                </div><!--col-md-6-->  
+                </div><!--col-md-6-->
+                <hr class="clear-fix">
                <div class="col-md-12 maker">
                			<fieldset>
-							<legend>Enquiry is the desicion maker</legend>
-                            <div class="col-md-3">
-                                <i class="box-1"><strong>budget for purchases: </strong></i>
-                                <i class="box-2">
-                                    <select class="form-control">
-                                        <option>Please select</option>
-                                        <option>--</option>
-                                        <option>--</option>
-                                    </select>
-                                </i>
-							</div>
-                            <div class="col-md-3">
-                                <i class="box-1"><strong>budget for rent: </strong></i>
-                                <i class="box-2">
-                                     <select class="form-control">
-                                        <option>Please select</option>
-                                        <option>--</option>
-                                        <option>--</option>
-                                    </select>
-                                </i>
-							</div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-3"></div>
                             <div class="col-md-6 leasing">
                                 <i class="col-md-6 box-1"><strong>The reason for purchasing or leasing new residence: </strong></i>
                                 <i class="col-md-6 box-2">
                                     <select class="form-control">
-                                        <option>Convenience for trar</option>
                                         <option>Residential</option>
                                         <option>New couple</option>
                                         <option>Convenience for traffic</option>
@@ -289,39 +277,50 @@
       		<div class="row detail-type">
             	<div class="col-md-12">
             	    <label>Source</label><strong>:</strong>
-                    <select name="firstSelection" id="firstSelection">
-                        <option>--Select--</option>
-                        <option value='online'>Online Marketing</option>
-                        <option value='walkin'>Walkin</option>
-                        <option value='call'>Call</option>
-                        <option value='referal'>Referal</option>
-                        <option value='event'>Event</option>
+                    <select name="firstSelection" id="firstSelection"
+                    ng-model="form.source_id"
+                    ng-change="triggerChangeSource()"
+                    required="">
+                        <option value="">--Select--</option>
+                        <option value='1'>Online Marketing</option>
+                        <option value='2'>Walkin</option>
+                        <option value='3'>Call</option>
+                        <option value='4'>Referal</option>
+                        <option value='5'>Event</option>
                     </select>
-                    <select name="secondSelection" id="online">
-                        <option>Website</option>
-                        <option>Social Media</option>
-                        <option>Online Ads.</option>
-                        <option>Email</option>
+                    <select name="secondSelection" id="online"
+                    ng-show="form.source_id"
+                    ng-model="form.sub_source_id"
+                    ng-init="form.sub_source_id=1"
+                     ng-change="triggerSource()"
+                     required>
+                        <option value="">--Select--</option>
+                        <option value="1" ng-if="form.source_id==1">Website</option>
+                        <option value="2" ng-if="form.source_id==1">Social Media</option>
+                        <option value="3" ng-if="form.source_id==1">Online Ads.</option>
+                        <option value="4" ng-if="form.source_id==1">Email</option>
+                        <option value="5" ng-if="form.source_id==1">Line</option>line
+
+                        <option value="6" ng-if="form.source_id==2">Site</option>
+                        <option value="7" ng-if="form.source_id==2">Head ofince</option>
+
+                        <option value="" ng-if="form.source_id==3">--Select--</option>
+                        <option value="8" ng-if="form.source_id==3">Callcenter</option>
+                        <option value="9" ng-if="form.source_id==3">Site</option>
+
+                        <option value="10" ng-if="form.source_id==4">Friends</option>
+                        <option value="11" ng-if="form.source_id==4">Customers</option>
                     </select>
-                    <select name="secondSelection" id="walkin">
-                        <option>Site</option>
-                        <option>Head ofince</option>
-                    </select>
-                    <select name="secondSelection" id="call">
-                        <option>Callcenter</option>
-                        <option>Site</option>
-                    </select>
-                    <select name="secondSelection" id="referal">
-                        <option>Friends</option>
-                        <option>Customers</option>
-                    </select>
-					<select name="thirdSelection" id="website">
-                        <option>agent168th.com</option>
-                        <option>prakard.com</option>
-                        <option>thinkofliving.com</option>
-                        <option>ddproperty.com</option>
-                        <option>kobkid.com</option>
-                        <option>bangkokpost.com</option>
+					          <select name="thirdSelection" id="website"
+                    ng-model="form.from_website_id"
+                    ng-show="form.source_id==1 && form.sub_source_id==1">
+                        <option value="">--Select--</option>
+                        <option value="1">agent168th.com</option>
+                        <option value="2">prakard.com</option>
+                        <option value="3">thinkofliving.com</option>
+                        <option value="4">ddproperty.com</option>
+                        <option value="5">kobkid.com</option>
+                        <option value="6">bangkokpost.com</option>
                     </select>
                 </div><!--col-md-12-->
                 <div class="col-md-12 contact-type">
@@ -332,16 +331,28 @@
                         <option>Call</option>
                     </select>
                 </div><!--col-md-12-->
-                <div class="col-md-12">
-                	<strong>Remark.</strong>
-                	<textarea class="form-control" rows="2" id="comment" style="min-height:80px; margin:10px 0 10px 10px; width:600px; display: inline; vertical-align: middle;"></textarea>
+                <div class="col-md-12 form-group">
+                  <label>
+                  	<strong>Remark.</strong>
+                  </label>
+                  <small>(กรุณาใส่รายละเอียดความต้องการของลูกค้าให้ครบถ้วน)</small>
+                  <br>
+                	<textarea class="form-control" rows="2" id="comment" style="min-height:80px; margin:10px 0 10px 10px; display: inline; vertical-align: middle;"></textarea>
                 </div>
             </div><!--detail-type-->
             <div class="col-md-12 comment" style="margin:20px 0; text-align:center;">
-            	<label>Comment/Remark</label><strong>:</strong>
-               	<textarea class="form-control" rows="2" id="comment" style="min-height:100px; margin-top:10px; margin-left:10px; width:1000px; display: inline; vertical-align: middle; background-color: #fff; padding:5px;"></textarea>
-          	     <button class="update" type="submit" style="display:block; margin:20px auto;  background: #009688; color:#fff; border:none; padding:5px 25px; border-radius:5px;">Update</button>
+            	<!-- <label>Comment/Remark</label><strong>:</strong>
+               	<textarea class="form-control" rows="2" id="comment" style="min-height:100px; margin-top:10px; margin-left:10px; width:1000px; display: inline; vertical-align: middle; background-color: #fff; padding:5px;"></textarea> -->
+          	     <button class="update" type="submit" style="display:block; margin:20px auto;  background: #009688; color:#fff; border:none; padding:5px 25px; border-radius:5px;">Submit</button>
             </div>
     	</div><!--enquiry-->
   	</div><!--tab-conent-->
+    <!-- <div>
+      <pre>
+      {{form}}
+      </pre>
+      <pre>
+      {{vm}}
+      </pre>
+    </div> -->
 </div><!--container-->

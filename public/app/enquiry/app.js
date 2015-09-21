@@ -56,27 +56,51 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
 }]);
 
 app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http, $location){
+    $scope.vm = {};
+    $scope.vm.changeStudio = function(){
+      if($scope.vm.buffer.is_studio) {
+        $scope.form.bedroom = 0;
+      }
+    };
     $scope.form = {};
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;
-        console.log(data);
-        $scope.form.customer_id = $scope.collection.customer.data[0].id;
-        $scope.form.requirement_type_id = $scope.collection.requirement_type.data[0].id;
-        $scope.form.property_type_id = $scope.collection.property_type.data[0].id;
-        $scope.form.zone_group_1_id = $scope.collection.zone_group.data[0].id;
-        $scope.form.zone_group_2_id = $scope.collection.zone_group.data[0].id;
-        $scope.form.zone_1_id = $scope.collection.zone.data[0].id;
-        $scope.form.zone_2_id = $scope.collection.zone.data[0].id;
-        $scope.form.developer_id = $scope.collection.developer.data[0].id;
-        $scope.form.bed_rooms = "Studio";
-        $scope.form.size_unit_id = $scope.collection.size_unit.data[0].id;
-        $scope.form.enquiry_status_id = $scope.collection.enquiry_status.data[0].id;
-        $scope.form.enquiry_plan_tobuy_id = $scope.collection.enquiry_plan_tobuy.data[0].id;
-        $scope.form.enquiry_budget_payment_id = $scope.collection.enquiry_budget_payment.data[0].id;
-        $scope.form.enquiry_budget_purchases_id = $scope.collection.enquiry_budget_purchases.data[0].id;
-        $scope.form.enquiry_reason_id = $scope.collection.enquiry_reason.data[0].id;
-        $scope.form.rating = 0;
+        // $scope.form.project_id = data.project[0].id;
+        $scope.collection.project = data.project.sort(function(a, b) {
+          if(a.name < b.name) return -1;
+          if(a.name > b.name) return 1;
+          return 0;
+        });
     });
+    $http.get("../api/collection/thailocation").success(function(thailocation) {
+      $scope.thailocation = thailocation;
+    });
+    $scope.triggerChangeSource = function(){
+      // if($scope.form.source_id == 1) {
+      //   $scope.form.sub_source_id == 1;
+      // }
+      // else if($scope.form.source_id == 2) {
+      //
+      // }
+      delete $scope.form.sub_source_id;
+    };
+    $scope.triggerFromWebsite = function(){
+      if($scope.sub_source_id!=1){
+        delete $scope.form.from_website_id;
+      }
+      else {
+        $scope.form.from_website_id = 1;
+      }
+    };
+
+    $scope.getZoneGroupName = function(id){
+      var arr = $.grep($scope.collection.zone_group, function(o){ return o.id == id; });
+      if (arr.length == 0) {
+        return "";
+      } else {
+        return arr[0].name;
+      }
+    };
     $scope.addSubmit = function(){
         var fd = new FormData();
         angular.forEach($scope.form, function(value, key) {
