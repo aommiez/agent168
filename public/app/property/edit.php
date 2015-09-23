@@ -9,8 +9,8 @@
     </div>
     <div class="col-md-4 form-group">
       <label>Owner</label>
-      <input class="form-control" disabled="disabled" value="{{owner}}">
-      <!-- <input class="form-control" disabled="disabled" value="ปิดไว้จนกว่าจะเสร็จ"> -->
+      <input class="form-control" ng-if="editAllow" ng-model="form.owner">
+      <input class="form-control" ng-if="!editAllow" disabled="disabled" value="">
     </div>
   </div>
   <div class="row">

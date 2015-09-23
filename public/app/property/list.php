@@ -195,6 +195,10 @@
                           </div>
                       </div>
                     </form>
+                    <div style="clear: both;"></div>
+                    <div class="pull-right">
+                      <strong>Summary</strong>: {{props.total}}
+                    </div>
                 </div>
             </div>
     </div>

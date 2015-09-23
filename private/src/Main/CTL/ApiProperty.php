@@ -162,6 +162,7 @@ class ApiProperty extends BaseCTL {
      * @POST
      */
     public function add () {
+        $db = MedooFactory::getInstance();
         $params = $this->reqInfo->params();
         $insert = ArrayHelper::filterKey([
           "property_type_id", "project_id", "address_no", "floors", "size", "size_unit_id", "bedrooms", "bathrooms",
@@ -171,12 +172,29 @@ class ApiProperty extends BaseCTL {
           "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner"
         ], $params);
 
+        $insert = array_map(function($item) {
+          if(is_string($item)) {
+            $item = trim($item);
+          }
+          return $item;
+        }, $insert);
+
         if(empty($params['comment'])) {
           return ResposenHelper::error("require comment");
         }
         if(!isset($insert['property_type_id'])) {
           return ResponseHelper::error("require property_type_id");
         }
+        if(!empty($insert['project_id']) && !empty($insert['address_no'])) {
+          if($db->count("property", "*", [
+            "AND"=> [
+              "project_id"=> $insert["project_id"],
+              "address_no"=> $insert["address_no"]
+              ]])  > 0) {
+              return ResponseHelper::error("Property ซ้ำ");
+          }
+        }
+
         $insert['reference_id'] = $this->_generateReferenceId($insert['property_type_id']);
         if(!$insert['reference_id']) {
           return ResponseHelper::error("property_type_id '{$insert['property_type_id']}' is invalid");
@@ -188,15 +206,8 @@ class ApiProperty extends BaseCTL {
         $now = date('Y-m-d H:i:s');
         $insert['created_at'] = $now;
         $insert['updated_at'] = $now;
-        $insert = array_map(function($item) {
-          if(is_string($item)) {
-            $item = trim($item);
-          }
-          return $item;
-        }, $insert);
 
-        $db = MedooFactory::getInstance();
-        $db->pdo->beginTransaxtion();
+        $db->pdo->beginTransaction();
         $id = $db->insert($this->table, $insert);
 
         if(!$id) {
@@ -212,7 +223,7 @@ class ApiProperty extends BaseCTL {
         ];
 
         $db->insert("comment", $commentInsert);
-        $db->commit();
+        $db->pdo->commit();
 
         // $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);
         // $pathresolver = new \FileUpload\PathResolver\Simple('public/images/upload');
@@ -250,6 +261,14 @@ class ApiProperty extends BaseCTL {
         //
         // ], $params);
         $set = $params;
+        $set = ArrayHelper::filterKey([
+          "property_type_id", "project_id", "address_no", "floors", "size", "size_unit_id", "bedrooms", "bathrooms",
+          "requirement_id", "contract_price", "sell_price", "net_sell_price", "rent_price", "net_rent_price", "owner",
+          "key_location_id", "zone_id", "road", "province_id", "district_id", "sub_district_id", "bts_id", "mrt_id",
+          "airport_link_id", "property_status_id", "contract_expire", "web_status", "property_highlight_id",
+          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner"
+        ], $set);
+
         $set = array_map(function($item) {
           if(is_string($item)) {
             $item = trim($item);
@@ -497,7 +516,8 @@ class ApiProperty extends BaseCTL {
           ],
           "limit"=> 100,
           "where"=> [
-              "property_id"=> $id
+              "property_id"=> $id,
+              "ORDER"=> "updated_at DESC"
           ]
       ]);
 
