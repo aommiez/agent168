@@ -213,7 +213,8 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
           return;
         }
 
-        window.location.hash = "/";
+        // window.location.hash = "/";
+        window.location.reload();
       }, 'json');
     };
 
@@ -291,7 +292,8 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
         return;
       }
 
-      window.location.hash = "/";
+      // window.location.hash = "/";
+      window.location.reload();
     }, 'json');
   };
 }]);
