@@ -81,7 +81,7 @@ if(!(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0
         <input type="text" class="form-control" ng-model="form.sell_price">
       </div>
       <div class="col-md-4 form-group">
-        <label>Rent price</label>
+        <label>Rental price</label>
         <input type="text" class="form-control" ng-model="form.rent_price">
       </div>
 
