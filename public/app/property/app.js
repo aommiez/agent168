@@ -186,6 +186,10 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
     };
 
     $scope.submit = function(){
+      if(!$scope.form.comment) {
+        alert("please comment when add");
+        return;
+      }
         // var fd = new FormData();
         // angular.forEach($scope.form, function(value, key) {
         //     fd.append(key, value);

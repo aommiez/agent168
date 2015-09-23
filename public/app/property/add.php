@@ -215,6 +215,12 @@ if(!(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0
   </div>
   <div class="row">
     <div class="col-md-12 form-group">
+      <label>Comment/Remark</label>
+      <textarea class="form-control" ng-model="form.comment"></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 form-group">
       <!-- <button class="btn btn-primary">Save</button> -->
       <a class="btn btn-info" href="#/">Back</a>
       <button type="submit" class="btn btn-primary">Save</button>

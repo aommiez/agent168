@@ -171,6 +171,9 @@ class ApiProperty extends BaseCTL {
           "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner"
         ], $params);
 
+        if(empty($params['comment'])) {
+          return ResposenHelper::error("require comment");
+        }
         if(!isset($insert['property_type_id'])) {
           return ResponseHelper::error("require property_type_id");
         }
@@ -193,11 +196,23 @@ class ApiProperty extends BaseCTL {
         }, $insert);
 
         $db = MedooFactory::getInstance();
+        $db->pdo->beginTransaxtion();
         $id = $db->insert($this->table, $insert);
 
         if(!$id) {
             return ResponseHelper::error("Error can't add property.");
         }
+
+        $accId = $_SESSION['login']['id'];
+        $commentInsert = [
+          "property_id"=> $id,
+          "comment"=> $params["comment"],
+          "comment_by"=> $accId,
+          "updated_at"=> $now
+        ];
+
+        $db->insert("comment", $commentInsert);
+        $db->commit();
 
         // $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);
         // $pathresolver = new \FileUpload\PathResolver\Simple('public/images/upload');
@@ -220,6 +235,7 @@ class ApiProperty extends BaseCTL {
         // }
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
+
         return $item;
     }
 
@@ -264,11 +280,12 @@ class ApiProperty extends BaseCTL {
         }
 
         $commentStr = trim($params['comment']);
+        $accId = $_SESSION['login']['id'];
         $db->insert("property_comment",
           [
             "property_id"=> $id,
             "comment"=> $commentStr,
-            "comment_by"=> 0,
+            "comment_by"=> $accId,
             "updated_at"=> date('Y-m-d H:i:s')
             ]);
 
@@ -472,11 +489,23 @@ class ApiProperty extends BaseCTL {
     {
       $id = $this->reqInfo->urlParam("id");
       $list = ListDAO::gets("property_comment", [
+          "field"=> [
+            "property_comment.*", "account.id(account_id)", "account.name", "account.email",
+          ],
+          "join"=> [
+            "[>]account"=> ["comment_by"=> "id"]
+          ],
           "limit"=> 100,
           "where"=> [
               "property_id"=> $id
           ]
       ]);
+
+      foreach($list['data'] as &$item) {
+        if(is_null($item['account_id'])) {
+          $item['name'] = "System";
+        }
+      }
 
       return $list;
     }

@@ -240,7 +240,7 @@
       <tr ng-repeat="item in comments">
         <td>{{item.updated_at}}</td>
         <td>{{item.comment}}</td>
-        <td>System</td>
+        <td>{{item.name}}</td>
       </tr>
     </tbody>
   </table>
