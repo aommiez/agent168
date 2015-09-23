@@ -8,7 +8,7 @@ if(!(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0
   <div class="row">
     <div class="col-md-4 form-group">
       <label>Owner</label>
-      <input class="form-control" value="{{owner}}">
+      <input class="form-control" ng-model="form.owner">
       <!-- <input class="form-control" disabled="disabled" value="ปิดไว้จนกว่าจะเสร็จ"> -->
     </div>
   </div>

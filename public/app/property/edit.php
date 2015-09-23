@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-4 form-group">
       <label>Reference ID</label>
-      <input class="form-control" disabled="disabled" value="{{reference_id}}">
+      <input class="form-control" value="{{reference_id}}" ReadOnly>
     </div>
     <div class="col-md-4 form-group">
       <label>Owner</label>
