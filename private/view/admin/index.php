@@ -84,15 +84,6 @@ $this->import("/admin/layout/header");
                 position: relative;
             }
 
-            .main-content .content {
-                box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                padding-left: 60px;
-                width: 100%;
-
-                /*height: 100%;*/
-            }
-
             .main-content .content h1 {
                 font-weight: 100;
             }
@@ -150,13 +141,13 @@ $this->import("/admin/layout/header");
             </ul>
         </div>
         <div class="main-content">
-            <div class="swipe-area"></div>
+            <!-- <div class="swipe-area"></div> -->
             <a href="#" data-toggle=".container" id="sidebar-toggle">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </a>
-            <div class="navbar" style="margin-left: 26px; padding: 0 30px;">
+            <div class="navbar">
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><?php echo $_SESSION['login']['email'];?> [<?php echo $_SESSION['login']['level']['name'];?>]</a></li>
                 <!-- <li class="dropdown">
@@ -171,7 +162,7 @@ $this->import("/admin/layout/header");
                 </li> -->
               </ul>
             </div>
-            <div class="content" style="padding-bottom: 30px;">
+            <div class="content">
                 <?php
                 if (empty($params['view'])) {
                     $this->import("/admin/enquiries");

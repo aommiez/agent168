@@ -107,7 +107,7 @@ class ApiEnquiry extends BaseCTL {
     public function add () {
         $params = $this->reqInfo->params();
         $insert = ArrayHelper::filterKey([
-          
+
         ], $params);
         $insert['created_at'] = date('Y-m-d H:i:s');
         $insert['updated_at'] = $insert['created_at'];

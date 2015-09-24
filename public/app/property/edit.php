@@ -12,6 +12,15 @@
       <input class="form-control" ng-if="editAllow" ng-model="form.owner">
       <input class="form-control" ng-if="!editAllow" disabled="disabled" value="">
     </div>
+    <div class="col-md-4 form-group">
+      <label>Status</label>
+      <select class="form-control"
+      ng-model="form.property_status_id"
+      ng-options="item.id as item.name for item in collection.property_status"
+      >
+          <option value="">Please select</option>
+      </select>
+    </div>
   </div>
   <div class="row">
     <fieldset ng-disabled="!editAllow">
@@ -30,6 +39,15 @@
         ng-model="form.project_id"
         ng-options="item.id as item.name for item in collection.project"
         >
+            <option value="">Please select</option>
+        </select>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>requirement</label>
+        <select class="form-control"
+        ng-model="form.requirement_id"
+        ng-options="item.id as item.name for item in collection.requirement"
+        required>
             <option value="">Please select</option>
         </select>
       </div>
@@ -64,15 +82,7 @@
         <label>bathrooms</label>
         <input type="text" class="form-control" ng-model="form.bathrooms">
       </div>
-      <div class="col-md-4 form-group">
-        <label>requirement</label>
-        <select class="form-control"
-        ng-model="form.requirement_id"
-        ng-options="item.id as item.name for item in collection.requirement"
-        required>
-            <option value="">Please select</option>
-        </select>
-      </div>
+      <div style="clear: both;"></div>
       <div class="col-md-4 form-group">
         <label>Contract price</label>
         <input type="text" class="form-control" ng-model="form.contract_price">
@@ -86,6 +96,26 @@
         <input type="text" class="form-control" ng-model="form.rent_price">
       </div>
 
+      <div class="col-md-4 form-group"></div>
+      <div class="col-md-4 form-group">
+        <label>Contract expire</label>
+        <div class="input-group">
+          <input class="form-control datepicker" datepicker ng-model="form.contract_expire" placeholder="-">
+          <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+        </div>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Rented expire</label>
+        <div class="input-group">
+          <input class="form-control datepicker" datepicker ng-model="form.rented_expire" placeholder="-">
+          <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
+        </div>
+      </div>
+      <hr style="clear: both;
+    background-color: black;
+    height: 2px;
+    margin: 30px 10px;">
+
       <div class="col-md-4 form-group">
         <label>key location</label>
         <select class="form-control"
@@ -94,6 +124,12 @@
         >
             <option value="">Please select</option>
         </select>
+      </div>
+      <div style="clear: both;"></div>
+
+      <div class="col-md-4 form-group">
+        <label>road</label>
+        <input type="text" class="form-control" ng-model="form.road">
       </div>
       <div class="col-md-4 form-group">
         <label>zone</label>
@@ -104,10 +140,7 @@
             <option value="">Please select</option>
         </select>
       </div>
-      <div class="col-md-4 form-group">
-        <label>road</label>
-        <input type="text" class="form-control" ng-model="form.road">
-      </div>
+      <div style="clear: both;"></div>
 
       <div class="col-md-4 form-group">
         <label>Province</label>
@@ -163,36 +196,18 @@
           <option value="">Please select</option>
         </select>
       </div>
-      <div class="col-md-4 form-group">
-        <label>Status</label>
-        <select class="form-control"
-        ng-model="form.property_status_id"
-        ng-options="item.id as item.name for item in collection.property_status"
-        >
-            <option value="">Please select</option>
-        </select>
-      </div>
-      <div class="col-md-4 form-group">
-        <label>Contract expire</label>
-        <div class="input-group">
-          <input class="form-control datepicker" datepicker ng-model="form.contract_expire" placeholder="-">
-          <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
-        </div>
-      </div>
+
+      <hr style="clear: both;
+    background-color: black;
+    height: 2px;
+    margin: 30px 10px;">
+
+    
       <div class="col-md-4 form-group">
         <label>Web Status</label>
         <select class="form-control" ng-model="form.web_status" >
             <option value="0">Offline</option>
             <option value="1">Online</option>
-        </select>
-      </div>
-      <div class="col-md-4 form-group">
-        <label>Highlight</label>
-        <select class="form-control"
-        ng-model="form.property_highlight_id"
-        ng-options="item.id as item.name for item in collection.property_highlight"
-        >
-            <option value="">Please select</option>
         </select>
       </div>
       <div class="col-md-4 form-group">
@@ -205,11 +220,13 @@
         </select>
       </div>
       <div class="col-md-4 form-group">
-        <label>Rented expire</label>
-        <div class="input-group">
-          <input class="form-control datepicker" datepicker ng-model="form.rented_expire" placeholder="-">
-          <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
-        </div>
+        <label>Highlight</label>
+        <select class="form-control"
+        ng-model="form.property_highlight_id"
+        ng-options="item.id as item.name for item in collection.property_highlight"
+        >
+            <option value="">Please select</option>
+        </select>
       </div>
     </fieldset>
   </div>

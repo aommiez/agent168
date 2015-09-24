@@ -207,7 +207,7 @@
         <!-- <a class="btn btn-primary" id="add_excel-btn" ng-click="addExcelClick()">{{inputExcelText}}</a> -->
         <!-- <input type="file" class="hidden" id="add_excel-input"> -->
     </div>
-    <div>
+    <div style="overflow-x: auto;">
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
