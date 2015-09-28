@@ -17,6 +17,10 @@
                               <input type="text" class="form-control" ng-model="form.owner">
                           </div>
                           <div class="col-md-4 form-group">
+                              <label>Address no</label>
+                              <input type="text" class="form-control" ng-model="form.address_no">
+                          </div>
+                          <div class="col-md-4 form-group">
                               <label class="control-label">Requirement</label>
                               <select class="form-control"
                                   ng-options="item.id as item.name for item in collection.requirement"
@@ -117,7 +121,9 @@
                       <div class="row">
                           <div class="col-md-4 form-group">
                               <label>Zone</label>
-                              <select class="form-control">
+                              <select class="form-control"
+                              ng-model="form.zone_id"
+                              ng-options="item.id as item.name group by getZoneGroupName(item.zone_group_id) for item in collection.zone">
                                   <option value="">All</option>
                               </select>
                           </div>
@@ -228,8 +234,9 @@
                 <td>
                     <div><strong>Project</strong>: <span>{{prop.project_name}}</span></div>
                     <!-- <div><strong>Type</strong>: <span>{{prop.property_type_name}}</span></div> -->
-                    <div><strong>Bed rooms</strong>: <span>{{prop.bedrooms}}</span></div>
-                    <div><strong>Bath rooms</strong>: <span>{{prop.bathrooms}}</span></div>
+                    <div><strong>Bed room</strong>: <span>{{prop.bedrooms}}</span></div>
+                    <div><strong>Bath room</strong>: <span>{{prop.bathrooms}}</span></div>
+                    <div ng-if="prop.address_no"><strong>Address no</strong>: <span>{{prop.address_no}}</span></div>
                     <!-- <div><strong>Transfer Status</strong>: <span>{{prop.property_status_name}}</span></div> -->
                 </td>
                 <td>{{prop.requirement_name}}</td>

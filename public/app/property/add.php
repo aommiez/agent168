@@ -136,7 +136,7 @@ if(!(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0
         <label>zone</label>
         <select class="form-control"
         ng-model="form.zone_id"
-        ng-options="item.id as item.name for item in collection.zone"
+        ng-options="item.id as item.name group by getZoneGroupName(item.zone_group_id) for item in collection.zone"
         >
             <option value="">Please select</option>
         </select>

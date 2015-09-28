@@ -130,6 +130,15 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
         $scope.$apply();
     });
 
+    $scope.getZoneGroupName = function(id){
+      var arr = $.grep($scope.collection.zone_group, function(o){ return o.id == id; });
+      if (arr.length == 0) {
+        return "";
+      } else {
+        return arr[0].name;
+      }
+    };
+
     $scope.commaNumber = numberWithCommas;
 }]);
 
@@ -218,6 +227,15 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
       }, 'json');
     };
 
+    $scope.getZoneGroupName = function(id){
+      var arr = $.grep($scope.collection.zone_group, function(o){ return o.id == id; });
+      if (arr.length == 0) {
+        return "";
+      } else {
+        return arr[0].name;
+      }
+    };
+
     $scope.images = [];
     $scope.parseImagesInput = function(input){
         $scope.images = input.files;
@@ -256,6 +274,15 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
       clearInterval(itv);
     }
   }, 100);
+
+  $scope.getZoneGroupName = function(id){
+    var arr = $.grep($scope.collection.zone_group, function(o){ return o.id == id; });
+    if (arr.length == 0) {
+      return "";
+    } else {
+      return arr[0].name;
+    }
+  };
 
   $scope.getDistrict = function() {
     if(!$scope.initSuccess) return [];
