@@ -222,7 +222,7 @@ class ApiProperty extends BaseCTL {
           "updated_at"=> $now
         ];
 
-        $db->insert("comment", $commentInsert);
+        $db->insert("property_comment", $commentInsert);
         $db->pdo->commit();
 
         // $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);

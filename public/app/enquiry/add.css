@@ -6,7 +6,7 @@ i{
 	font-size:16px;
 }
 label,strong{font-size:15px;}
-label:after{
+label.require:after{
 	content:'*';
 	color:red;
 }
@@ -19,7 +19,7 @@ label:after{
 .detail-create div,
 .detail-type div{
 	padding:0;
-}	
+}
 .enq-id span {
 	margin-right:25px;
 }
@@ -79,17 +79,17 @@ label:after{
 	padding-left:0;
 	margin-bottom:10px;
 }
-.box-1{
+/*.box-1{
 	text-align:right;
 }
 .box-2 select{
 	width: 60%;
 	display:inline-block;
-}
-.box-2 input.form-control{
+}*/
+/*.box-2 input.form-control{
 	width:40%;
-}
-.col-md-8.box-2 select.size{
+}*/
+/*.col-md-8.box-2 select.size{
 	width: 15%;
     font-size: 15px;
 	background-image: linear-gradient(transparent,transparent),linear-gradient(transparent,transparent);
@@ -108,7 +108,7 @@ select.form-control.size:focus {
 }
 .col-md-3 i.box-2 select{
 	width: 30%;
-}
+}*/
 legend {
 	font-weight: bold;
     color: darkmagenta;

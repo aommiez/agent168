@@ -102,21 +102,38 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
       }
     };
     $scope.addSubmit = function(){
+      if(!$scope.form.comment) {
+        alert("please comment when add");
+        return;
+      }
+
         var fd = new FormData();
         angular.forEach($scope.form, function(value, key) {
             fd.append(key, value);
         });
 
-        $scope.isSaving = true;
-        $http.post("../api/enquiry", fd, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).success(function(data){
-            $scope.isSaving = false;
-            if(typeof data.error == 'undefined'){
-                $location.path("/");
-            }
-        });
+        $.post("../api/enquiry", $scope.form, function(data){
+          // $scope.isSaving = false;
+          if(data.error) {
+            alert(data.error.message);
+            return;
+          }
+
+          // window.location.hash = "/";
+          // window.location.reload();
+        }, 'json');
+
+        // $scope.isSaving = true;
+
+        // $http.post("../api/enquiry", fd, {
+        //     transformRequest: angular.identity,
+        //     headers: {'Content-Type': undefined}
+        // }).success(function(data){
+        //     $scope.isSaving = false;
+        //     if(typeof data.error == 'undefined'){
+        //         $location.path("/");
+        //     }
+        // });
     };
 
     $scope.filter_zone = function(list, zone_group_id){
