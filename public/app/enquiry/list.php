@@ -158,23 +158,22 @@
         </form>
     </div>
     <div>
+      <?php if(@$_SESSION['login']['level_id'] <= 2){?>
         <a href="#add" class="btn btn-primary">Add</a>
+      <?php }?>
     </div>
     <div style="overflow-x: auto;">
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
-                <th>#</th>
                 <th>Date</th>
                 <th>Customer</th>
                 <th>Requirement</th>
                 <th>Property Type</th>
 
-                <th>Developer</th>
                 <th>Buying Budget</th>
                 <th>Rental Budget</th>
                 <th>Status</th>
-                <th>Rating</th>
 
                 <th>Update</th>
                 <th></th>
@@ -182,21 +181,20 @@
             </thead>
             <tbody>
             <tr ng-repeat="item in items">
-                <td>{{item.property_type_code + item.id}}</td>
                 <td>{{item.created_at}}</td>
-                <td>{{item.customer_firstname + ' ' + item.customer_lastname}}</td>
-                <td>{{item.requirement_type_name}}</td>
-                <td>{{item.property_type_name}}</td>
+                <td>{{item.customer}}</td>
+                <td>{{item.name_for_enquiry}}</td>
+                <td>{{item.enquiry_type_name}}</td>
 
-                <td>{{item.developer_name}}</td>
-                <td>{{item.buying_budget_start}}-{{item.buying_budget_end}}</td>
-                <td>{{item.rental_budget_start}}-{{item.rental_budget_end}}</td>
-                <td>{{item.enquiry_status.name}}</td>
-                <td>{{item.rating}}</td>
+                <td>฿{{item.buy_budget_start}} - ฿{{item.buy_budget_end}}</td>
+                <td>฿{{item.rent_budget_start}} - ฿{{item.rent_budget_end}}</td>
+                <td>{{item.enquiry_status_name}}</td>
 
                 <td>{{item.updated_at}}</td>
-
-                <td><a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(item.id)"><i class="glyphicon glyphicon-remove"></i></a></td>
+                <td>
+                  <a class="xcrud-action btn btn-warning btn-sm" href="#/edit/{{item.id}}" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
+                  <a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(item.id)"><i class="glyphicon glyphicon-remove"></i></a>
+                </td>
             </tr>
             </tbody>
         </table>

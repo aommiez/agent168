@@ -7,13 +7,13 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
     function($routeProvider, cfpLoadingBarProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: '../public/app/enquiry/list.html'
+                templateUrl: '../public/app/enquiry/list.php'
             }).
             when('/add', {
-                templateUrl: '../public/app/enquiry/add.html'
+                templateUrl: '../public/app/enquiry/add.php'
             }).
             when('/:id/gallery', {
-                templateUrl: '../public/app/enquiry/gallery.html'
+                templateUrl: '../public/app/enquiry/gallery.php'
             }).
             otherwise({
                 redirectTo: '/'
@@ -56,9 +56,11 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
 }]);
 
 app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http, $location){
+    $scope.addStep = 1;
+    $scope.form2 = {};
     $scope.vm = {};
     $scope.vm.changeStudio = function(){
-      if($scope.vm.buffer.is_studio) {
+      if($scope.form.is_studio) {
         $scope.form.bedroom = 0;
       }
     };
@@ -101,6 +103,7 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
         return arr[0].name;
       }
     };
+
     $scope.addSubmit = function(){
       if(!$scope.form.comment) {
         alert("please comment when add");
@@ -121,6 +124,15 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
 
           // window.location.hash = "/";
           // window.location.reload();
+
+          $scope.addStep = 2;
+          $scope.form2.id = data.id;
+
+          $.get("../api/enquiry/assign_manager_collection", function(data){
+            $scope.collection2 = data;
+            $scope.form2.assign_to = data.auto_assign.id;
+            $scope.$apply();
+          }, "json");
         }, 'json');
 
         // $scope.isSaving = true;
@@ -153,5 +165,11 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
                 return res;
             }
         });
+    };
+
+    $scope.addForm2 = function() {
+      $.post("../api/enquiry/assign_manager", $scope.form2, function(data){
+        window.location.hash = "/";
+      }, "json");
     };
 }]);

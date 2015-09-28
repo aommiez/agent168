@@ -32,7 +32,7 @@
         <div class="form-group">
         	<i class="col-md-3 box-1"><strong>Selling Price:</strong></i>
            	<i class="col-md-8 box-2">
-       	    	<span><input type="text" class="form-control"> to 
+       	    	<span><input type="text" class="form-control"> to
                 <input type="text" class="form-control"></span>
            	</i>
     	</div>
@@ -90,16 +90,16 @@
         <div class="form-group">
         	<i class="col-md-2 box-1"><strong>Rental Price:</strong></i>
            	<i class="col-md-3 box-2">
-       	    	<span><input type="text" class="form-control"> to 
+       	    	<span><input type="text" class="form-control"> to
                 <input type="text" class="form-control"></span>
            	</i>
             <i class="col-md-1 box-1"><strong>Unit No.</strong></i>
            	<i class="col-md-2 box-2">
-       	    	<input type="text" class="form-control"> 
+       	    	<input type="text" class="form-control">
            	</i>
             <i class="col-md-2 box-1"><strong>Unit type.</strong></i>
            	<i class="col-md-2 box-2">
-       	    	<input type="text" class="form-control"> 
+       	    	<input type="text" class="form-control">
            	</i>
     	</div>
         <div class="form-group">
@@ -113,7 +113,7 @@
            </i>
            <i class="col-md-2 box-1" style="color:blue;"><strong>Owner's name.</strong></i>
            	<i class="col-md-6 box-2">
-       	    	<input type="text" class="form-control"> 
+       	    	<input type="text" class="form-control">
            	</i>
 		</div>
         <div class="form-group">
@@ -130,4 +130,3 @@
     <button class="search" type="submit" style="display:block; margin:20px auto; background: #009688; color:#fff; border:none; padding:5px 25px; border-radius:5px;">Search</button>
 </div><!--detail-type-->
 </div>
-

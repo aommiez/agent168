@@ -143,8 +143,8 @@
                     	</i>
 					          </div>
                     <div class="form-group">
-            	        <i class="col-md-6 box-1"><strong>Enquiry is the desicion maker:</strong></i>
-           	            <select class="form-control" style="width: 100px;" ng-mode="form.desicion_maker">
+            	        <i class="col-md-6 box-1"><strong>Enquiry is the decision maker:</strong></i>
+           	            <select class="form-control" style="width: 100px;" ng-mode="form.decision_maker">
            	              <option value="1">Yes</option>
            	              <option value="0">No</option>
            	            </select>
@@ -153,39 +153,28 @@
                     <div class="form-group">
             	       <i class="col-md-6 box-1"><strong>Period time to purchasing or leasing: </strong></i>
                        <i class="col-md-5 box-2">
-          	             <select class="form-control">
+                         <select class="form-control" ng-model="form.ptime_to_pol">
      	                    <option>Within a week</option>
                             <option>Within a month</option>
                             <option>Within 3 months</option>
                          </select>
                      	</i>
 					          </div>
-                    <div class="form-group">
-                        <i class="col-md-6 box-1"><strong>The reason for purchasing or leasing new residence: </strong></i>
-                        <i class="col-md-5 box-2">
-                            <select class="form-control">
-                                <option>Residential</option>
-                                <option>New couple</option>
-                                <option>Convenience for traffic</option>
-                                <option>Investment</option>
-                            </select>
-                        </i>
-                    </div>
                 </div><!--col-md-6-->
                 <div class="col-md-6">
                 	<div class="form-group">
             	        <i class="col-md-3 box-1"><strong>No. of bed Roooms: </strong></i>
            	            <i class="col-md-8 box-2">
-       	                	<input type="text" class="form-control" ng-model="form.bedroom" ng-disabled="vm.buffer.is_studio">
-                      		<span><input type="checkbox" ng-model="vm.buffer.is_studio" ng-change="vm.changeStudio()"> Studio</span>
+       	                	<input type="text" class="form-control" ng-model="form.bedroom" ng-disabled="form.is_studio">
+                      		<span><input type="checkbox" ng-model="form.is_studio" ng-change="vm.changeStudio()" ng-true-value="1" ng-false-value="0"> Studio</span>
                       	</i>
                     </div>
                   <div class="clearfix"></div>
                 	<div class="form-group">
                  		<i class="col-md-3 box-1"><strong>Size: </strong></i>
                     	<i class="col-md-8 box-2">
-                        	<input type="text" class="form-control">
-                  			<select class="form-control size" ng-model="size_unit_id">
+                        	<input type="text" class="form-control" ng-model="form.size">
+                  			<select class="form-control size" ng-model="form.size_unit_id">
                     			<option value="1">Sq. m.</option>
                     			<option value="2">Sq. wa</option>
                     			<option value="3">Rai</option>
@@ -232,7 +221,7 @@
           	             <select class="form-control"
                          ng-model="form.enquiry_status_id"
                          ng-options="item.id as item.name for item in collection.enquiry_status"
-                         ng-init="form.enquiry_status=1"
+                         ng-init="form.enquiry_status_id=1"
                          required>
                          <option value="">Please select</option>
                          </select>
@@ -241,23 +230,9 @@
                     <div class="form-group">
             	        <i class="col-md-3 box-1"><strong>Exact location required:</strong></i>
            	            <i class="col-md-8 box-2">
-       	                	<textarea class="form-control" rows="2" id="comment" ng-model="ex_location"></textarea>
+       	                	<textarea class="form-control" rows="2" id="comment" ng-model="form.ex_location"></textarea>
                       	</i>
                     </div>
-<<<<<<< Updated upstream
-
-                    <div class="form-group">
-            	       <i class="col-md-3 box-1"><strong>Period time to purchasing or leasing: </strong></i>
-                       <i class="col-md-8 box-2">
-          	             <select class="form-control" ng-model="ptime_to_pol">
-     	                    <option>Within a week</option>
-                            <option>Within a month</option>
-                            <option>Within 3 months</option>
-                         </select>
-                     	</i>
-					</div>
-=======
->>>>>>> Stashed changes
                 </div><!--col-md-6-->
                 <hr class="clear-fix">
         	</div><!--detail-type-->
@@ -367,14 +342,20 @@
       </pre>
     </div> -->
   </form>
-  <form ng-if="addStep==2">
-    Autoassign: {{collection2.auto_assign.name}}<br>
-    <small>(You can change manager)</small><br>
-    <select
-    ng-model="form2.account_id"
-    ng-options="item.id as item.name for item in collection2.managers">
-    </select>
+  <form ng-if="addStep==2" ng-submit="addForm2()">
+    <div class="form-group">
+      <label>
+        Autoassign: {{collection2.auto_assign.name}}
+        <small>(You can change manager)</small>
+      </label>
+      <select
+      class="form-control"
+      ng-model="form2.assign_to"
+      ng-options="item.id as item.name for item in collection2.managers">
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-info">Assign</button>
+    </div>
   </form>
-  <pre>{{form}}</pre>
-  <pre>{{form2}}</pre>
 </div><!--container-->
