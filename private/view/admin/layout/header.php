@@ -43,5 +43,8 @@ use Main\Helper;
     <script src="<?php echo Helper\URL::absolute("/public/js/material.min.js")?>"></script>
 
     <link href="<?php echo Helper\URL::absolute("/public/css/admin_style.css")?>" rel="stylesheet">
+
+    <!-- Q -->
+    <script src="<?php echo Helper\URL::absolute("/public/js/q.js")?>"></script>
 </head>
 <body>

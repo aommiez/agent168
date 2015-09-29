@@ -2,6 +2,13 @@ textarea.form-control {
     min-height: 74px;
 }
 
+.xcrud .xcrud-list .xcrud-row:hover td.xcrud-actions-fixed {
+    position: static !important;
+    right: auto;
+    border-left: none;
+    margin-top: auto;
+}
+
 .checkbox input[type=checkbox] {
   opacity: 1;
   width: 16px;

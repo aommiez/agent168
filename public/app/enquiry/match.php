@@ -1,13 +1,20 @@
 <link href="../public/app/enquiry/add.css" rel="stylesheet">
 
-<div class="container">
+<div class="container" ng-controller="MatchCTL">
+
+	<ul class="nav nav-tabs tabs-add" >
+		<li><a href="#/edit/{{id}}">Enquiry</a></li>
+		<li class="active"><a href="#/match/{{id}}">Match Property</a></li>
+		<!-- <li><a href="">Touring Report</a></li> -->
+	</ul>
+
 	<div class="row detail-type">
 	<div class="col-md-5">
 		<div class="form-group">
 			<i class="col-md-3 box-1"><strong>Reference No.</strong></i>
 			<i class="col-md-8 box-2">
-       	    	<input type="text" class="form-control">
-       		</i>
+   	    	<input type="text" class="form-control">
+   		</i>
 		</div>
         <div class="form-group">
         	<i class="col-md-3 box-1"><strong>Property Type: </strong></i>

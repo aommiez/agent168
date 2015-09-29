@@ -131,8 +131,10 @@ $this->import("/admin/layout/header");
                             class="fa fa-user-secret fa-3"></i> Project</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/phonereq') ?>"><i
                     class="fa fa-user-secret fa-3"></i> Phone Requst</a></li>
-                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/account') ?>"><i
-                            class="fa fa-user-secret fa-3"></i> Account</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/manager') ?>"><i
+                            class="fa fa-user-secret fa-3"></i> Manager</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/sale') ?>"><i
+                            class="fa fa-user-secret fa-3"></i> Sale</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/reportproperty') ?>"><i
                             class="fa fa-user-secret fa-3"></i> Report Property</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/collection') ?>"><i

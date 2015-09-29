@@ -43,7 +43,7 @@ label.require:after{
     margin-bottom: 5px;
 }
 .detail-type{
-	margin:15px;
+	margin: 15px 0;
 	border: 1px solid gainsboro;
 	border-radius:10px;
 	padding:10px 20px;

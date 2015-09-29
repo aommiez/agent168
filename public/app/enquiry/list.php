@@ -1,3 +1,4 @@
+<?php session_start();?>
 <div ng-controller="ListCTL">
     <div>
         <form id="searchForm">

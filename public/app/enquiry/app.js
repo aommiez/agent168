@@ -12,8 +12,11 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
             when('/add', {
                 templateUrl: '../public/app/enquiry/add.php'
             }).
-            when('/:id/gallery', {
-                templateUrl: '../public/app/enquiry/gallery.php'
+            when('/edit/:id', {
+                templateUrl: '../public/app/enquiry/edit.php'
+            }).
+            when('/match/:id', {
+                templateUrl: '../public/app/enquiry/match.php'
             }).
             otherwise({
                 redirectTo: '/'
@@ -58,6 +61,7 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
 app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http, $location){
     $scope.addStep = 1;
     $scope.form2 = {};
+    $scope.form3 = {};
     $scope.vm = {};
     $scope.vm.changeStudio = function(){
       if($scope.form.is_studio) {
@@ -127,10 +131,12 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
 
           $scope.addStep = 2;
           $scope.form2.id = data.id;
+          $scope.form3.id = data.id;
 
-          $.get("../api/enquiry/assign_manager_collection", function(data){
+          $.get("../api/enquiry/assign_list", function(data){
             $scope.collection2 = data;
-            $scope.form2.assign_to = data.auto_assign.id;
+            $scope.form3.assign_manager_id = data.auto_assign.id;
+            $scope.form3.is_auto = 1;
             $scope.$apply();
           }, "json");
         }, 'json');
@@ -172,4 +178,76 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
         window.location.hash = "/";
       }, "json");
     };
+
+    $scope.addForm3 = function() {
+      $.post("../api/enquiry/assign_manager", $scope.form3, function(data){
+        window.location.hash = "/";
+      }, "json");
+    };
+}]);
+
+app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  $scope.id = $routeParams.id;
+  var promise1 = Q.promise(function (resolve, reject) {
+    $.get("../api/enquiry/"+$routeParams.id, function(data){
+      resolve(data);
+    }, "json");
+  });
+
+  var promise2 = Q.promise(function (resolve, reject) {
+    $.get("../api/collection", function(data){
+      resolve(data);
+    }, "json");
+  });
+
+  var promise3 = Q.promise(function (resolve, reject) {
+    $.get("../api/collection/thailocation", function(data){
+      resolve(data);
+    }, "json");
+  });
+
+  var promise4 = Q.promise(function (resolve, reject){
+    $.get("../api/enquiry/assign_list", function(data){
+      // $scope.collection2 = data;
+      // $scope.form2.assign_to = data.auto_assign.id;
+      resolve(data);
+    }, "json");
+  });
+
+  Q.all([promise1, promise2, promise3, promise4]).spread(function (result1, result2, result3, result4) {
+    $scope.form = result1;
+    $scope.collection = result2;
+    $scope.collection2 = result4;
+    $scope.thailocation = result3;
+
+    $scope.assMngForm = {id: $routeParams.id};
+    $scope.assAutoMngForm = {id: $routeParams.id};
+
+    $scope.assAutoMngForm.assign_manager_id = $scope.form.assign_manager_id;
+
+    $scope.collection.project = $scope.collection.project.sort(function(a, b) {
+      if(a.name < b.name) return -1;
+      if(a.name > b.name) return 1;
+      return 0;
+    });
+
+    $scope.prepareDisplayEdit = true;
+    $scpoe.$apply();
+  });
+
+  $scope.autoAssMng = function() {
+    $.post("../api/enquiry/assign_manager", $scope.assAutoMngForm, function(data){
+      window.location.reload();
+    }, "json");
+  };
+  
+  $scope.assMng = function() {
+    $.post("../api/enquiry/assign_manager", $scope.assMngForm, function(data){
+      window.location.reload();
+    }, "json");
+  };
+}]);
+
+app.controller('MatchCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  $scope.id = $routeParams.id;
 }]);

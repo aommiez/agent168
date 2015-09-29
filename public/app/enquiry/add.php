@@ -326,10 +326,11 @@
                 	<textarea ng-model="form.comment" class="form-control" rows="2" id="comment" style="min-height:80px; margin:10px 0 10px 10px; display: inline; vertical-align: middle;"></textarea>
                 </div>
             </div><!--detail-type-->
-            <div class="col-md-12 comment" style="margin:20px 0; text-align:center;">
+            <div class="col-md-12 comment text-center" style="margin:20px 0; text-align:center;">
             	<!-- <label>Comment/Remark</label><strong>:</strong>
                	<textarea class="form-control" rows="2" id="comment" style="min-height:100px; margin-top:10px; margin-left:10px; width:1000px; display: inline; vertical-align: middle; background-color: #fff; padding:5px;"></textarea> -->
-          	     <button class="update" type="submit" style="display:block; margin:20px auto;  background: #009688; color:#fff; border:none; padding:5px 25px; border-radius:5px;">Submit</button>
+          	     <button class="btn btn-success update" type="submit" style="">Submit</button>
+                 <a class="btn btn-warning update" type="button" href="#/">Cancle</a>
             </div>
     	</div><!--enquiry-->
   	</div><!--tab-conent-->
@@ -342,20 +343,30 @@
       </pre>
     </div> -->
   </form>
-  <form ng-if="addStep==2" ng-submit="addForm2()">
-    <div class="form-group">
-      <label>
-        Autoassign: {{collection2.auto_assign.name}}
-        <small>(You can change manager)</small>
-      </label>
-      <select
-      class="form-control"
-      ng-model="form2.assign_to"
-      ng-options="item.id as item.name for item in collection2.managers">
-      </select>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-info">Assign</button>
-    </div>
-  </form>
+  <div ng-if="addStep==2">
+    <form ng-submit="addForm3()">
+      <div class="detail-type">
+        Auto assign manager: <strong style="color: orange;">{{collection2.auto_assign.name}}</strong>
+        <br>
+        <button type="submit" class="btn btn-success">Auto Assign Manager</button>
+      </div>
+    </form>
+    <form ng-submit="addForm2()">
+      <div class="detail-type">
+        <div class="form-group">
+          <label>Assign manager</label>
+          <select
+          class="form-control"
+          ng-model="form2.assign_manager_id"
+          ng-options="item.id as item.name for item in collection2.accounts"
+          >
+          <option value="">-Please Select-</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div><!--container-->

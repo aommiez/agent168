@@ -1,4 +1,7 @@
 <?php
+// set timezone Bangkok
+date_default_timezone_set("Asia/Bangkok");
+
 function publish_action($xcrud)
 {
     if ($xcrud->get('primary'))
@@ -141,4 +144,18 @@ function format_phone($new_phone)
 function before_list_example($list, $xcrud)
 {
     var_dump($list);
+}
+
+// my function
+
+function sale_beforeInsert($postdata, $xcrud)
+{
+  $postdata->set('created_at', date('Y-m-d H:i:s'));
+  $postdata->set('level_id', 4);
+}
+
+function manager_beforeInsert($postdata, $xcrud)
+{
+  $postdata->set('created_at', date('Y-m-d H:i:s'));
+  $postdata->set('level_id', 3);
 }

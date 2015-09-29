@@ -1,15 +1,66 @@
+<?php session_start();?>
 <link href="../public/app/enquiry/add.css" rel="stylesheet">
 
-<div class="container" ng-controller="AddCTL">
-  <form ng-submit="addSubmit()">
-		<ul class="nav nav-tabs tabs-add" >
-    	<li class="active"><a href="">Enquiry</a></li>
-    	<li><a href="">Match Property</a></li>
-    	<li><a href="">Touring Report</a></li>
-  	</ul>
-		<!-- nav-tab-->
-
-  	<div class="tab-content">
+<div class="container" ng-controller="EditCTL" ng-show="prepareDisplayEdit">
+	<ul class="nav nav-tabs tabs-add" >
+  	<li class="active"><a href="#/edit/{{id}}">Enquiry</a></li>
+  	<li><a href="#/match/{{id}}">Match Property</a></li>
+  	<!-- <li><a href="">Touring Report</a></li> -->
+	</ul>
+	<!-- nav-tab-->
+	<?php if(@$_SESSION['login']['level_id'] == 1 || @$_SESSION['login']['level_id'] == 2){?>
+	<div class="tab-content">
+    <h3>Assign Manager</h3>
+		<div>Current assign: <strong>{{form.assign_manager.name || 'None'}}</strong></div>
+		<form ng-submit="autoAssMng()">
+      <div class="detail-type">
+        Auto assign manager: <strong style="color: orange;">{{collection2.auto_assign.name}}</strong>
+        <br>
+        <button type="submit" class="btn btn-success">Auto Assign Manager</button>
+      </div>
+    </form>
+    <form ng-submit="assMng()">
+      <div class="detail-type">
+        <div class="form-group">
+          <label>Assign manager</label>
+          <select
+          class="form-control"
+          ng-model="assMngForm.assign_manager_id"
+          ng-options="item.id as item.name for item in collection2.accounts"
+          >
+          <option value="">-None-</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info">Assign Manager</button>
+        </div>
+      </div>
+    </form>
+		<?php }?>
+		<?php if(@$_SESSION['login']['level_id'] == 3){?>
+		<h3>Assign Sale to</h3>
+    <div class="detail-type">
+      <form ng-submit="submitManagerAssign()">
+				<div>
+					Current Assign Sale: <span style="color: orange;">{{form.assign_sale.name}}</span>
+				</div>
+        <div class="form-group">
+          <label>Change to:</label>
+          <select
+          class="form-control"
+          ng-model="form2.assign_sale_id"
+          ng-options="item.id as item.name for item in collection2.accounts"
+					required>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-info">Assign Sale</button>
+        </div>
+      </form>
+    </div>
+		<?php }?>
+    <h3>Enquiry detail</h3>
+    <form ng-submit="editSubmit()">
     	<div id="enquiry" class="tab-pane fade in active tab-1">
       		<!-- <div class="row detail-create">
             	<div class="col-md-5">
@@ -38,7 +89,7 @@
             <div class="row detail-type">
             	<div class="col-md-12 form-group">
                   <label class="require">Enquiry Type</label><strong>:</strong>
-                  <select class="form-control" id="type" ng-model="form.enquiry_type_id" ng-init="form.enquiry_type_id=1" required>
+                  <select class="form-control" id="type" ng-model="form.enquiry_type_id" required>
                     <option value="1">Individual</option>
                     <option value="2">Investment</option>
                     <option value="3">Corporate</option>
@@ -78,7 +129,6 @@
                         	<select class="form-control"
 													ng-model="form.requirement_id"
 													ng-options="item.id as item.name_for_enquiry for item in collection.requirement"
-													ng-init="form.requirement_id=1"
                           required>
                         	</select>
                         </i>
@@ -89,7 +139,6 @@
                         	<select class="form-control"
 													ng-model="form.property_type_id"
 													ng-options="item.id as item.name for item in collection.property_type"
-													ng-init="form.property_type_id=1"
 													required>
                       		</select>
                     	</i>
@@ -101,7 +150,6 @@
                         	<select class="form-control"
 													ng-model="form.province_id"
 													ng-options="item.id as item.name for item in thailocation.province"
-													ng-init="form.province_id=1"
 													required>
                   			</select>
                     	</i>
@@ -221,7 +269,6 @@
           	             <select class="form-control"
                          ng-model="form.enquiry_status_id"
                          ng-options="item.id as item.name for item in collection.enquiry_status"
-                         ng-init="form.enquiry_status_id=1"
                          required>
                          <option value="">Please select</option>
                          </select>
@@ -326,17 +373,18 @@
                 	<textarea ng-model="form.comment" class="form-control" rows="2" id="comment" style="min-height:80px; margin:10px 0 10px 10px; display: inline; vertical-align: middle;"></textarea>
                 </div>
             </div><!--detail-type-->
-            <div class="col-md-12 comment" style="margin:20px 0; text-align:center;">
+            <div class="col-md-12 comment text-center" style="margin:20px 0; text-align:center;">
             	<!-- <label>Comment/Remark</label><strong>:</strong>
                	<textarea class="form-control" rows="2" id="comment" style="min-height:100px; margin-top:10px; margin-left:10px; width:1000px; display: inline; vertical-align: middle; background-color: #fff; padding:5px;"></textarea> -->
-          	     <button class="update" type="submit" style="display:block; margin:20px auto;  background: #009688; color:#fff; border:none; padding:5px 25px; border-radius:5px;">Submit</button>
+                <button class="btn btn-success update" type="submit">Save</button>
+                <a class="btn btn-warning update" type="button" href="#/">Cancle</a>
             </div>
     	</div><!--enquiry-->
-  	</div><!--tab-conent-->
-    <div>
-      <pre>
-      {{form}}
-      </pre>
-    </div>
-  </form>
+    </form>
+	</div><!--tab-conent-->
+  <div>
+    <pre>
+    {{form}}
+    </pre>
+  </div>
 </div><!--container-->
