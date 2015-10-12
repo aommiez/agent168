@@ -45,6 +45,7 @@ class ApiProperty extends BaseCTL {
             "[>]size_unit"=> ["size_unit_id"=> "id"],
             "[>]project"=> ["project_id"=> "id"]
         ];
+        $limit = empty($_GET['limit'])? 15: $_GET['limit'];
         $where = ["AND"=> []];
 
         $params = $this->reqInfo->params();
@@ -140,7 +141,7 @@ class ApiProperty extends BaseCTL {
                 "join"=> $join,
                 "where"=> $where,
                 "page"=> $page,
-                "limit"=> 15
+                "limit"=> $limit
             ]);
         }
         else {
@@ -149,7 +150,7 @@ class ApiProperty extends BaseCTL {
                 "join"=> $join,
                 "page"=> $page,
                 'where'=> ["ORDER"=> $order],
-                "limit"=> 15
+                "limit"=> $limit
             ]);
         }
 
@@ -224,26 +225,6 @@ class ApiProperty extends BaseCTL {
 
         $db->insert("property_comment", $commentInsert);
         $db->pdo->commit();
-
-        // $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);
-        // $pathresolver = new \FileUpload\PathResolver\Simple('public/images/upload');
-        // $filesystem = new \FileUpload\FileSystem\Simple();
-        // $filenamegenerator = new \FileUpload\FileNameGenerator\Random();
-        //
-        // $fileupload = new \FileUpload\FileUpload($_FILES['images'], $_SERVER);
-        // $fileupload->setPathResolver($pathresolver);
-        // $fileupload->setFileSystem($filesystem);
-        // $fileupload->addValidator($validator);
-        //
-        // $fileupload->setFileNameGenerator($filenamegenerator);
-        //
-        // list($files, $headers) = $fileupload->processAll();
-        //
-        // foreach($files as $file){
-        //     if($file->error == 0){
-        //         $db->insert("property_image", ["property_id"=> $id, "name"=> $file->name]);
-        //     }
-        // }
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
 
@@ -329,82 +310,6 @@ class ApiProperty extends BaseCTL {
     }
 
     /**
-     * @POST
-     * @uri /uploadexcel
-     */
-    public function uploadexcel(){
-        $file = $_FILES['excel'];
-        $inputFileName = $file['tmp_name'];
-        try {
-            $inputFileType = \PHPExcel_IOFactory::identify($inputFileName);
-            $objReader = \PHPExcel_IOFactory::createReader($inputFileType);
-            $objPHPExcel = $objReader->load($inputFileName);
-        } catch(\Exception $e) {
-            return ResponseHelper::error('Error loading file "'.pathinfo($inputFileName,PATHINFO_BASENAME).'": '.$e->getMessage());
-        }
-
-        $sheet = $objPHPExcel->getSheet(0);
-        $highestRow = $sheet->getHighestRow();
-        $highestColumn = $sheet->getHighestColumn();
-
-        $db = MedooFactory::getInstance();
-        $propTypesRows = $db->select("property_type", "*");
-        $propTypeCodes = [];
-        foreach($propTypesRows as $value){
-            $propTypeCodes[$value['name']] = $value['id'];
-        }
-//        var_dump($propTypeCodes); exit();
-        for ($row = 2; $row <= $highestRow; $row++){
-            $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
-                NULL,
-                TRUE,
-                FALSE);
-            foreach($rowData[0] as $key => $value){
-                if(is_null($value)){
-                    $rowData[0][$key] = "";
-                }
-            }
-            $id = $db->insert("property", [
-                "property_type_id"=> isset($propTypeCodes[$rowData[0][18]])? $propTypeCodes[$rowData[0][18]]: 1,
-                "bed_rooms"=> $rowData[0][32],
-                "bath_rooms"=> $rowData[0][33],
-                "selling_price"=> $rowData[0][13],
-                "zone_group_id"=> 1,
-                "duplex"=> 'Duplex',
-                "road"=> $rowData[0][38],
-                "status"=> $rowData[0][15],
-                "rented_expire"=> '',
-                "transfer_status"=> $rowData[0][24],
-                "requirement_type_id"=> 1,
-                "developer_id"=> 1,
-                "size"=> $rowData[0][3],
-                "size_unit_id"=> 1,
-                "rental_price"=> $rowData[0][22],
-                "web_status"=> $rowData[0][45],
-                "inc_vat"=> $rowData[0][9]=="TRUE",
-                "address_no"=> $rowData[0][29],
-                "unit_no"=> '',
-                "property_highlight"=> $rowData[0][40],
-                "feature_unit"=> $rowData[0][46],
-                "property_for_id"=> 0,
-                "created_at"=> date('Y-m-d'),
-                "owner"=> $rowData[0][1],
-                "desired_profit"=> $rowData[0][8],
-                "with_tenant"=> $rowData[0][11]=="TRUE",
-                "tenant_price_per_month"=> $rowData[0][12],
-                "commission"=> $rowData[0][14],
-                "commission_unit"=> $rowData[0][15],
-                "markup_type"=> $rowData[0][16],
-                "markup_price"=> $rowData[0][17],
-                "branch"=> $rowData[0][21]
-            ]);
-            if(!$id){
-                return ResponseHelper::error($db->error());
-            }
-        }
-    }
-
-    /**
      * @GET
      * @uri /[i:id]/gallery
      */
@@ -461,7 +366,32 @@ class ApiProperty extends BaseCTL {
     public function get() {
       $id = $this->reqInfo->urlParam("id");
       $db = MedooFactory::getInstance();
-      $item = $db->get("property", "*", ["id"=> $id]);
+      if($this->reqInfo->param("build", false)) {
+        $field = [
+            "property.*",
+            // "property_type.name(property_type_name)",
+            // "property_type.code(property_type_code)",
+            // "zone_group.name(zone_group_name)",
+            "requirement.name(requirement_name)",
+            "property_status.name(property_status_name)",
+            // "developer.name(developer_name)",
+            "size_unit.name(size_unit_name)",
+            "project.name(project_name)"
+        ];
+        $join = [
+            // "[>]property_type"=> ["property_type_id"=> "id"],
+            // "[>]zone_group"=> ["zone_group_id"=> "id"],
+            "[>]requirement"=> ["requirement_id"=> "id"],
+            "[>]property_status"=> ["property_status_id"=> "id"],
+            // "[>]developer"=> ["developer_id"=> "id"],
+            "[>]size_unit"=> ["size_unit_id"=> "id"],
+            "[>]project"=> ["project_id"=> "id"]
+        ];
+        $item = $db->get("property", $join, $field, ["property.id"=> $id]);
+      }
+      else {
+        $item = $db->get("property", "*", ["id"=> $id]);
+      }
       $this->_build($item);
       return $item;
     }
@@ -498,6 +428,105 @@ class ApiProperty extends BaseCTL {
         }
 
         return ["success"=> true];
+    }
+
+    /**
+     * @GET
+     * @uri /[i:id]/for_match
+     */
+    public function getForMatch () {
+        $field = [
+          "enquiry.*",
+          "enquiry_type.name(enquiry_type_name)",
+          "enquiry_status.name(enquiry_status_name)",
+          "enquiry.id"
+      ];
+        $join = [
+            "[>]requirement"=> ["requirement_id"=> "id"],
+            "[>]size_unit"=> ["size_unit_id"=> "id"],
+            "[>]enquiry_type"=> ["enquiry_type_id"=> "id"],
+            "[>]enquiry_status"=> ["enquiry_status_id"=> "id"]
+        ];
+        $where = ["AND"=> []];
+
+        if(@$_SESSION["login"]["level_id"] == 3) {
+          $where["AND"]["enquiry.assign_manager_id"] = $_SESSION["login"]["id"];
+        }
+        else if(@$_SESSION["login"]["level_id"] == 4) {
+          $where["AND"]["enquiry.assign_sale_id"] = $_SESSION["login"]["id"];
+        }
+
+        $where["ORDER"] = "updated_at DESC";
+        $list = ListDAO::gets("enquiry", [
+            "field"=> $field,
+            "join"=> $join,
+            "where"=> $where,
+            "limit"=> 100
+        ]);
+
+        return $list;
+    }
+
+    /**
+     * @GET
+     * @uri /[i:id]/matched
+     */
+    public function getMatched () {
+      $id = $this->reqInfo->urlParam("id");
+      $db = MedooFactory::getInstance();
+      // get prop
+        $item = $db->get("property", "*", ["id"=> $id]);
+        // get enquiry
+        $field = [
+          "enquiry.*",
+          "enquiry_type.name(enquiry_type_name)",
+          "enquiry_status.name(enquiry_status_name)",
+          "requirement.name_for_enquiry(requirement_name)",
+          "enquiry.id"
+      ];
+        $join = [
+            "[>]requirement"=> ["requirement_id"=> "id"],
+            "[>]size_unit"=> ["size_unit_id"=> "id"],
+            "[>]enquiry_type"=> ["enquiry_type_id"=> "id"],
+            "[>]enquiry_status"=> ["enquiry_status_id"=> "id"]
+        ];
+        $where = ["AND"=> []];
+        $where["AND"]["enquiry.id"] = $item["match_enquiry_id"];
+        $where["LIMIT"] = "1";
+        $enq = $db->select("enquiry", $join, $field, $where);
+        if(!$enq[0]) {
+          return ResponseHelper::error("Not found match");
+        }
+
+        return $enq[0];
+    }
+
+    /**
+     * @POST
+     * @uri /[i:id]/match
+     */
+    public function matchEnquiry()
+    {
+        $id = $this->reqInfo->urlParam("id");
+        $db = MedooFactory::getInstance();
+        $matchId = $this->reqInfo->param("match_enquiry_id");
+        if(empty($matchId)) {
+          return ResponseHelper::error("require match_enquiry_id");
+        }
+        $db->update($this->table, ["match_enquiry_id"=> $matchId], ["id"=> $id]);
+        return ['success'=> true];
+    }
+
+    /**
+     * @POST
+     * @uri /[i:id]/match/cancle
+     */
+    public function matchEnquiryCancle()
+    {
+        $id = $this->reqInfo->urlParam("id");
+        $db = MedooFactory::getInstance();
+        $db->update($this->table, ["match_enquiry_id"=> NULL], ["id"=> $id]);
+        return ['success'=> true];
     }
 
     /**

@@ -159,3 +159,9 @@ function manager_beforeInsert($postdata, $xcrud)
   $postdata->set('created_at', date('Y-m-d H:i:s'));
   $postdata->set('level_id', 3);
 }
+
+function admin_beforeInsert($postdata, $xcrud)
+{
+  $postdata->set('created_at', date('Y-m-d H:i:s'));
+  $postdata->set('level_id', 2);
+}

@@ -233,10 +233,11 @@
                 <td>{{prop.reference_id}}</td>
                 <td>
                     <div><strong>Project</strong>: <span>{{prop.project_name}}</span></div>
+                    <div ng-if="prop.address_no"><strong>Address no</strong>: <span>{{prop.address_no}}</span></div>
+                    <div ng-if="prop.address_no"><strong>Floor</strong>: <span>{{prop.floors}}</span></div>
                     <!-- <div><strong>Type</strong>: <span>{{prop.property_type_name}}</span></div> -->
                     <div><strong>Bed room</strong>: <span>{{prop.bedrooms}}</span></div>
                     <div><strong>Bath room</strong>: <span>{{prop.bathrooms}}</span></div>
-                    <div ng-if="prop.address_no"><strong>Address no</strong>: <span>{{prop.address_no}}</span></div>
                     <!-- <div><strong>Transfer Status</strong>: <span>{{prop.property_status_name}}</span></div> -->
                 </td>
                 <td>{{prop.requirement_name}}</td>

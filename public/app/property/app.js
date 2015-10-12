@@ -25,7 +25,10 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
                 templateUrl: '../public/app/property/edit.php'
             }).
             when('/:id/gallery', {
-                templateUrl: '../public/app/property/gallery.html'
+                templateUrl: '../public/app/property/gallery.php'
+            }).
+            when('/:id/match', {
+                templateUrl: '../public/app/property/match.php'
             }).
             otherwise({
                 redirectTo: '/'
@@ -47,7 +50,7 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
             $scope.props = data;
             if(data.total > 0){
               $scope.pagination = [];
-              for(var i = 1; i*15 <= data.total; i++) {
+              for(var i = 1; i * $scope.form.limit <= data.total; i++) {
                 $scope.pagination.push(data.paging.page == i);
               }
             }
@@ -91,44 +94,6 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
     $scope.edit = function(id){
 
     };
-
-    $scope.inputExcelText = "Add by excel";
-    var $inputExcel = $("#add_excel-input");
-    $scope.addExcelClick = function(){
-        $inputExcel.click();
-    };
-
-    $inputExcel.change(function(e){
-        var file = typeof e.target.files[0] != "undefined"? e.target.files[0]: false;
-        if(!file){ return; }
-
-        var formData = new FormData();
-        formData.append("excel", file);
-
-        $scope.inputExcelText = "loading...";
-        $.ajax({
-            url: '../api/property/uploadexcel',
-            type: 'POST',
-            xhr: function() {
-                var myXhr = $.ajaxSettings.xhr();
-                return myXhr;
-            },
-            success: function (data) {
-                if(typeof data.error == "undefined"){
-                    //window.location.reload();
-                }
-                else {
-                    alert(data.error.message);
-                }
-            },
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false
-        });
-
-        $scope.$apply();
-    });
 
     $scope.getZoneGroupName = function(id){
       var arr = $.grep($scope.collection.zone_group, function(o){ return o.id == id; });
@@ -377,6 +342,75 @@ app.controller('CommentCTL', ['$scope', '$http', '$location', '$route', '$routeP
       $scope.comments = data.data;
   });
 }]);
+
+app.controller('MatchCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  $scope.items = [];
+  $scope.id = $routeParams.id;
+
+  var promise1 = Q.Promise(function (resolve, reject) {
+    $http.get("../api/property/" + $routeParams.id +"?build=1").success(function(data) {
+      resolve(data);
+    });
+  });
+  promise1.then(function(data){
+    $scope.prop = data;
+    if(!data.match_enquiry_id) {
+      getItems();
+    }
+    else {
+      getMatched(data);
+    }
+  });
+
+  function getMatched(prop)
+  {
+    $scope.matched = {};
+    $.get("../api/property/" + $routeParams.id +"/matched", function(data){
+      if(data.error) {
+        alert(data.error.message);
+      }
+      $scope.matched = data;
+    }, "json");
+  }
+
+  function getItems(query){
+      var url = "../api/enquiry";
+      $http.get(url).success(function(data){
+          $scope.items = data;
+          if(data.total > 0){
+            $scope.pagination = [];
+            for(var i = 1; i * data.limit <= data.total; i++) {
+              $scope.pagination.push(data.paging.page == i);
+            }
+          }
+          else {
+            $scope.pagination = null;
+          }
+      });
+  }
+  $scope.formMatch = {};
+  $scope.onClickMatch = function(){
+    if(!$scope.formMatch.match_enquiry_id) {
+      alert("Please select enquiry");
+      return;
+    }
+    $.post("../api/property/" + $routeParams.id +"/match", $scope.formMatch, function(data){
+      if(data.error) {
+        alert(data.error.message);
+      }
+      $route.reload();
+    }, 'json');
+  };
+  $scope.onClickCancle = function(){
+    $.post("../api/property/" + $routeParams.id +"/match/cancle", $scope.formMatch, function(data){
+      if(data.error) {
+        alert(data.error.message);
+      }
+      $route.reload();
+    }, 'json');
+  };
+}]);
+
 app.directive('datepicker',function($compile){
     return {
         // replace:true,

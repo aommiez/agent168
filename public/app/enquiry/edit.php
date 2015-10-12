@@ -1,11 +1,16 @@
 <?php session_start();?>
 <link href="../public/app/enquiry/add.css" rel="stylesheet">
 
-<div class="container" ng-controller="EditCTL" ng-show="prepareDisplayEdit">
+<div class="container" ng-controller="EditCTL"
+ng-show="prepareDisplayEdit"
+ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0);?>;"
+>
 	<ul class="nav nav-tabs tabs-add" >
-  	<li class="active"><a href="#/edit/{{id}}">Enquiry</a></li>
-  	<li><a href="#/match/{{id}}">Match Property</a></li>
-  	<!-- <li><a href="">Touring Report</a></li> -->
+  	<li class="active"><a>Enquiry</a></li>
+  	<?php if(@$_SESSION['login']['level_id']==4){?>
+		<li><a ng-click="changeHash('/match/'+id)">Match Property</a></li>
+  	<li><a ng-click="changeHash('/matched/'+id)">Matched Property</a></li>
+    <?php }?>
 	</ul>
 	<!-- nav-tab-->
 	<?php if(@$_SESSION['login']['level_id'] == 1 || @$_SESSION['login']['level_id'] == 2){?>
@@ -14,7 +19,7 @@
 		<div>Current assign: <strong>{{form.assign_manager.name || 'None'}}</strong></div>
 		<form ng-submit="autoAssMng()">
       <div class="detail-type">
-        Auto assign manager: <strong style="color: orange;">{{collection2.auto_assign.name}}</strong>
+        Auto assign manager: <strong style="color: orange;">{{collection2.auto_assign.name || 'None'}}</strong>
         <br>
         <button type="submit" class="btn btn-success">Auto Assign Manager</button>
       </div>
@@ -38,19 +43,24 @@
     </form>
 		<?php }?>
 		<?php if(@$_SESSION['login']['level_id'] == 3){?>
-		<h3>Assign Sale to</h3>
+		<h3>Assign Sale</h3>
+		<div>Current assign: <strong>{{form.assign_sale.name || 'None'}}</strong></div>
+		<form ng-submit="autoAssSale()">
+      <div class="detail-type">
+        Auto assign sale: <strong style="color: orange;">{{collection2.auto_assign.name || 'None'}}</strong>
+        <br>
+        <button type="submit" class="btn btn-success">Auto Assign Sale</button>
+      </div>
+    </form>
     <div class="detail-type">
-      <form ng-submit="submitManagerAssign()">
-				<div>
-					Current Assign Sale: <span style="color: orange;">{{form.assign_sale.name}}</span>
-				</div>
+      <form ng-submit="assSale()">
         <div class="form-group">
-          <label>Change to:</label>
+          <label>Assign Sale:</label>
           <select
           class="form-control"
-          ng-model="form2.assign_sale_id"
-          ng-options="item.id as item.name for item in collection2.accounts"
-					required>
+          ng-model="assSaleForm.assign_sale_id"
+          ng-options="item.id as item.name for item in collection2.accounts">
+          <option value="">-None-</option>
           </select>
         </div>
         <div class="form-group">
@@ -60,7 +70,7 @@
     </div>
 		<?php }?>
     <h3>Enquiry detail</h3>
-    <form ng-submit="editSubmit()">
+    <form ng-submit="submitEdit()">
     	<div id="enquiry" class="tab-pane fade in active tab-1">
       		<!-- <div class="row detail-create">
             	<div class="col-md-5">
@@ -86,6 +96,7 @@
                 </div>
             </div> -->
 						<!--row-->
+						<fieldset ng-disabled="!editAllow">
             <div class="row detail-type">
             	<div class="col-md-12 form-group">
                   <label class="require">Enquiry Type</label><strong>:</strong>
@@ -290,21 +301,22 @@
                     </div>
                     <div class="col-md-3">
                     	<div><input type="checkbox" ng-model="form.sq_furnish" ng-true-value="1" ng-false-value="0"> Fully Furnish / ตกแต่งครบ</div>
-                        <div><input type="checkbox" ng-model="form.sq_park" ng-true-value="1" ng-false-value="0"> Near park / ใกล้สวนสาธรณะ</div>
-                        <div><input type="checkbox" ng-model="form.sq_airport" ng-true-value="1" ng-false-value="0"> Near airport / ใกล้สนามบิน</div>
+                        <div><input type="checkbox" ng-model="form.sq_park" ng-true-value="1" ng-false-value="0"> Close park / ใกล้สวนสาธรณะ</div>
+                        <div><input type="checkbox" ng-model="form.sq_airport" ng-true-value="1" ng-false-value="0"> Close airport / ใกล้สนามบิน</div>
                     </div>
                     <div class="col-md-3">
-                    	<div><input type="checkbox" ng-model="form.sq_hospital" ng-true-value="1" ng-false-value="0"> Fully hospital / ใกล้โรงพยาบาล</div>
-                        <div><input type="checkbox" ng-model="form.sq_bts" ng-true-value="1" ng-false-value="0"> Next to BTS/MRT / ติดรถไฟฟ้า</div>
-                        <div><input type="checkbox" ng-model="form.sq_mainroad" ng-true-value="1" ng-false-value="0"> Next to main road / ติดถนนใหญ่</div>
+                    	<div><input type="checkbox" ng-model="form.sq_hospital" ng-true-value="1" ng-false-value="0"> Close hospital / ใกล้โรงพยาบาล</div>
+                        <div><input type="checkbox" ng-model="form.sq_bts" ng-true-value="1" ng-false-value="0"> Close to BTS/MRT / ติดรถไฟฟ้า</div>
+                        <div><input type="checkbox" ng-model="form.sq_mainroad" ng-true-value="1" ng-false-value="0"> Close to main road / ติดถนนใหญ่</div>
                     </div>
                     <div class="col-md-3">
-                    	<div><input type="checkbox" ng-model="form.sq_school" ng-true-value="1" ng-false-value="0"> Near school / University / ใกล้โรงเรียน</div>
-                        <div><input type="checkbox" ng-model="form.sq_shopmall" ng-true-value="1" ng-false-value="0"> Near shopping mall / ใกล้ห้างสรรพสินค้า</div>
+                    	<div><input type="checkbox" ng-model="form.sq_school" ng-true-value="1" ng-false-value="0"> Close school / University / ใกล้โรงเรียน</div>
+                        <div><input type="checkbox" ng-model="form.sq_shopmall" ng-true-value="1" ng-false-value="0"> Close shopping mall / ใกล้ห้างสรรพสินค้า</div>
                         <div>Others / อื่นๆ <input type="text" ng-model="form.sq_other"> </div>
                     </div>
                 </div>
             </div><!--detail-type-->
+					</fieldset>
       		<div class="row detail-type">
             	<!-- <div class="col-md-12">
             	    <label>Source</label><strong>:</strong>
@@ -357,7 +369,7 @@
                 <!--col-md-12-->
                 <div class="col-md-12 contact-type">
                 	<label>Contact Type</label><strong>:</strong>
-                    <select ng-model="form.contact_type_id">
+                    <select ng-model="form.contact_type_id" ng-disabled="!editAllow">
                         <option value="">-Please select-</option>
                         <option value="1">Online</option>
                         <option value="2">Walkin</option>
@@ -366,7 +378,7 @@
                 </div><!--col-md-12-->
                 <div class="col-md-12 form-group">
                   <label>
-                  	<strong>Remark.</strong>
+                  	<strong>Comment.</strong>
                   </label>
                   <small>(กรุณาใส่รายละเอียดความต้องการของลูกค้าให้ครบถ้วน)</small>
                   <br>
@@ -382,9 +394,23 @@
     	</div><!--enquiry-->
     </form>
 	</div><!--tab-conent-->
-  <div>
-    <pre>
-    {{form}}
-    </pre>
-  </div>
 </div><!--container-->
+
+<div ng-controller="CommentCTL">
+  <table class="table table-bodered">
+    <thead>
+      <tr>
+        <th>วันที่</th>
+        <th>ข้อความ</th>
+        <th>โดย</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in comments">
+        <td>{{item.updated_at}}</td>
+        <td>{{item.comment}}</td>
+        <td>{{item.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

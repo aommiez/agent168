@@ -1,4 +1,4 @@
-<div id="content" ng-app="enquiry-app">
+<div id="content" ng-app="phonereq-app">
     <div ng-view=""></div>
 </div>
 

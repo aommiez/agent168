@@ -125,21 +125,24 @@ $this->import("/admin/layout/header");
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/properties') ?>"><i
                             class="fa fa-building fa-2"></i> Properties</a></li>
                 <?php if($_SESSION['login']['level_id'] == 1){?>
+                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/manager') ?>"><i
+                            class="fa fa-user-secret fa-3"></i> Manager</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/admin') ?>"><i
+                            class="fa fa-user-secret fa-3"></i> Admin</a></li>
+                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/sale') ?>"><i
+                            class="fa fa-user-secret fa-3"></i> Sale</a></li>
+                <?php }?>
+                <?php if($_SESSION['login']['level_id'] == 1 || $_SESSION['login']['level_id'] == 2){?>
                 <!-- <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/customer') ?>"><i
                             class="fa fa-user-secret fa-3"></i> Customer</a></li> -->
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/project') ?>"><i
                             class="fa fa-user-secret fa-3"></i> Project</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/phonereq') ?>"><i
-                    class="fa fa-user-secret fa-3"></i> Phone Requst</a></li>
-                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/manager') ?>"><i
-                            class="fa fa-user-secret fa-3"></i> Manager</a></li>
-                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/sale') ?>"><i
-                            class="fa fa-user-secret fa-3"></i> Sale</a></li>
+                    class="fa fa-user-secret fa-3"></i> Phone Request</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/reportproperty') ?>"><i
                             class="fa fa-user-secret fa-3"></i> Report Property</a></li>
-                <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/collection') ?>"><i
-                            class="fa fa-outdent fa-2"></i> Collection</a></li>
                 <?php }?>
+
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/login') ?>"><i
                             class="fa fa-sign-out fa-3"></i> Sign Out</a></li>
             </ul>

@@ -2,6 +2,15 @@
  * Created by NuizHome on 8/4/2558.
  */
 
+"use strict";
+
+function numberWithCommas(x) {
+ if(!x) {
+    return "";
+ }
+ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 var app = angular.module('enquiry-app', ['ngRoute', 'angular-loading-bar']);
 app.config(['$routeProvider', 'cfpLoadingBarProvider',
     function($routeProvider, cfpLoadingBarProvider) {
@@ -18,6 +27,9 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
             when('/match/:id', {
                 templateUrl: '../public/app/enquiry/match.php'
             }).
+            when('/matched/:id', {
+                templateUrl: '../public/app/enquiry/matched.php'
+            }).
             otherwise({
                 redirectTo: '/'
             });
@@ -28,10 +40,19 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
     function getItems(query){
         var url = "../api/enquiry";
         if(query){
-            url = url + "?" + $.param($scope.form);
+            url += "?" + $.param($scope.form);
         }
         $http.get(url).success(function(data){
-            $scope.items = data.data;
+            $scope.items = data;
+            if(data.total > 0){
+              $scope.pagination = [];
+              for(var i = 1; i * $scope.form.limit <= data.total; i++) {
+                $scope.pagination.push(data.paging.page == i);
+              }
+            }
+            else {
+              $scope.pagination = null;
+            }
         });
     }
     getItems();
@@ -46,6 +67,10 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
         $scope.collection = data;
     });
 
+    $http.get("../api/collection/thailocation").success(function(thailocation) {
+      $scope.thailocation = thailocation;
+    });
+    
     $scope.remove = function(id){
         if(!window.confirm("Are you sure?")){
             return;
@@ -56,6 +81,8 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
             }
         });
     };
+
+    $scope.commaNumber = numberWithCommas;
 }]);
 
 app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http, $location){
@@ -188,6 +215,7 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
 
 app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
   $scope.id = $routeParams.id;
+
   var promise1 = Q.promise(function (resolve, reject) {
     $.get("../api/enquiry/"+$routeParams.id, function(data){
       resolve(data);
@@ -221,9 +249,16 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
     $scope.thailocation = result3;
 
     $scope.assMngForm = {id: $routeParams.id};
-    $scope.assAutoMngForm = {id: $routeParams.id};
+    $scope.autoAssMngForm = {id: $routeParams.id};
 
-    $scope.assAutoMngForm.assign_manager_id = $scope.form.assign_manager_id;
+    $scope.autoAssMngForm.assign_manager_id = $scope.collection2.auto_assign.id;
+    $scope.autoAssMngForm.is_auto = 1;
+
+    $scope.assSaleForm = {id: $routeParams.id};
+    $scope.autoAssSaleForm = {id: $routeParams.id};
+
+    $scope.autoAssSaleForm.assign_sale_id = $scope.collection2.auto_assign.id;
+    $scope.autoAssSaleForm.is_auto = 1;
 
     $scope.collection.project = $scope.collection.project.sort(function(a, b) {
       if(a.name < b.name) return -1;
@@ -232,22 +267,206 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
     });
 
     $scope.prepareDisplayEdit = true;
-    $scpoe.$apply();
+    $scope.$apply();
   });
 
+  $scope.changeHash = function(hash){
+    window.location.hash = hash;
+  };
+
   $scope.autoAssMng = function() {
-    $.post("../api/enquiry/assign_manager", $scope.assAutoMngForm, function(data){
-      window.location.reload();
+    $.post("../api/enquiry/assign_manager", $scope.autoAssMngForm, function(data){
+      $route.reload();
     }, "json");
   };
-  
+
   $scope.assMng = function() {
     $.post("../api/enquiry/assign_manager", $scope.assMngForm, function(data){
-      window.location.reload();
+      $route.reload();
+    }, "json");
+  };
+
+  $scope.autoAssSale = function() {
+    $.post("../api/enquiry/assign_sale", $scope.autoAssSaleForm, function(data){
+      $route.reload();
+    }, "json");
+  };
+
+  $scope.assSale = function() {
+    $.post("../api/enquiry/assign_sale", $scope.assSaleForm, function(data){
+      $route.reload();
+    }, "json");
+  };
+
+  $scope.submitEdit = function() {
+    if(!$scope.form.comment) {
+      alert("require comment");
+      return;
+    }
+    var form = $scope.form;
+    if(!$scope.editAllow) {
+      form = {
+        comment: $scope.form.comment
+      };
+    }
+    $.post("../api/enquiry/edit/"+$scope.id, form, function(data){
+      $route.reload();
     }, "json");
   };
 }]);
 
 app.controller('MatchCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
   $scope.id = $routeParams.id;
+
+  $scope.changeHash = function(hash){
+    window.location.hash = hash;
+  };
+
+  $scope.props = [];
+
+  $scope.form = {};
+  $scope.form.page = 1;
+  $scope.form.limit = 15;
+  function getProps(query){
+      var url = "../api/enquiry/"+$scope.id+"/for_match";
+      if(query){
+          url += "?" + $.param($scope.form);
+      }
+      $http.get(url).success(function(data){
+          $scope.props = data;
+          if(data.total > 0){
+            $scope.pagination = [];
+            for(var i = 1; i * $scope.form.limit <= data.total; i++) {
+              $scope.pagination.push(data.paging.page == i);
+            }
+          }
+          else {
+            $scope.pagination = null;
+          }
+      });
+  }
+  getProps($scope.form);
+
+  $scope.setPage = function($index) {
+    $scope.form.page = $index + 1;
+    getProps($scope.form);
+  };
+
+  $scope.filterProps = function(){
+      console.log($scope.form);
+      getProps($scope.form);
+  };
+
+  $http.get("../api/collection").success(function(data){
+      $scope.collection = data;
+      $scope.collection.project = data.project.sort(function(a, b) {
+        if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
+        return 0;
+      });
+  });
+
+  $scope.getZoneGroupName = function(id){
+    var arr = $.grep($scope.collection.zone_group, function(o){ return o.id == id; });
+    if (arr.length == 0) {
+      return "";
+    } else {
+      return arr[0].name;
+    }
+  };
+
+  $scope.inputProps = {};
+  $scope.importClick = function(){
+    var listPropsId = [];
+    for(var key in $scope.inputProps) {
+      if($scope.inputProps[key]) listPropsId.push(parseInt(key));
+    }
+    $.post("../api/enquiry/"+$scope.id+"/match", {props_id: listPropsId}, function(data){
+      $route.reload();
+    }, "json");
+  };
+  $scope.commaNumber = numberWithCommas;
+}]);
+
+
+app.controller('MatchedCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  $scope.id = $routeParams.id;
+
+  $scope.changeHash = function(hash){
+    window.location.hash = hash;
+  };
+
+  $scope.props = [];
+
+  $scope.form = {};
+  $scope.form.page = 1;
+  $scope.form.limit = 100;
+  function getProps(query){
+      var url = "../api/enquiry/"+$scope.id+"/matched";
+      $http.get(url).success(function(data){
+          $scope.props = data;
+          if(data.total > 0){
+            $scope.pagination = [];
+            for(var i = 1; i * $scope.form.limit <= data.total; i++) {
+              $scope.pagination.push(data.paging.page == i);
+            }
+          }
+          else {
+            $scope.pagination = null;
+          }
+      });
+  }
+  getProps($scope.form);
+
+  $scope.setPage = function($index) {
+    $scope.form.page = $index + 1;
+    getProps($scope.form);
+  };
+
+  $scope.filterProps = function(){
+      console.log($scope.form);
+      getProps($scope.form);
+  };
+
+  $http.get("../api/collection").success(function(data){
+      $scope.collection = data;
+      $scope.collection.project = data.project.sort(function(a, b) {
+        if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
+        return 0;
+      });
+  });
+
+  $scope.getZoneGroupName = function(id){
+    var arr = $.grep($scope.collection.zone_group, function(o){ return o.id == id; });
+    if (arr.length == 0) {
+      return "";
+    } else {
+      return arr[0].name;
+    }
+  };
+
+  $scope.clickRequestContact = function(prop){
+    if(!window.confirm('Request contact')) { return; }
+    $.post("../api/enquiry/request_contact", {
+      enquiry_id: $scope.id,
+      property_id: prop.id
+    }, function(data){
+      $route.reload();
+    }, "json");
+  };
+  $scope.removeMathClick = function(prop){
+    if(!window.confirm('Request contact')) { return; }
+    $.get("../api/enquiry/matched/delete/"+prop.id, function(data){
+      $route.reload();
+    }, "json");
+  };
+  $scope.commaNumber = numberWithCommas;
+}]);
+
+app.controller('CommentCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  var propId = $routeParams.id;
+  $http.get("../api/enquiry/" + $routeParams.id + "/comment").success(function(data){
+      $scope.comments = data.data;
+  });
 }]);
