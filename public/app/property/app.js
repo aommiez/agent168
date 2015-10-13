@@ -79,6 +79,10 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
           return 0;
         });
     });
+    
+    $http.get("../api/collection/thailocation").success(function(thailocation) {
+      $scope.thailocation = thailocation;
+    });
 
     $scope.remove = function(id){
         if(!window.confirm("Are you sure?")){

@@ -198,67 +198,81 @@ class ApiEnquiry extends BaseCTL {
 
     /**
      * @GET
-     * @uri /assign_list
+     * @uri /assign_list_manager
      */
-    public function assignList()
+    public function assignListManager()
     {
-      $level_id = $_SESSION['login']['level_id'];
-      $db = MedooFactory::getInstance();
-
-      if($level_id <= 2) {
-          $lastId = LastAssignManagerHelper::get();
-          if(empty($lastId)) $lastId = 0;
-
-          $next = $db->get("account", "*", [
-            "AND"=> [
-              "level_id"=> 3,
-              "id[>]"=> $lastId
-            ],
-            "ORDER"=> "id ASC"
-          ]);
-          if(!$next) {
-            $next = $db->get("account", "*", [
-              "level_id"=> 3,
-              "ORDER"=> "id ASC"
-            ]);
-          }
-          $accounts = $db->select("account", "*", [
-            "level_id"=> 3,
-            "ORDER"=> "id ASC"
-          ]);
-      }
-      else if($level_id = 3) {
-        $las = $db->get("last_assign_sale", "*", ["manager_id"=> $_SESSION['login']['id']]);
-        $lastId = !$las? 0: $las['sale_id'];
-
-        $next = $db->get("account", "*", [
-          "AND"=> [
-            "level_id"=> 4,
-            "manager_id"=> $_SESSION["login"]["id"],
-            "id[>]"=> $lastId
-          ],
-          "ORDER"=> "id ASC"
-        ]);
-        if(!$next) {
-          $next = $db->get("account", "*", [
-            "AND"=> [
-              "level_id"=> 4,
-              "manager_id"=> $_SESSION["login"]["id"]
-            ],
-            "ORDER"=> "id ASC"
-          ]);
-        }
-        $accounts = $db->select("account", "*", [
-          "AND"=> [
-            "level_id"=> 4,
-            "manager_id"=> $_SESSION["login"]["id"]
-          ],
-          "ORDER"=> "id ASC"
-        ]);
-      }
-      else {
+      $level_id = (int)$_SESSION['login']['level_id'];
+      if($level_id > 2) {
         return ResponseHelper::error("You do not have permission");
       }
+
+      $db = MedooFactory::getInstance();
+
+      $las = $db->get("last_assign_sale", "*", ["manager_id"=> $_SESSION['login']['id']]);
+      $lastId = LastAssignManagerHelper::get();
+
+      $condition = ["level_id"=> 3];
+      $accounts = $db->select("account", "*", [
+        "AND"=> $condition,
+        "ORDER"=> "id ASC"
+      ]);
+
+      $next = array_reduce($accounts, function($carry, $item) use($lastId){
+        if(is_null($carry)) {
+          return $lastId < $item["id"]? $item: null;
+        }
+        else {
+          return $item["id"] < $carry["id"]? $item: $carry;
+        }
+      });
+      if(is_null($next)) $next = $accounts[0];
+
+      return [
+        "auto_assign"=> $next,
+        "accounts"=> $accounts
+        ];
+    }
+
+    /**
+     * @GET
+     * @uri /assign_list_sale
+     */
+    public function assignListSale()
+    {
+      $level_id = (int)$_SESSION['login']['level_id'];
+      if($level_id > 3) {
+        return ResponseHelper::error("You do not have permission");
+      }
+
+      $db = MedooFactory::getInstance();
+
+      $las = $db->get("last_assign_sale", "*", ["manager_id"=> $_SESSION['login']['id']]);
+      $lastId = !$las? 0: $las['sale_id'];
+
+      $condition = ["level_id"=> 4];
+      if(!in_array($level_id, [1, 2])) {
+        $condition["manager_id"] = $_SESSION["login"]["id"];
+      }
+      else if(!empty($params["enquiry_id"])) {
+        $params = $this->reqInfo->params();
+        $enq = $db->get("enquiry", "manager_id", ["id"=> $params["enquiry_id"]]);
+        $condition["manager_id"] = $enq["manager_id"];
+      }
+      $accounts = $db->select("account", "*", [
+        "AND"=> $condition,
+        "ORDER"=> "id ASC"
+      ]);
+
+      $next = array_reduce($accounts, function($carry, $item) use($lastId){
+        if(is_null($carry)) {
+          return $lastId < $item["id"]? $item: null;
+        }
+        else {
+          return $item["id"] < $carry["id"]? $item: $carry;
+        }
+      });
+      if(is_null($next)) $next = $accounts[0];
 
       return [
         "auto_assign"=> $next,
@@ -323,14 +337,12 @@ class ApiEnquiry extends BaseCTL {
       $mailContent = <<<MAILCONTENT
       Assign enquiry: {$item["enquiry_no"]} to you. please check enquiry.
 MAILCONTENT;
-      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent);
+      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, "From: system@agent168th.com");
 
       $item = $db->get($this->table, "*", ["id"=> $id]);
 
       return $item;
     }
-
-
 
     /**
      * @POST
@@ -341,15 +353,27 @@ MAILCONTENT;
       $params = $this->reqInfo->params();
       $id = $params['id'];
 
+      $db = MedooFactory::getInstance();
+
+      $old = $db->get("enquiry", "*", ["id"=> $id]);
+
       $set = [];
       $set['assign_sale_id'] = empty($params['assign_sale_id'])? NULL: $params['assign_sale_id'];
       $set['assign_sale_at'] = $set['assign_sale_id'] == NULL? NULL: date('Y-m-d H:i:s');
 
-      $db = MedooFactory::getInstance();
+      if(!is_null($set['assign_sale_id'])) {
+        $sale = $db->get("account", "*", ["id"=> $set['assign_sale_id']]);
+        if($old['assign_manager_id'] != $sale["manager_id"]) {
+          $set["assign_manager_id"] = $sale["manager_id"];
+          $set["assign_manager_at"] = $set['assign_sale_at'];
+        }
+      }
+
       $item = $db->get("enquiry", "*", ["id"=> $id]);
-      $acc = $db->get("account", "*", ["id"=> $set['assign_manager_id']]);
+      $acc = $db->get("account", "*", ["id"=> $set['assign_sale_id']]);
 
       $db->update($this->table, $set, ['id'=> $id]);
+
       if(@$params['is_auto'] == 1) {
         if($db->get("last_assign_sale", "*", ["manager_id"=> @$_SESSION["login"]["id"]])) {
           $db->update("last_assign_sale", ["sale_id"=> $params['assign_sale_id']]);
@@ -365,7 +389,7 @@ MAILCONTENT;
       $mailContent = <<<MAILCONTENT
       Assign enquiry: {$item["enquiry_no"]} to you. please check enquiry.
 MAILCONTENT;
-      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent);
+      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, "From: system@agent168th.com");
 
       $item = $db->get($this->table, "*", ["id"=> $id]);
 

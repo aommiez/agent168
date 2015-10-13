@@ -3,7 +3,7 @@
 
 <div class="container" ng-controller="EditCTL"
 ng-show="prepareDisplayEdit"
-ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0);?>;"
+ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2 && @$_SESSION['login']['level_id'] > 0);?>;"
 >
 	<ul class="nav nav-tabs tabs-add" >
   	<li class="active"><a>Enquiry</a></li>
@@ -13,7 +13,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] <= 2
     <?php }?>
 	</ul>
 	<!-- nav-tab-->
-	<?php if(@$_SESSION['login']['level_id'] == 1 || @$_SESSION['login']['level_id'] == 2){?>
+	<?php if(in_array(@$_SESSION['login']['level_id'], [1,2])){?>
 	<div class="tab-content">
     <h3>Assign Manager</h3>
 		<div>Current assign: <strong>{{form.assign_manager.name || 'None'}}</strong></div>
@@ -42,12 +42,12 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] <= 2
       </div>
     </form>
 		<?php }?>
-		<?php if(@$_SESSION['login']['level_id'] == 3){?>
+		<?php if(in_array(@$_SESSION['login']['level_id'], [1,2,3])){?>
 		<h3>Assign Sale</h3>
 		<div>Current assign: <strong>{{form.assign_sale.name || 'None'}}</strong></div>
 		<form ng-submit="autoAssSale()">
       <div class="detail-type">
-        Auto assign sale: <strong style="color: orange;">{{collection2.auto_assign.name || 'None'}}</strong>
+        Auto assign sale: <strong style="color: orange;">{{collection3.auto_assign.name || 'None'}}</strong>
         <br>
         <button type="submit" class="btn btn-success">Auto Assign Sale</button>
       </div>
@@ -59,7 +59,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] <= 2
           <select
           class="form-control"
           ng-model="assSaleForm.assign_sale_id"
-          ng-options="item.id as item.name for item in collection2.accounts">
+          ng-options="item.id as item.name for item in collection3.accounts">
           <option value="">-None-</option>
           </select>
         </div>

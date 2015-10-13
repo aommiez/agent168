@@ -22,17 +22,30 @@ class ApiPhoneReq extends BaseCTL
   {
     $db = MedooFactory::getInstance();
     $join = [
-      // "[>]property"=> ["property_id"=> "id"],
+      "[>]property"=> ["property_id"=> "id"],
       "[>]account"=> ["account_id"=> "id"],
-      // "[>]enquiry"=> ["enquiry_id"=> "id"]
+      "[>]enquiry"=> ["enquiry_id"=> "id"],
+      "[>]project"=> ["property.project_id"=> "id"],
+      "[>]account(manager)"=> ["account.manager_id"=> "id"]
     ];
     $field = [
-      "request_contact.*",
       "property.reference_id",
-      "enquiry.enquiry_no"
+      "property.project_id",
+      "property.address_no",
+
+      "account.id",
+      "account.name(sale_name)",
+
+      "enquiry.enquiry_no",
+
+      "project.name(project_name)",
+
+      "manager.name(manager_name)",
+
+      "request_contact.*"
     ];
     $where = [
-      "ORDER"=> "created_at DESC"
+      "ORDER"=> "request_contact.created_at DESC"
     ];
     $list = ListDAO::gets("request_contact", [
         "field"=> $field,
@@ -67,7 +80,7 @@ class ApiPhoneReq extends BaseCTL
     ==============================
 MAILCONTENT;
 
-    @mail($email, "Accept request contact property: ".$prop["reference_id"], $mailContent);
+    @mail($email, "Accept request contact property: ".$prop["reference_id"], $mailContent, "From: system@agent168th.com");
 
     return ["success"=> true];
   }
@@ -92,7 +105,7 @@ MAILCONTENT;
     Denine request
 MAILCONTENT;
 
-    @mail($email, "Denine request contact property: ".$prop["reference_id"], $mailContent);
+    @mail($email, "Denine request contact property: ".$prop["reference_id"], $mailContent, "From: system@agent168th.com");
 
     return ["success"=> true];
   }

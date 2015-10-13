@@ -128,8 +128,12 @@
                               </select>
                           </div>
                           <div class="col-md-4 form-group">
-                              <label>Address No.</label>
-                              <input type="text" class="form-control" ng-model="form.address_no">
+                              <label>Province</label>
+                              <select class="form-control"
+    													ng-model="form.province_id"
+    													ng-options="item.id as item.name for item in thailocation.province">
+                              <option value="">All</option>
+                      			</select>
                           </div>
                           <div class="col-md-4 form-group">
                               <label>Status</label>
@@ -234,10 +238,10 @@
                 <td>
                     <div><strong>Project</strong>: <span>{{prop.project_name}}</span></div>
                     <div ng-if="prop.address_no"><strong>Address no</strong>: <span>{{prop.address_no}}</span></div>
-                    <div ng-if="prop.address_no"><strong>Floor</strong>: <span>{{prop.floors}}</span></div>
+                    <div ng-if="prop.floors"><strong>Floor</strong>: <span>{{prop.floors}}</span></div>
                     <!-- <div><strong>Type</strong>: <span>{{prop.property_type_name}}</span></div> -->
-                    <div><strong>Bed room</strong>: <span>{{prop.bedrooms}}</span></div>
-                    <div><strong>Bath room</strong>: <span>{{prop.bathrooms}}</span></div>
+                    <div ng-if="prop.bedrooms"><strong>Bed room</strong>: <span>{{prop.bedrooms}}</span></div>
+                    <div ng-if="prop.bathrooms"><strong>Bath room</strong>: <span>{{prop.bathrooms}}</span></div>
                     <!-- <div><strong>Transfer Status</strong>: <span>{{prop.property_status_name}}</span></div> -->
                 </td>
                 <td>{{prop.requirement_name}}</td>
@@ -248,7 +252,7 @@
                 <td><a href="#/{{prop.id}}/gallery">images</a></td>
                 <td>
                   <a class="xcrud-action btn btn-warning btn-sm" href="#edit/{{prop.id}}" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
-                  <a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a>
+                  <?php if(@$_SESSION["login"]["level_id"]==1){?><a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a><?php }?>
                 </td>
             </tr>
             </tbody>

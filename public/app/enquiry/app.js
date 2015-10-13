@@ -70,7 +70,7 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
     $http.get("../api/collection/thailocation").success(function(thailocation) {
       $scope.thailocation = thailocation;
     });
-    
+
     $scope.remove = function(id){
         if(!window.confirm("Are you sure?")){
             return;
@@ -153,19 +153,29 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
             return;
           }
 
+          $location.path("/edit/" + data.id);
+          $scope.$apply();
+
           // window.location.hash = "/";
           // window.location.reload();
 
-          $scope.addStep = 2;
-          $scope.form2.id = data.id;
-          $scope.form3.id = data.id;
-
-          $.get("../api/enquiry/assign_list", function(data){
-            $scope.collection2 = data;
-            $scope.form3.assign_manager_id = data.auto_assign.id;
-            $scope.form3.is_auto = 1;
-            $scope.$apply();
-          }, "json");
+          // $scope.addStep = 2;
+          // $scope.form2.id = data.id;
+          // $scope.form3.id = data.id;
+          //
+          // $.get("../api/enquiry/assign_list_manager", function(data){
+          //   $scope.collection2 = data;
+          //   $scope.form3.assign_manager_id = data.auto_assign.id;
+          //   $scope.form3.is_auto = 1;
+          //   $scope.$apply();
+          // }, "json");
+          //
+          // $.get("../api/enquiry/assign_list_sale", function(data){
+          //   $scope.collection3 = data;
+          //   $scope.form4.assign_sale_id = data.auto_assign.id;
+          //   $scope.form5.is_auto = 1;
+          //   $scope.$apply();
+          // }, "json");
         }, 'json');
 
         // $scope.isSaving = true;
@@ -235,30 +245,45 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   });
 
   var promise4 = Q.promise(function (resolve, reject){
-    $.get("../api/enquiry/assign_list", function(data){
+    $.get("../api/enquiry/assign_list_manager", function(data){
       // $scope.collection2 = data;
       // $scope.form2.assign_to = data.auto_assign.id;
       resolve(data);
     }, "json");
   });
 
-  Q.all([promise1, promise2, promise3, promise4]).spread(function (result1, result2, result3, result4) {
+  var promise5 = Q.promise(function (resolve, reject){
+    $.get("../api/enquiry/assign_list_sale", function(data){
+      // $scope.collection2 = data;
+      // $scope.form2.assign_to = data.auto_assign.id;
+      resolve(data);
+    }, "json");
+  });
+
+  Q.all([promise1, promise2, promise3, promise4, promise5])
+    .spread(function (result1, result2, result3, result4, result5) {
+
     $scope.form = result1;
     $scope.collection = result2;
     $scope.collection2 = result4;
+    $scope.collection3 = result5;
     $scope.thailocation = result3;
 
-    $scope.assMngForm = {id: $routeParams.id};
-    $scope.autoAssMngForm = {id: $routeParams.id};
+    if(!$scope.collection2.error) {
+      $scope.assMngForm = {id: $routeParams.id};
+      $scope.autoAssMngForm = {id: $routeParams.id};
 
-    $scope.autoAssMngForm.assign_manager_id = $scope.collection2.auto_assign.id;
-    $scope.autoAssMngForm.is_auto = 1;
+      $scope.autoAssMngForm.assign_manager_id = $scope.collection2.auto_assign.id;
+      $scope.autoAssMngForm.is_auto = 1;
+    }
 
-    $scope.assSaleForm = {id: $routeParams.id};
-    $scope.autoAssSaleForm = {id: $routeParams.id};
+    if(!$scope.collection3.error) {
+      $scope.assSaleForm = {id: $routeParams.id};
+      $scope.autoAssSaleForm = {id: $routeParams.id};
 
-    $scope.autoAssSaleForm.assign_sale_id = $scope.collection2.auto_assign.id;
-    $scope.autoAssSaleForm.is_auto = 1;
+      $scope.autoAssSaleForm.assign_sale_id = $scope.collection3.auto_assign.id;
+      $scope.autoAssSaleForm.is_auto = 1;
+    }
 
     $scope.collection.project = $scope.collection.project.sort(function(a, b) {
       if(a.name < b.name) return -1;
