@@ -229,10 +229,14 @@
             <tbody>
             <tr ng-repeat="item in items.data">
                 <td>{{item.created_at}}</td>
+                <?php if(@$_SESSION['login']['level_id'] <= 3){?>
                 <td>
+                  <?php if(@$_SESSION['login']['level_id'] <= 2){?>
                   <div ng-if="item.manager_name"><strong>Manager</strong>: <span>{{item.manager_name}}</span></div>
+                  <?php }?>
                   <div ng-if="item.sale_name"><strong>Sale</strong>: <span>{{item.sale_name}}</span></div>
                 </td>
+                <?php }?>
                 <td>{{item.customer}}</td>
                 <td>{{item.name_for_enquiry}}</td>
                 <td>{{item.enquiry_type_name}}</td>
