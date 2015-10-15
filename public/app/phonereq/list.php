@@ -38,9 +38,14 @@
             <!--thead-->
             <tbody>
             	<tr class="table-detail" ng-repeat="item in list.data">
-                	<td class="ng-binding enq">{{item.enquiry_no}}</td>
+                	<td class="ng-binding enq">
+										<div><strong>Enquiry no</strong>: <a href="<?php echo \Main\Helper\URL::to();?>">{{item.enquiry_no}}</a></div>
+										<div><strong>Project</strong>: {{item.project_name_enq}}</div>
+										<div><strong>Customer</strong>: {{item.customer}}</div>
+										<div><strong>Requirement</strong>: {{item.req_name_for_enquiry}}</div>
+									</td>
                   <td class="ng-binding pro">
-										<div><strong>Enquiry no</strong>: {{item.reference_id}}</div>
+										<div><strong>Property no</strong>: {{item.reference_id}}</div>
 										<div><strong>Project</strong>: {{item.project_name}}</div>
 										<div><strong>Address no</strong>: {{item.address_no}}</div>
 									</td>

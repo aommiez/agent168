@@ -26,7 +26,9 @@ class ApiPhoneReq extends BaseCTL
       "[>]account"=> ["account_id"=> "id"],
       "[>]enquiry"=> ["enquiry_id"=> "id"],
       "[>]project"=> ["property.project_id"=> "id"],
-      "[>]account(manager)"=> ["account.manager_id"=> "id"]
+      "[>]project(project_enq)"=> ["enquiry.project_id"=> "id"],
+      "[>]account(manager)"=> ["account.manager_id"=> "id"],
+      "[>]requirement(req_enq)"=> ["enquiry.requirement_id"=> "id"]
     ];
     $field = [
       "property.reference_id",
@@ -37,8 +39,11 @@ class ApiPhoneReq extends BaseCTL
       "account.name(sale_name)",
 
       "enquiry.enquiry_no",
+      "enquiry.customer",
+      "req_enq.name_for_enquiry(req_name_for_enquiry)",
 
       "project.name(project_name)",
+      "project_enq.name(project_name_enq)",
 
       "manager.name(manager_name)",
 
@@ -118,15 +123,7 @@ MAILCONTENT;
     }, $items);
 
     $db = MedooFactory::getInstance();
-    $enqs = $db->select("enquiry", [
-      "id",
-      "enquiry_no",
-      "enquiry_type_id",
-      "customer",
-      "assign_manager_id",
-      "requirement_id",
-      "project_id"
-      ]);
+    $enqs = $db->select("project", ["id", "name"], ["id"=> $enqIdList]);
 
     foreach($items as &$item){
 
