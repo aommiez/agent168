@@ -23,6 +23,6 @@ foreach($items as $item) {
   Property No: {$item["reference_id"]}
 MAILCONTENT;
   foreach($admins as $admin) {
-    @mail($admin["email"], "Property contract expire in 1 month", $mailContent);
+    @mail($admin["email"], "Property contract expire in 1 month", $mailContent, "From: system@agent168th.com");
   }
 }
