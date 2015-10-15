@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(!(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0)) {
-  return "";
-}
+// if(!(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0)) {
+//   return "";
+// }
 ?>
 <form ng-submit="submit()" ng-controller="AddCTL" id="form-edit-prop" ng-show="initSuccess">
   <div class="row">
