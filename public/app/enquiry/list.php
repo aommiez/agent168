@@ -213,6 +213,7 @@
             <thead>
             <tr>
                 <th>Date</th>
+                <th>Assign to</th>
                 <th>Customer</th>
                 <th>Requirement</th>
                 <th>Enquiry Type</th>
@@ -228,6 +229,10 @@
             <tbody>
             <tr ng-repeat="item in items.data">
                 <td>{{item.created_at}}</td>
+                <td>
+                  <div ng-if="item.manager_name"><strong>Manager</strong>: <span>{{item.manager_name}}</span></div>
+                  <div ng-if="item.sale_name"><strong>Sale</strong>: <span>{{item.sale_name}}</span></div>
+                </td>
                 <td>{{item.customer}}</td>
                 <td>{{item.name_for_enquiry}}</td>
                 <td>{{item.enquiry_type_name}}</td>

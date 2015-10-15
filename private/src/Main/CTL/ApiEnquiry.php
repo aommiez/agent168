@@ -29,13 +29,17 @@ class ApiEnquiry extends BaseCTL {
           "*",
           "enquiry_type.name(enquiry_type_name)",
           "enquiry_status.name(enquiry_status_name)",
-          "enquiry.id"
+          "sale.name(sale_name)",
+          "manager.name(manager_name)",
+          "enquiry.*"
       ];
         $join = [
             "[>]requirement"=> ["requirement_id"=> "id"],
             "[>]size_unit"=> ["size_unit_id"=> "id"],
             "[>]enquiry_type"=> ["enquiry_type_id"=> "id"],
-            "[>]enquiry_status"=> ["enquiry_status_id"=> "id"]
+            "[>]enquiry_status"=> ["enquiry_status_id"=> "id"],
+            "[>]account(sale)"=> ["assign_sale_id"=> "id"],
+            "[>]account(manager)"=> ["assign_manager_id"=> "id"]
         ];
         $where = ["AND"=> []];
 
@@ -51,7 +55,7 @@ class ApiEnquiry extends BaseCTL {
           $where["AND"]['property.inc_vat'] = $params['inc_vat'];
         }
 
-        $where["ORDER"] = "updated_at DESC";
+        $where["ORDER"] = "enquiry.updated_at DESC";
 
         if(count($where["AND"]) > 0){
             $list = ListDAO::gets($this->table, [
