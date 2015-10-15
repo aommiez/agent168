@@ -9,8 +9,8 @@ if(mail("papangping@gmail.com",
     Message: mxxxx
     ========================
     Telephone: txxxxx
-    ========================"
-  )){
+    ========================",
+    "From: system@agent168th.com")){
   echo "send mail success.";
 }
 else {

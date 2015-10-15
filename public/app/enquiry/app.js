@@ -477,6 +477,10 @@ app.controller('MatchedCTL', ['$scope', '$http', '$location', '$route', '$routeP
       enquiry_id: $scope.id,
       property_id: prop.id
     }, function(data){
+      if(data.error) {
+        alert(data.error.message);
+        return;
+      }
       $route.reload();
     }, "json");
   };

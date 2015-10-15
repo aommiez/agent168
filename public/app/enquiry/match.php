@@ -1,10 +1,10 @@
 <?php session_start();?>
 <div ng-controller="MatchCTL">
   <ul class="nav nav-tabs tabs-add" >
-  	<li><a ng-click="changeHash('/edit/'+id)">Enquiry</a></li>
+  	<li><a href="" ng-click="changeHash('/edit/'+id)">Enquiry</a></li>
   	<?php if(@$_SESSION['login']['level_id']==4){?>
-    <li><a>Match Property</a></li>
-  	<li><a ng-click="changeHash('/matched/'+id)">Matched Property</a></li>
+    <li><a href="">Match Property</a></li>
+  	<li><a href="" ng-click="changeHash('/matched/'+id)">Matched Property</a></li>
     <?php }?>
   	<!-- <li><a href="">Touring Report</a></li> -->
 	</ul>

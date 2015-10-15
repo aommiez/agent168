@@ -118,12 +118,6 @@ class ApiEnquiry extends BaseCTL {
         ];
 
         $db->insert("enquiry_comment", $commentInsert);
-        $db->update("request_contact", ["commented"=> 1], [
-          "AND"=> [
-            "enquiry_id"=> $id,
-            "account_id"=> $accId
-            ]
-          ]);
         $db->pdo->commit();
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
@@ -168,6 +162,8 @@ class ApiEnquiry extends BaseCTL {
         $set['updated_at'] = $now;
 
         $db = MedooFactory::getInstance();
+        $old = $db->get("request_contact", "*", ["id"=> $id]);
+
         $db->update($this->table, $set, ['id'=> $id]);
 
         $accId = $_SESSION['login']['id'];
@@ -179,6 +175,12 @@ class ApiEnquiry extends BaseCTL {
         ];
 
         $db->insert("enquiry_comment", $commentInsert);
+        $db->update("request_contact", ["commented"=> 1], [
+          "AND"=> [
+            "enquiry_id"=> $id,
+            "account_id"=> $accId
+            ]
+          ]);
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
         return $item;
@@ -643,6 +645,19 @@ MAILCONTENT;
 
       $params = $this->reqInfo->params();
       $db = MedooFactory::getInstance();
+
+      $cCommented = $db->count("request_contact", [
+          "AND"=> [
+            "enquiry_id"=> $params["enquiry_id"],
+            // "property_id"=> $params["property_id"],
+            "account_id"=> $_SESSION["login"]["id"],
+            "commented"=> 0
+          ]
+        ]);
+
+      if($cCommented > 0) {
+        return ResponseHelper::error("You need to comment previous enquiry you request before request more contact");
+      }
 
       $reqContact = $db->get("request_contact", "*", [
           "AND"=> [

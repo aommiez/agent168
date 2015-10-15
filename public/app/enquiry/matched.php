@@ -1,10 +1,10 @@
 <?php session_start();?>
 <div ng-controller="MatchedCTL">
   <ul class="nav nav-tabs tabs-add" >
-  	<li><a ng-click="changeHash('/edit/'+id)">Enquiry</a></li>
+  	<li><a href="" ng-click="changeHash('/edit/'+id)">Enquiry</a></li>
   	<?php if(@$_SESSION['login']['level_id']==4){?>
-  	<li><a ng-click="changeHash('/match/'+id)">Match Property</a></li>
-    <li><a>Matched Property</a></li>
+  	<li><a href="" ng-click="changeHash('/match/'+id)">Match Property</a></li>
+    <li><a href="">Matched Property</a></li>
     <?php }?>
   	<!-- <li><a href="">Touring Report</a></li> -->
 	</ul>
@@ -19,6 +19,7 @@
                 <th>Sell</th>
                 <th>Rent</th>
                 <th>Status</th>
+                <th>Comented</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -39,6 +40,10 @@
                 <td><span ng-hide="!prop.sell_price">฿{{commaNumber(prop.sell_price)}}</span></td>
                 <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
                 <td>{{prop.property_status_name}}</td>
+                <td class="text-center">
+                  <span ng-if="prop.request_contact.commented==1" class="badge" style="background-color: green;">Yes</span>
+                  <span ng-if="prop.request_contact.commented==0" class="badge" style="background-color: red;">No</span>
+                </td>
                 <td>
                   <button class="btn btn-success"
                   ng-hide="prop.request_contact"

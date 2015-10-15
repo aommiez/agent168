@@ -6,10 +6,10 @@ ng-show="prepareDisplayEdit"
 ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2 && @$_SESSION['login']['level_id'] > 0);?>;"
 >
 	<ul class="nav nav-tabs tabs-add" >
-  	<li class="active"><a>Enquiry</a></li>
+  	<li class="active"><a href="">Enquiry</a></li>
   	<?php if(@$_SESSION['login']['level_id']==4){?>
-		<li><a ng-click="changeHash('/match/'+id)">Match Property</a></li>
-  	<li><a ng-click="changeHash('/matched/'+id)">Matched Property</a></li>
+		<li><a href="" ng-click="changeHash('/match/'+id)">Match Property</a></li>
+  	<li><a href="" ng-click="changeHash('/matched/'+id)">Matched Property</a></li>
     <?php }?>
 	</ul>
 	<!-- nav-tab-->
@@ -280,7 +280,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
           	             <select class="form-control"
                          ng-model="form.enquiry_status_id"
                          ng-options="item.id as item.name for item in collection.enquiry_status"
-                         required>
+                         disabled="false">
                          <option value="">Please select</option>
                          </select>
                      	</i>
