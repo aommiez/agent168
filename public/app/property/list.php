@@ -139,8 +139,8 @@
                               <label>Status</label>
                               <select class="form-control" ng-model="form.property_status_id">
                                   <option value="">All</option>
-                                  <option value="1">Non-Available</option>
-                                  <option value="2">Available</option>
+                                  <option value="1">Available</option>
+                                  <option value="2">Non-Available</option>
                                   <option value="3">Rented</option>
                                   <option value="4">Individual</option>
                                   <option value="5">Sold</option>
