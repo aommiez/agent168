@@ -251,7 +251,10 @@
                 <td><span ng-hide="!prop.sell_price">฿{{commaNumber(prop.sell_price)}}</span></td>
                 <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
                 <td>{{prop.property_status_name}}</td>
-                <td><a href="#/{{prop.id}}/gallery">images</a></td>
+                <td>
+                  
+                  <a class="btn btn-info" href="#/{{prop.id}}/gallery" target="_blank">images</a>
+                </td>
                 <td>
                   <a class="xcrud-action btn btn-warning btn-sm" href="#edit/{{prop.id}}" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
                   <?php if(@$_SESSION["login"]["level_id"]==1){?><a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a><?php }?>

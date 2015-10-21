@@ -241,6 +241,7 @@
       <!-- <button class="btn btn-primary">Save</button> -->
       <a class="btn btn-info" href="#/">Back</a>
       <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-info" href="#/{{form.id}}/match" target="_blank">Match</a>
     </div>
   </div>
 </form>
