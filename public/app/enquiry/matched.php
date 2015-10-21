@@ -13,6 +13,7 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>Resference ID</th>
                 <th>Details</th>
                 <th>Requirement</th>
                 <th>Size</th>
@@ -20,12 +21,13 @@
                 <th>Rent</th>
                 <th>Status</th>
                 <th>Comented</th>
-                <th></th>
+                <th>Request status</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="prop in props.data">
+                <td><input type="checkbox" ng-model="inputProps[prop.id.toString()]"></td>
                 <td>{{prop.reference_id}}</td>
                 <td>
                     <div><strong>Project</strong>: <span>{{prop.project_name}}</span></div>
@@ -45,20 +47,11 @@
                   <span ng-if="prop.request_contact.commented==0" class="badge" style="background-color: red;">No</span>
                 </td>
                 <td>
-                  <button class="btn btn-success"
-                  ng-hide="prop.request_contact"
-                  ng-click="clickRequestContact(prop)">Request Contact</button>
-                  <button class="btn btn-info"
-                  ng-show="prop.request_contact.status_id==1"
-                  disabled>Waiting approve..</button>
-                  <button class="btn btn-info"
-                  ng-show="prop.request_contact.status_id==2"
-                  disabled>Admin approved</button>
-                  <button class="btn btn-info"
-                  ng-show="prop.request_contact.status_id==3"
-                  disabled>Admin denine</button>
+                  <span ng-if="prop.request_contact.status_id==1" class="badge" style="background-color: gray;">Waiting approve..</span>
+                  <span ng-if="prop.request_contact.commented==2" class="badge" style="background-color: green;">Approved</span>
+                  <span ng-if="prop.request_contact.commented==3" class="badge" style="background-color: red;">Denine</span>
                 </td>
-                <td><button class="btn btn-danger" ng-click="removeMathClick(prop)">Delete Match</button></td>
+                <td><button class="xcrud-action btn btn-danger btn-sm" ng-click="removeMathClick(prop)">Delete Match</button></td>
             </tr>
             </tbody>
         </table>
@@ -79,5 +72,10 @@
           </a>
         </li> -->
       </ul>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-success"
+      ng-hide="prop.request_contact"
+      ng-click="clickRequestContact()">Request Contact</button>
     </div>
 </div>
