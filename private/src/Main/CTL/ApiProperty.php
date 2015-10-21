@@ -127,6 +127,11 @@ class ApiProperty extends BaseCTL {
         // status
         if(!empty($params['property_status_id'])) {
           $where["AND"]['property.property_status_id'] = $params['property_status_id'];
+
+          // 99 is empty
+          if($params['property_status_id'] == 99) {
+            $where["AND"]['property.property_status_id'] = null;
+          }
         }
 
         $page = !empty($params['page'])? $params['page']: 1;

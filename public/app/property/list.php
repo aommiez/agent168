@@ -145,6 +145,8 @@
                                   <option value="4">Individual</option>
                                   <option value="5">Sold</option>
                                   <option value="6">Tend to transfer</option>
+
+                                  <option value="99">----Only empty----</option>
                               </select>
                           </div>
                       </div>
@@ -252,7 +254,7 @@
                 <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
                 <td>{{prop.property_status_name}}</td>
                 <td>
-                  
+
                   <a class="btn btn-info" href="#/{{prop.id}}/gallery" target="_blank">images</a>
                 </td>
                 <td>
