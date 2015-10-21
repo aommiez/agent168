@@ -17,7 +17,8 @@
       <select class="form-control"
       ng-model="form.property_status_id"
       ng-options="item.id as item.name for item in collection.property_status"
-      required ng-disabled="!editAllow">
+      ng-disabled="!editAllow"
+      required>
           <option value="">Please select</option>
       </select>
     </div>
