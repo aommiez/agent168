@@ -62,8 +62,15 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
     getProps($scope.form);
 
     $scope.setPage = function($index) {
-      $scope.form.page = $index + 1;
+      if($index < 1 || $index > $scope.pagination.length)
+        return;
+
+      $scope.form.page = $index;
       getProps($scope.form);
+    };
+
+    $scope.displayDotLeft = function(){
+      if($scope.form.page > 5) return true;
     };
 
     $scope.filterProps = function(){
@@ -79,7 +86,7 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
           return 0;
         });
     });
-    
+
     $http.get("../api/collection/thailocation").success(function(thailocation) {
       $scope.thailocation = thailocation;
     });

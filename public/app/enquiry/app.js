@@ -449,7 +449,6 @@ app.controller('MatchedCTL', ['$scope', '$http', '$location', '$route', '$routeP
   };
 
   $scope.filterProps = function(){
-      console.log($scope.form);
       getProps($scope.form);
   };
 
@@ -471,11 +470,16 @@ app.controller('MatchedCTL', ['$scope', '$http', '$location', '$route', '$routeP
     }
   };
 
-  $scope.clickRequestContact = function(prop){
-    if(!window.confirm('Request contact')) { return; }
+  $scope.inputProps = {};
+  $scope.clickRequestContact = function(){
+    var listPropsId = [];
+    for(var key in $scope.inputProps) {
+      if($scope.inputProps[key]) listPropsId.push(parseInt(key));
+    }
+
     $.post("../api/enquiry/request_contact", {
       enquiry_id: $scope.id,
-      property_id: prop.id
+      props_id: listPropsId
     }, function(data){
       if(data.error) {
         alert(data.error.message);

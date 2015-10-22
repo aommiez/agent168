@@ -225,6 +225,7 @@
                 <th>Sell</th>
                 <th>Rent</th>
                 <th>Status</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -244,6 +245,7 @@
                 <td><span ng-hide="!prop.sell_price">฿{{commaNumber(prop.sell_price)}}</span></td>
                 <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
                 <td>{{prop.property_status_name}}</td>
+                <td><a class="xcrud-action btn btn-warning btn-sm" href="properties#edit/{{prop.id}}" target="_blank">View</a></td>
             </tr>
             </tbody>
         </table>

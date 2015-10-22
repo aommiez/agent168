@@ -179,12 +179,12 @@ class ApiEnquiry extends BaseCTL {
         ];
 
         $db->insert("enquiry_comment", $commentInsert);
-        $db->update("request_contact", ["commented"=> 1], [
-          "AND"=> [
-            "enquiry_id"=> $id,
-            "account_id"=> $accId
-            ]
-          ]);
+        // $db->update("request_contact", ["commented"=> 1], [
+        //   "AND"=> [
+        //     "enquiry_id"=> $id,
+        //     "account_id"=> $accId
+        //     ]
+        //   ]);
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
         return $item;
@@ -343,7 +343,10 @@ class ApiEnquiry extends BaseCTL {
       $mailContent = <<<MAILCONTENT
       Assign enquiry: {$item["enquiry_no"]} to you. please check enquiry.
 MAILCONTENT;
-      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, "From: system@agent168th.com");
+
+      $mailHeader = "From: system@agent168th.com\r\n";
+      $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
 
       $item = $db->get($this->table, "*", ["id"=> $id]);
 
@@ -395,7 +398,9 @@ MAILCONTENT;
       $mailContent = <<<MAILCONTENT
       Assign enquiry: {$item["enquiry_no"]} to you. please check enquiry.
 MAILCONTENT;
-      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, "From: system@agent168th.com");
+      $mailHeader = "From: system@agent168th.com\r\n";
+      $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
 
       $item = $db->get($this->table, "*", ["id"=> $id]);
 
@@ -663,27 +668,31 @@ MAILCONTENT;
         return ResponseHelper::error("You need to comment previous enquiry you request before request more contact");
       }
 
-      $reqContact = $db->get("request_contact", "*", [
-          "AND"=> [
-            "enquiry_id"=> $params["enquiry_id"],
-            "property_id"=> $params["property_id"],
-            "account_id"=> $_SESSION["login"]["id"],
-            "status_id"=> 1
-          ]
-        ]);
+      $props_id = $this->reqInfo->param("props_id", []);
+      foreach($props_id as $prop_id) {
+        $reqContact = $db->get("request_contact", "*", [
+            "AND"=> [
+              "enquiry_id"=> $params["enquiry_id"],
+              "property_id"=> $prop_id,
+              "account_id"=> $_SESSION["login"]["id"],
+              "status_id"=> 1
+            ]
+          ]);
 
-      if($reqContact) {
-        return ResponseHelper::error("You are wait to approve from admin");
+        if($reqContact) {
+          continue;
+        }
+
+        $insert = [
+          "enquiry_id"=> $params["enquiry_id"],
+          "property_id"=> $prop_id,
+          "account_id"=> $_SESSION["login"]["id"],
+          "status_id"=> 1,
+          "created_at"=> date("Y-m-d H:i:s")
+        ];
+        $db->insert("request_contact", $insert);
       }
 
-      $insert = [
-        "enquiry_id"=> $params["enquiry_id"],
-        "property_id"=> $params["property_id"],
-        "account_id"=> $_SESSION["login"]["id"],
-        "status_id"=> 1,
-        "created_at"=> date("Y-m-d H:i:s")
-      ];
-      $db->insert("request_contact", $insert);
       return ['success'=> true];
 
       // return $list = ListDAO::gets($this->table, [
@@ -692,7 +701,6 @@ MAILCONTENT;
       //     "where"=> $where,
       //     "limit"=> 100
       // ]);
-
     }
 
     /**

@@ -85,7 +85,9 @@ class ApiPhoneReq extends BaseCTL
     ==============================
 MAILCONTENT;
 
-    @mail($email, "Accept request contact property: ".$prop["reference_id"], $mailContent, "From: system@agent168th.com");
+    $mailHeader = "From: system@agent168th.com\r\n";
+    $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+    @mail($email, "Accept request contact property: ".$prop["reference_id"], $mailContent, $mailHeader);
 
     return ["success"=> true];
   }
@@ -110,7 +112,9 @@ MAILCONTENT;
     Denine request
 MAILCONTENT;
 
-    @mail($email, "Denine request contact property: ".$prop["reference_id"], $mailContent, "From: system@agent168th.com");
+    $mailHeader = "From: system@agent168th.com\r\n";
+    $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+    @mail($email, "Denine request contact property: ".$prop["reference_id"], $mailContent, $mailHeader);
 
     return ["success"=> true];
   }

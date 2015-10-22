@@ -293,6 +293,12 @@ class ApiProperty extends BaseCTL {
             "comment_by"=> $accId,
             "updated_at"=> date('Y-m-d H:i:s')
             ]);
+        $db->update("request_contact", ["commented"=> 1], [
+          "AND"=> [
+            "property_id"=> $id,
+            "account_id"=> $accId
+            ]
+          ]);
 
         return ["success"=> true];
     }
