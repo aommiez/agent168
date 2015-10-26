@@ -278,6 +278,8 @@ class ApiProperty extends BaseCTL {
             'updated_at'=> date('Y-m-d H:i:s')
           ];
         }
+
+        $old = $db->get($this->table, "*", $where);
         $updated = $db->update($this->table, $set, $where);
 
         if(!$updated){
@@ -293,6 +295,18 @@ class ApiProperty extends BaseCTL {
             "comment_by"=> $accId,
             "updated_at"=> date('Y-m-d H:i:s')
             ]);
+
+        // mail when comment
+        $mailContent = <<<MAILCONTENT
+        $acc = $db->get("account", ["name"], ["id"=> $accId]);
+        Property: {$old["reference_id"]} has comment by {$acc["name"]}.
+MAILCONTENT;
+
+        $mailHeader = "From: system@agent168th.com\r\n";
+        $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+        @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
+
+
         $db->update("request_contact", ["commented"=> 1], [
           "AND"=> [
             "property_id"=> $id,
