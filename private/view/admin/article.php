@@ -10,7 +10,10 @@
  */
 
 use Main\ThirdParty\Xcrud\Xcrud;
+use Main\ThirdParty\Xcrud\Xcrud_config;
 
+// //cdn.ckeditor.com/4.5.4/standard/ckeditor.js
+Xcrud_config::$editor_url = "http://cdn.ckeditor.com/4.5.4/standard/ckeditor.js";
 $xcrud = Xcrud::get_instance();
 $xcrud->table('article');
 $xcrud->unset_title();

@@ -38,20 +38,23 @@ class ApiPropertyReportCTL extends BaseCTL {
 
         $field = [
             "property.*",
-            "property_type.name(property_type_name)",
-            "property_type.code(property_type_code)",
-            "zone_group.name(zone_group_name)",
-            "requirement_type.name(requirement_type_name)",
-            "developer.name(developer_name)",
-            "size_unit.name(size_unit_name)"
+            // "property_type.name(property_type_name)",
+            // "property_type.code(property_type_code)",
+            // "zone_group.name(zone_group_name)",
+            "requirement.name(requirement_name)",
+            "property_status.name(property_status_name)",
+            // "developer.name(developer_name)",
+            "size_unit.name(size_unit_name)",
+            "project.name(project_name)"
         ];
-
         $join = [
-            "[>]property_type"=> ["property_type_id"=> "id"],
-            "[>]zone_group"=> ["zone_group_id"=> "id"],
-            "[>]requirement_type"=> ["requirement_type_id"=> "id"],
-            "[>]developer"=> ["developer_id"=> "id"],
-            "[>]size_unit"=> ["size_unit_id"=> "id"]
+            // "[>]property_type"=> ["property_type_id"=> "id"],
+            // "[>]zone_group"=> ["zone_group_id"=> "id"],
+            "[>]requirement"=> ["requirement_id"=> "id"],
+            "[>]property_status"=> ["property_status_id"=> "id"],
+            // "[>]developer"=> ["developer_id"=> "id"],
+            "[>]size_unit"=> ["size_unit_id"=> "id"],
+            "[>]project"=> ["project_id"=> "id"]
         ];
 
         $where = [

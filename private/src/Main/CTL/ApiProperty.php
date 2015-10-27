@@ -134,6 +134,11 @@ class ApiProperty extends BaseCTL {
           }
         }
 
+        // web url searh
+        if(!empty($params['web_url_search'])) {
+          $where["AND"]['property.web_url_search[~]'] = $params['web_url_search'];
+        }
+
         $page = !empty($params['page'])? $params['page']: 1;
         $orderType = !empty($params['orderType'])? $params['orderType']: "DESC";
         $orderBy = !empty($params['orderBy'])? $params['orderBy']: "updated_at";
@@ -175,7 +180,7 @@ class ApiProperty extends BaseCTL {
           "requirement_id", "contract_price", "sell_price", "net_sell_price", "rent_price", "net_rent_price", "owner",
           "key_location_id", "zone_id", "road", "province_id", "district_id", "sub_district_id", "bts_id", "mrt_id",
           "airport_link_id", "property_status_id", "contract_expire", "web_status", "property_highlight_id",
-          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner"
+          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner", "web_url_search"
         ], $params);
 
         $insert = array_map(function($item) {
@@ -252,7 +257,7 @@ class ApiProperty extends BaseCTL {
           "requirement_id", "contract_price", "sell_price", "net_sell_price", "rent_price", "net_rent_price", "owner",
           "key_location_id", "zone_id", "road", "province_id", "district_id", "sub_district_id", "bts_id", "mrt_id",
           "airport_link_id", "property_status_id", "contract_expire", "web_status", "property_highlight_id",
-          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner"
+          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner", "web_url_search"
         ], $set);
 
         $set = array_map(function($item) {
@@ -297,14 +302,14 @@ class ApiProperty extends BaseCTL {
             ]);
 
         // mail when comment
+        $acc = $db->get("account", "*", ["id"=> $accId]);
         $mailContent = <<<MAILCONTENT
-        $acc = $db->get("account", ["name"], ["id"=> $accId]);
-        Property: {$old["reference_id"]} has comment by {$acc["name"]}.
+        Property: {$old["reference_id"]} has comment by {$acc["name"]}. please check property.
 MAILCONTENT;
 
         $mailHeader = "From: system@agent168th.com\r\n";
         $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
-        @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
+        @mail($acc["email"], "Comment property: ".$old["reference_id"], $mailContent, $mailHeader);
 
 
         $db->update("request_contact", ["commented"=> 1], [

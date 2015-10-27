@@ -229,6 +229,11 @@
             <option value="">Please select</option>
         </select>
       </div>
+      <div class="col-md-4 form-group">
+        <label>Web URL search</label>
+        <textarea class="form-control"
+        ng-model="form.web_url_search"></textarea>
+      </div>
     </fieldset>
   </div>
   <div class="row">

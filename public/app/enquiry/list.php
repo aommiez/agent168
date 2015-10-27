@@ -18,10 +18,10 @@
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Enquiry type</label>
                                 <div>
-                                  <select class="form-control"
-                                  ng-model="form.enquiry_type_id"
-                                  ng-options="item.id as item.name for item in collection.enquiry_type">
-                                      <option value="">All</option>
+                                  <select class="form-control" id="type" ng-model="form.enquiry_type_id" ng-init="form.enquiry_type_id=1" required>
+                                    <option value="1">Individual</option>
+                                    <option value="2">Investment</option>
+                                    <option value="3">Corporate</option>
                                   </select>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                 <div>
                                   <select class="form-control"
                                   ng-model="form.requirement_id"
-                                  ng-options="item.id as item.name for item in collection.requirement">
+                                  ng-options="item.id as item.name_for_enquiry for item in collection.requirement">
                                       <option value="">All</option>
                                   </select>
                                 </div>
@@ -78,7 +78,7 @@
                                 <div>
                                     <select class="form-control"
                                     ng-model="form.privince_id"
-                                    ng-options="item.id as item.name for item in thailocation.privince">
+                                    ng-options="item.id as item.name for item in thailocation.province">
                                         <option value="">All</option>
                                     </select>
                                 </div>
@@ -115,7 +115,12 @@
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Period time to purchasing or leasing</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                  <select class="form-control" ng-model="form.ptime_to_pol">
+                                    <option value="">All</option>
+                                   <option>Within a week</option>
+                                     <option>Within a month</option>
+                                     <option>Within 3 months</option>
+                                  </select>
                                 </div>
                             </div>
                             <div style="clear: both;"></div>
@@ -141,26 +146,47 @@
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Nearest BTS</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                  <select class="form-control"
+                                  ng-model="form.bts_id"
+                                  ng-options="item.id as item.name for item in collection.bts"
+                                  >
+                                  <option value="">All</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Nearest MRT</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                  <select class="form-control"
+                                  ng-model="form.mrt_id"
+                                  ng-options="item.id as item.name for item in collection.mrt"
+                                  >
+                                  <option value="">All</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Nearest Airport-link</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                  <select class="form-control"
+                                  ng-model="form.airportlink_id"
+                                  ng-options="item.id as item.name for item in collection.airport_link"
+                                  >
+                                  <option value="">All</option>
+                                </select>
                                 </div>
                             </div>
                             <div style="clear: both;"></div>
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Status</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                  <select class="form-control"
+                                  ng-model="form.enquiry_status_id"
+                                  ng-options="item.id as item.name for item in collection.enquiry_status"
+                                  ng-init="form.enquiry_status_id=1"
+                                  required>
+                                  <option value="">All</option>
+                                  </select>
                                 </div>
                             </div>
                             <div class="col-md-3 form-group">
@@ -172,7 +198,12 @@
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Contact Type</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                  <select class="form-control" ng-model="form.contact_type_id">
+                                      <option value="">-Please select-</option>
+                                      <option value="1">Online</option>
+                                      <option value="2">Walkin</option>
+                                      <option value="3">Call</option>
+                                  </select>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +211,8 @@
                           <div class="col-md-2">
                             <label>Order By</label>
                             <select ng-model="form.orderBy" ng-init="form.orderBy='enquiry.updated_at'" class="form-control">
-                                <option value="enquiry.updated_at">update date</option>
+                                <option value="enquiry.updated_at">Updated at</option>
+                                <option value="enquiry.created_at">Created at</option>
                                 <option value="enquiry.enquiry_no">Enquiry No.</option>
                             </select>
                           </div>

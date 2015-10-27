@@ -52,7 +52,7 @@
                   <span ng-if="prop.request_contact.status_id.toString()=='2'" class="badge" style="background-color: green;">Approved</span>
                   <span ng-if="prop.request_contact.status_id.toString()=='3'" class="badge" style="background-color: red;">Denine</span>
                 </td>
-                <td><a class="xcrud-action btn btn-warning btn-sm" href="properties#edit/{{prop.id}}" target="_blank">View</a></td>
+                <td><a class="xcrud-action btn btn-warning btn-sm" href="properties#/edit/{{prop.id}}" target="_blank">View</a></td>
                 <td><button class="xcrud-action btn btn-danger btn-sm" ng-click="removeMathClick(prop)">Delete Match</button></td>
             </tr>
             </tbody>

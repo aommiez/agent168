@@ -30,7 +30,8 @@ class AdminCTL extends BaseCTL {
       if(empty($_SESSION['login'])) {
         return new RedirectView(URL::absolute('/admin/login'));
       }
-      return new HtmlView('/admin/index');
+      // return new HtmlView('/admin/index');
+      return new RedirectView('/admin/enquiries');
     }
 
     /**

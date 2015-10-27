@@ -1,4 +1,9 @@
 <?php session_start();?>
+<style>
+.el-custom-1 {
+  margin-top: 51px;
+}
+</style>
 <div ng-controller="ListCTL">
     <div>
             <div class="panel panel-primary">
@@ -181,24 +186,30 @@
                           </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-2 el-custom-1">
                           <label>Order By</label>
                           <select ng-model="form.orderBy" ng-init="form.orderBy='property.updated_at'" class="form-control">
-                              <option value="property.updated_at">update date</option>
-                              <option value="property.reference_id">reference ID</option>
-                              <option value="property.rented_expire">rent expire</option>
-                              <option value="project.name">project name</option>
-                              <option value="property.sell_price">sell price</option>
-                              <option value="property.rent_price">rent price</option>
-                              <option value="property.size">size</option>
+                              <option value="property.updated_at">Updated at</option>
+                              <option value="property.created_at">Created at</option>
+                              <option value="property.reference_id">Reference ID</option>
+                              <option value="property.rented_expire">Rent expire</option>
+                              <option value="project.name">Project name</option>
+                              <option value="property.sell_price">Sell price</option>
+                              <option value="property.rent_price">Rent price</option>
+                              <option value="property.size">Size</option>
                           </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 el-custom-1">
                           <label></label>
                           <select ng-model="form.orderType" ng-init="form.orderType='DESC'" class="form-control">
                               <option value="DESC">max -> min</option>
                               <option value="ASC">min -> max</option>
                           </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label>Web URL search</label>
+                          <textarea class="form-control"
+                          ng-model="form.web_url_search"></textarea>
                         </div>
                       </div>
                       <div class="row">
