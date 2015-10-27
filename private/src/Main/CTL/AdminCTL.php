@@ -31,7 +31,7 @@ class AdminCTL extends BaseCTL {
         return new RedirectView(URL::absolute('/admin/login'));
       }
       // return new HtmlView('/admin/index');
-      return new RedirectView('/admin/enquiries');
+      return new RedirectView(URL::absolute('/admin/enquiries'));
     }
 
     /**

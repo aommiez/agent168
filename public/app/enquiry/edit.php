@@ -98,6 +98,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
 						<!--row-->
 						<fieldset ng-disabled="!editAllow">
             <div class="row detail-type">
+							<div class="form-group"><label>Enquiry No</label><strong>:</strong> {{form.enquiry_no}}</div>
             	<div class="col-md-12 form-group">
                   <label class="require">Enquiry Type</label><strong>:</strong>
                   <select class="form-control" id="type" ng-model="form.enquiry_type_id" required>

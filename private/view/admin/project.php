@@ -20,17 +20,27 @@ $xcrud->change_type('image_path','image','', [
     ['width' => 150, 'folder' => 'thumbs']
   ]
 ]);
-$xcrud->change_type('address', 'textarea');
+// $xcrud->change_type('address', 'textarea');
 
 $xcrud->columns(['name', 'image_path', 'address', 'tel_company',
 // 'number_buildings', 'number_units', 'number_floors', 'center_area'
 ]);
 $xcrud->fields([
-  'name', 'image_path', 'address', 'tel_company', 'number_buildings', 'number_units', 'number_floors', 'center_area',
+  'name', 'image_path', 'tel_company', 'number_buildings', 'number_units', 'number_floors', 'center_area',
   'has_swimming_pool', 'has_onsen', 'has_gyn', 'has_garden', 'has_futsal', 'has_badminton', 'has_basketball', 'has_tennis', 'has_bowling', 'has_pool_room',
   'has_game_room', 'has_playground', 'has_meeting_room', 'has_private_butler', 'has_shuttle_bus', 'has_minimart_supermarket', 'has_restaurant',
-  'has_laundry_service', 'has_private_parking', 'has_bathtub_inside_unit', 'builder_by'
+  'has_laundry_service', 'has_private_parking', 'has_bathtub_inside_unit', 'builder_by',
+  'address', 'province_id', 'district_id', 'sub_district_id', 'bts_id', 'mrt_id', 'airport_link_id',
+  'location_lat', 'location_lng'
   ]);
+
+$xcrud->relation('province_id', 'province', 'id', 'name', '');
+$xcrud->relation('district_id', 'district', 'id', 'name', '','','','','','province_id','province_id');
+$xcrud->relation('sub_district_id', 'sub_district', 'id', 'name', '','','','','','district_id','district_id');
+
+$xcrud->relation('bts_id', 'bts', 'id', 'name');
+$xcrud->relation('mrt_id', 'mrt', 'id', 'name');
+$xcrud->relation('airport_link_id', 'airport_link', 'id', 'name');
 
 $xcrud->change_type('has_swimming_pool', 'bool');
 $xcrud->change_type('has_onsen', 'bool');

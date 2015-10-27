@@ -13,6 +13,7 @@ use Main\DB\Medoo\MedooFactory;
 use Main\Helper\ArrayHelper;
 use Main\Helper\ResponseHelper;
 use Main\Helper\URL;
+use Main\Helper\ImageHelper;
 
 /**
  * @Restful
@@ -380,9 +381,12 @@ MAILCONTENT;
         list($files, $headers) = $fileupload->processAll();
 
         $db = MedooFactory::getInstance();
+        // $ffff = [];
         foreach($files as $file){
             if($file->error == 0){
                 $db->insert("property_image", ["property_id"=> $id, "name"=> $file->name]);
+                // $ffff[] = $file;
+                ImageHelper::makeResizeWatermark($file->path);
             }
         }
 

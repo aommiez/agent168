@@ -151,14 +151,14 @@ $this->import("/admin/layout/header");
         </div>
         <div class="main-content">
             <!-- <div class="swipe-area"></div> -->
-            <a href="#" data-toggle=".container" id="sidebar-toggle">
+            <a href="" data-toggle=".container" id="sidebar-toggle">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </a>
             <div class="navbar">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><?php echo $_SESSION['login']['email'];?> [<?php echo $_SESSION['login']['level']['name'];?>]</a></li>
+                <li><a href=""><?php echo $_SESSION['login']['email'];?> [<?php echo $_SESSION['login']['level']['name'];?>]</a></li>
                 <!-- <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                   <ul class="dropdown-menu">
@@ -185,9 +185,11 @@ $this->import("/admin/layout/header");
     <script>
         var $ = jQuery;
         $(document).ready(function () {
-            $("[data-toggle]").click(function () {
+            $("[data-toggle]").click(function (e) {
+                e.preventDefault();
                 var toggle_el = $(this).data("toggle");
                 $(toggle_el).toggleClass("open-sidebar");
+                return false;
             });
         });
     </script>
