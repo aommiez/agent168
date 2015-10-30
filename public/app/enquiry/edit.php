@@ -3,7 +3,7 @@
 
 <div class="container" ng-controller="EditCTL"
 ng-show="prepareDisplayEdit"
-ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2 && @$_SESSION['login']['level_id'] > 0);?>;"
+ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0);?>;"
 >
 	<ul class="nav nav-tabs tabs-add" >
   	<li class="active"><a href="">Enquiry</a></li>
@@ -17,14 +17,14 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
 	<div class="tab-content">
     <h3>Assign Manager</h3>
 		<div>Current assign: <strong>{{form.assign_manager.name || 'None'}}</strong></div>
-		<form ng-submit="autoAssMng()">
+		<form ng-submit="autoAssMng()" ng-if="autoAssMngForm">
       <div class="detail-type">
         Auto assign manager: <strong style="color: orange;">{{collection2.auto_assign.name || 'None'}}</strong>
         <br>
         <button type="submit" class="btn btn-success">Auto Assign Manager</button>
       </div>
     </form>
-    <form ng-submit="assMng()">
+    <form ng-submit="assMng()" ng-if="assMngForm">
       <div class="detail-type">
         <div class="form-group">
           <label>Assign manager</label>
@@ -45,7 +45,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
 		<?php if(in_array(@$_SESSION['login']['level_id'], [1,2,3])){?>
 		<h3>Assign Sale</h3>
 		<div>Current assign: <strong>{{form.assign_sale.name || 'None'}}</strong></div>
-		<form ng-submit="autoAssSale()">
+		<form ng-submit="autoAssSale()" ng-if="autoAssSaleForm">
       <div class="detail-type">
         Auto assign sale: <strong style="color: orange;">{{collection3.auto_assign.name || 'None'}}</strong>
         <br>
@@ -53,7 +53,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
       </div>
     </form>
     <div class="detail-type">
-      <form ng-submit="assSale()">
+      <form ng-submit="assSale()" ng-if="assSaleForm">
         <div class="form-group">
           <label>Assign Sale:</label>
           <select
@@ -96,12 +96,12 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                 </div>
             </div> -->
 						<!--row-->
-						<fieldset ng-disabled="!editAllow">
+						<fieldset>
             <div class="row detail-type">
 							<div class="form-group"><label>Enquiry No</label><strong>:</strong> {{form.enquiry_no}}</div>
             	<div class="col-md-12 form-group">
                   <label class="require">Enquiry Type</label><strong>:</strong>
-                  <select class="form-control" id="type" ng-model="form.enquiry_type_id" required>
+                  <select class="form-control" id="type" ng-model="form.enquiry_type_id" ng-disabled="!editAllow" required>
                     <option value="1">Individual</option>
                     <option value="2">Investment</option>
                     <option value="3">Corporate</option>
@@ -110,7 +110,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                 <div class="col-md-6">
             			<div class="form-group">
                     <label class="require">Customer</label><strong>: </strong>
-                    <input type="text" class="form-control" id="name" placeholder="name,tel,email" ng-model="form.customer" required>
+                    <input type="text" class="form-control" id="name" placeholder="name,tel,email" ng-model="form.customer" ng-disabled="!editAllow" required>
                     <br><small style="margin-left: 88px;">คั่นรายละเอียดการติดต่อด้วยลูกน้ำ " , "</small>
                   </div>
             	</div>
@@ -141,7 +141,8 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                         	<select class="form-control"
 													ng-model="form.requirement_id"
 													ng-options="item.id as item.name_for_enquiry for item in collection.requirement"
-                          required>
+                          required
+												  ng-disabled="!editAllow">
                         	</select>
                         </i>
                     </div>
@@ -151,6 +152,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                         	<select class="form-control"
 													ng-model="form.property_type_id"
 													ng-options="item.id as item.name for item in collection.property_type"
+													ng-disabled="!editAllow"
 													required>
                       		</select>
                     	</i>
@@ -162,7 +164,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                         	<select class="form-control"
 													ng-model="form.province_id"
 													ng-options="item.id as item.name for item in thailocation.province"
-													required>
+													required ng-disabled="!editAllow">
                   			</select>
                     	</i>
                   	</div>
@@ -172,7 +174,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                         	<select class="form-control"
 													ng-model="form.project_id"
 										      ng-options="item.id as item.name for item in collection.project"
-													>
+													ng-disabled="!editAllow">
                           <option value="">-Please Select-</option>
                   			</select>
                     	</i>
@@ -180,21 +182,21 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                     <div class="form-group">
             	        <i class="col-md-6 box-1"><label>Buying Budget</label><strong>:</strong></i>
            	            <i class="col-md-5 box-2">
-       	                	<span><input type="text" class="form-control" ng-model="form.buy_budget_start"> to
-                      		<input type="text" class="form-control" ng-model="form.buy_budget_end"></span>
+       	                	<span><input type="text" class="form-control" ng-model="form.buy_budget_start" ng-disabled="!editAllow"> to
+                      		<input type="text" class="form-control" ng-model="form.buy_budget_end" ng-disabled="!editAllow"></span>
                       	</i>
                     </div>
                     <div class="form-group">
             	        <i class="col-md-6 box-1"><label>Rental Budget</label><strong>:</strong></i>
            	            <i class="col-md-5 box-2">
-       	                	<span><input type="text" class="form-control" ng-model="form.rent_budget_start"> to
-                      		<input type="text" class="form-control" ng-model="form.rent_budget_end"></span>
+       	                	<span><input type="text" class="form-control" ng-model="form.rent_budget_start" ng-disabled="!editAllow"> to
+                      		<input type="text" class="form-control" ng-model="form.rent_budget_end" ng-disabled="!editAllow"></span>
                       	</i>
                     </div>
                     <div class="form-group">
             	       <i class="col-md-6 box-1"><strong>Zone: </strong></i>
                        <i class="col-md-5 box-2">
-          	             <select class="form-control"
+          	             <select class="form-control" ng-disabled="!editAllow"
                          ng-model="form.zone_id"
                          ng-options="item.id as item.name group by getZoneGroupName(item.zone_group_id) for item in collection.zone"
                          >
@@ -204,7 +206,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
 					          </div>
                     <div class="form-group">
             	        <i class="col-md-6 box-1"><strong>Enquiry is the decision maker:</strong></i>
-           	            <select class="form-control" style="width: 100px;" ng-mode="form.decision_maker">
+           	            <select class="form-control" style="width: 100px;" ng-mode="form.decision_maker" ng-disabled="!editAllow">
            	              <option value="1">Yes</option>
            	              <option value="0">No</option>
            	            </select>
@@ -213,7 +215,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                     <div class="form-group">
             	       <i class="col-md-6 box-1"><strong>Period time to purchasing or leasing: </strong></i>
                        <i class="col-md-5 box-2">
-                         <select class="form-control" ng-model="form.ptime_to_pol">
+                         <select class="form-control" ng-model="form.ptime_to_pol" ng-disabled="!editAllow">
      	                    <option>Within a week</option>
                             <option>Within a month</option>
                             <option>Within 3 months</option>
@@ -225,16 +227,16 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                 	<div class="form-group">
             	        <i class="col-md-3 box-1"><strong>No. of bed Roooms: </strong></i>
            	            <i class="col-md-8 box-2">
-       	                	<input type="text" class="form-control" ng-model="form.bedroom" ng-disabled="form.is_studio">
-                      		<span><input type="checkbox" ng-model="form.is_studio" ng-change="vm.changeStudio()" ng-true-value="1" ng-false-value="0"> Studio</span>
+       	                	<input type="text" class="form-control" ng-model="form.bedroom" ng-disabled="form.is_studio && !editAllow">
+                      		<span><input type="checkbox" ng-model="form.is_studio" ng-change="vm.changeStudio()" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Studio</span>
                       	</i>
                     </div>
                   <div class="clearfix"></div>
                 	<div class="form-group">
                  		<i class="col-md-3 box-1"><strong>Size: </strong></i>
                     	<i class="col-md-8 box-2">
-                        	<input type="text" class="form-control" ng-model="form.size">
-                  			<select class="form-control size" ng-model="form.size_unit_id">
+                        	<input type="text" class="form-control" ng-model="form.size" ng-disabled="!editAllow">
+                  			<select class="form-control size" ng-model="form.size_unit_id" ng-disabled="!editAllow">
                     			<option value="1">Sq. m.</option>
                     			<option value="2">Sq. wa</option>
                     			<option value="3">Rai</option>
@@ -247,7 +249,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                         	<select class="form-control"
                           ng-model="form.bts_id"
                           ng-options="item.id as item.name for item in collection.bts"
-                          >
+                          ng-disabled="!editAllow">
                     			<option value="">Please select</option>
                   			</select>
                   		</i>
@@ -258,7 +260,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
     	                    <select class="form-control"
                           ng-model="form.mrt_id"
                           ng-options="item.id as item.name for item in collection.mrt"
-                          >
+                          ng-disabled="!editAllow">
                             <option value="">Please select</option>
                             </select>
                         </i>
@@ -269,7 +271,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                          <select class="form-control"
                          ng-model="form.airport_link_id"
                          ng-options="item.id as item.name for item in collection.airport_link"
-                         >
+                         ng-disabled="!editAllow">
                            <option value="">Please select</option>
                            </select>
                        </i>
@@ -281,7 +283,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
           	             <select class="form-control"
                          ng-model="form.enquiry_status_id"
                          ng-options="item.id as item.name for item in collection.enquiry_status"
-                         disabled="false">
+                         ng-disabled="false">
                          <option value="">Please select</option>
                          </select>
                      	</i>
@@ -289,7 +291,7 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                     <div class="form-group">
             	        <i class="col-md-3 box-1"><strong>Exact location required:</strong></i>
            	            <i class="col-md-8 box-2">
-       	                	<textarea class="form-control" rows="2" id="comment" ng-model="form.ex_location"></textarea>
+       	                	<textarea class="form-control" rows="2" id="comment" ng-model="form.ex_location" ng-disabled="!editAllow"></textarea>
                       	</i>
                     </div>
                 </div><!--col-md-6-->
@@ -301,19 +303,19 @@ ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] == 2
                     	<p><label>Specific requirement</label><strong>:</strong></p>
                     </div>
                     <div class="col-md-3">
-                    	<div><input type="checkbox" ng-model="form.sq_furnish" ng-true-value="1" ng-false-value="0"> Fully Furnish / ตกแต่งครบ</div>
-                        <div><input type="checkbox" ng-model="form.sq_park" ng-true-value="1" ng-false-value="0"> Close park / ใกล้สวนสาธรณะ</div>
-                        <div><input type="checkbox" ng-model="form.sq_airport" ng-true-value="1" ng-false-value="0"> Close airport / ใกล้สนามบิน</div>
+                    	<div><input type="checkbox" ng-model="form.sq_furnish" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Fully Furnish / ตกแต่งครบ</div>
+                        <div><input type="checkbox" ng-model="form.sq_park" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Close park / ใกล้สวนสาธารณะ</div>
+                        <div><input type="checkbox" ng-model="form.sq_airport" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Close airport / ใกล้สนามบิน</div>
                     </div>
                     <div class="col-md-3">
-                    	<div><input type="checkbox" ng-model="form.sq_hospital" ng-true-value="1" ng-false-value="0"> Close hospital / ใกล้โรงพยาบาล</div>
-                        <div><input type="checkbox" ng-model="form.sq_bts" ng-true-value="1" ng-false-value="0"> Close to BTS/MRT / ติดรถไฟฟ้า</div>
-                        <div><input type="checkbox" ng-model="form.sq_mainroad" ng-true-value="1" ng-false-value="0"> Close to main road / ติดถนนใหญ่</div>
+                    	<div><input type="checkbox" ng-model="form.sq_hospital" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Close hospital / ใกล้โรงพยาบาล</div>
+                        <div><input type="checkbox" ng-model="form.sq_bts" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Close to BTS/MRT / ติดรถไฟฟ้า</div>
+                        <div><input type="checkbox" ng-model="form.sq_mainroad" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Close to main road / ติดถนนใหญ่</div>
                     </div>
                     <div class="col-md-3">
-                    	<div><input type="checkbox" ng-model="form.sq_school" ng-true-value="1" ng-false-value="0"> Close school / University / ใกล้โรงเรียน</div>
-                        <div><input type="checkbox" ng-model="form.sq_shopmall" ng-true-value="1" ng-false-value="0"> Close shopping mall / ใกล้ห้างสรรพสินค้า</div>
-                        <div>Others / อื่นๆ <input type="text" ng-model="form.sq_other"> </div>
+                    	<div><input type="checkbox" ng-model="form.sq_school" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Close school / University / ใกล้โรงเรียน</div>
+                        <div><input type="checkbox" ng-model="form.sq_shopmall" ng-true-value="1" ng-false-value="0" ng-disabled="!editAllow"> Close shopping mall / ใกล้ห้างสรรพสินค้า</div>
+                        <div>Others / อื่นๆ <input type="text" ng-model="form.sq_other" ng-disabled="!editAllow"> </div>
                     </div>
                 </div>
             </div><!--detail-type-->

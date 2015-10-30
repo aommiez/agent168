@@ -18,7 +18,8 @@
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Enquiry type</label>
                                 <div>
-                                  <select class="form-control" id="type" ng-model="form.enquiry_type_id" ng-init="form.enquiry_type_id=1" required>
+                                  <select class="form-control" id="type" ng-model="form.enquiry_type_id">
+                                    <option value="">All</option>
                                     <option value="1">Individual</option>
                                     <option value="2">Investment</option>
                                     <option value="3">Corporate</option>
@@ -77,7 +78,7 @@
                                 <label class="control-label">Branch</label>
                                 <div>
                                     <select class="form-control"
-                                    ng-model="form.privince_id"
+                                    ng-model="form.province_id"
                                     ng-options="item.id as item.name for item in thailocation.province">
                                         <option value="">All</option>
                                     </select>
@@ -87,17 +88,17 @@
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Buying Budget</label>
                                 <div class="row">
-                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.id"></div>
+                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.buy_budget_start"></div>
                                     <div class="col-md-2">to</div>
-                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.id"></div>
+                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.buy_budget_end"></div>
                                 </div>
                             </div>
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Rental Budget</label>
                                 <div class="row">
-                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.id"></div>
+                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.rent_budget_start"></div>
                                     <div class="col-md-2">to</div>
-                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.id"></div>
+                                    <div class="col-md-5"><input type="text" class="form-control" ng-model="form.rent_budget_end"></div>
                                 </div>
                             </div>
                             <div style="clear: both;"></div>
@@ -125,22 +126,47 @@
                             </div>
                             <div style="clear: both;"></div>
                             <div class="col-md-3 form-group">
-                                <label class="control-label">No. of bed</label>
+                                <label class="control-label">Bed room</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                    <select class="form-control" ng-model="form.bedroom">
+                                      <option value="">All</option>
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4+</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-3 form-group">
-                                <label class="control-label">Roooms</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
-                                </div>
+                            <div class="col-md-3 ">
+                              <div class="checkbox">
+                                <label style="padding-left: 20px">
+                                  <input
+                                  type="checkbox"
+                                  ng-model="form.is_studio">
+                                  is studio
+                                </label>
+                              </div>
                             </div>
                             <div class="col-md-3 form-group">
-                                <label class="control-label">Size</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
-                                </div>
+                              <label class="control-label">Size</label>
+                              <div class="row">
+                                  <div class="col-md-3">
+                                      <input type="text" class="form-control" ng-model="form.size_start">
+                                  </div>
+                                  <div class="col-md-1">
+                                      To
+                                  </div>
+                                  <div class="col-md-3">
+                                      <input type="text" class="form-control" ng-model="form.size_end">
+                                  </div>
+                                  <div class="col-md-3">
+                                      <select class="form-control" ng-init="form.size_unit_id=1" ng-model="form.size_unit_id">
+                                          <option value="1">Sq. m.</option>
+                                          <option value="2">Sq. wa</option>
+                                          <option value="3">Rai</option>
+                                      </select>
+                                  </div>
+                              </div>
                             </div>
                             <div style="clear: both;"></div>
                             <div class="col-md-3 form-group">
@@ -169,7 +195,7 @@
                                 <label class="control-label">Nearest Airport-link</label>
                                 <div>
                                   <select class="form-control"
-                                  ng-model="form.airportlink_id"
+                                  ng-model="form.airport_link_id"
                                   ng-options="item.id as item.name for item in collection.airport_link"
                                   >
                                   <option value="">All</option>
@@ -183,8 +209,7 @@
                                   <select class="form-control"
                                   ng-model="form.enquiry_status_id"
                                   ng-options="item.id as item.name for item in collection.enquiry_status"
-                                  ng-init="form.enquiry_status_id=1"
-                                  required>
+                                  >
                                   <option value="">All</option>
                                   </select>
                                 </div>
@@ -192,7 +217,7 @@
                             <div class="col-md-3 form-group">
                                 <label class="control-label">Exact location required</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="form.id">
+                                    <input type="text" class="form-control" ng-model="form.ex_location">
                                 </div>
                             </div>
                             <div class="col-md-3 form-group">
@@ -226,7 +251,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-success" ng-click="filterEnquiries()">Filter</button>
+                                <button type="submit" class="btn btn-success" ng-click="filterItems()">Filter</button>
                             </div>
                         </div>
                     </form>
@@ -244,7 +269,8 @@
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
-                <th>Date</th>
+                <th></th>
+                <th>Updated</th>
                 <th>Assign to</th>
                 <th>Customer</th>
                 <th>Requirement</th>
@@ -260,7 +286,8 @@
             </thead>
             <tbody>
             <tr ng-repeat="item in items.data">
-                <td>{{item.created_at}}</td>
+                <td>{{item.enquiry_no}}</td>
+                <td>{{item.updated_at}}</td>
                 <?php if(@$_SESSION['login']['level_id'] <= 3){?>
                 <td>
                   <?php if(@$_SESSION['login']['level_id'] <= 2){?>

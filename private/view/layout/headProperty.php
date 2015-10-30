@@ -1,5 +1,16 @@
 <?php
 use Main\Helper;
+$db = \Main\DB\Medoo\MedooFactory::getInstance();
+$zones = $db->select("zone", "*");
+$zonegroups = $db->select("zone_group", "*");
+foreach($zonegroups as &$zonegroup) {
+  $zonegroup["zones"] = array_filter($zones, function($zone) use($zonegroup) {
+    return $zonegroup["id"] == $zone["zone_group_id"];
+  });
+}
+
+$btss = $db->select("bts", "*");
+$mrts = $db->select("mrt", "*");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -209,7 +220,7 @@ use Main\Helper;
 
     .all-head{
         background-color: #1957a4;
-        height: 220px;
+        height: 253px;
         margin-top: 30px;
     }
     .head{
@@ -308,9 +319,10 @@ use Main\Helper;
                 <br>
                 <ul>
                     <li>Advance Search</li><br>
-                    <li style="margin-top: 3px">Property Type</li><br>
-                    <li style="margin-top: 3px">Bedroom(s)</li><br>
-                    <li style="margin-top: 3px">Project Name / Keyword Search</li><br>
+                    <li style="margin-top: 1px">Property Type</li><br>
+                    <li style="margin-top: 1px">Bedroom(s)</li><br>
+                    <li style="margin-top: 1px">Near BTS</li> <br>
+                    <li style="margin-top: 1px">Project Name / Keyword Search</li><br>
                 </ul>
 
             </div>
@@ -321,8 +333,8 @@ use Main\Helper;
                     <span class="glyphicon glyphicon-play" aria-hidden="true" style="color: #FFFFFF;height: 18px"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <li>  Requirement</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <li>
-                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="requirement_id" value="1" checked />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="requirement_id" value="2" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rent</label><br><br>
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="requirement_id" value="1" <?php if(@$_GET['requirement_id']==1) echo "checked";?> />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="radio-inline" style="margin-top: -5px"><input type="radio" name="requirement_id" value="2" <?php if(@$_GET['requirement_id']==2) echo "checked";?> />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rent</label><br><br>
                         <div class="head-aa col-lg-3">
                                 <div class="form-group" style="margin-top: -15px">
                                     <ul>
@@ -345,8 +357,17 @@ use Main\Helper;
                                           </select>
                                         </li><br><br>
                                         <li>
+                                          <select name="bts_id" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+                                            <?php foreach($btss as $bts) {?>
+                                              <option value="<?php echo $bts["id"];?>" <?php if(@$_GET['bts_id']==$bts["id"]) echo "selected";?>><?php echo $bts["name"];?></option>
+                                            <?php }?>
+                                          </select>
+                                        </li><br><br>
+                                        <li>
                                           <input name="keyword" type="text" class="form-control" style="font-size: 12px; width: 200px;  float: right">
-                                        </li><br>
+                                        </li>
+                                        <br>
                                     </ul>
                                 </div>
                         </div>
@@ -354,6 +375,7 @@ use Main\Helper;
                             <ul>
                                 <li>Locations</li> <br><br>
                                 <li>Bathroom(s)</li> <br><br>
+                                <li>Near MRT</li> <br><br>
                                 <li>Price Range</li> <br><br>
                             </ul>
                         </div>
@@ -361,8 +383,15 @@ use Main\Helper;
                                 <div class="form-group">
                                     <ul>
                                         <li>
-                                          <select class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                          <select name="zone_id" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
                                             <option value="">-Please Select-</option>
+                                            <?php foreach($zonegroups as $zonegroup) {?>
+                                              <optgroup label="<?php echo $zonegroup["name"];?>">
+                                              <?php foreach($zonegroup["zones"] as $zone) {?>
+                                                <option value="<?php echo $zone["id"];?>" <?php if(@$_GET['zone_id']==$zone["id"]) echo "selected";?>><?php echo $zone["name"];?></option>
+                                              <?php }?>
+                                              </optgroup>
+                                            <?php }?>
                                           </select>
                                         </li><br><br>
                                         <li>
@@ -375,11 +404,19 @@ use Main\Helper;
                                           </select>
                                         </li><br><br>
                                         <li>
+                                          <select name="mrt_id" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+                                            <?php foreach($mrts as $mrt) {?>
+                                              <option value="<?php echo $mrt["id"];?>" <?php if(@$_GET['mrt_id']==$mrt["id"]) echo "selected";?>><?php echo $mrt["name"];?></option>
+                                            <?php }?>
+                                          </select>
+                                        </li><br><br>
+                                        <li>
                                           <select name="price-range" id="price-range" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
                                             <option value="">-Please Select-</option>
 
                                           </select>
-                                        </li><br>
+                                        </li><br><br>
                                     </ul>
                                 </div>
                         </div>

@@ -13,10 +13,19 @@ use Main\ThirdParty\Xcrud\Xcrud;
 use Main\ThirdParty\Xcrud\Xcrud_config;
 
 // cdn.ckeditor.com/4.5.4/standard/ckeditor.js
-Xcrud_config::$editor_url = "http://cdn.ckeditor.com/4.5.4/standard/ckeditor.js";
+Xcrud_config::$editor_url = "http://cdn.ckeditor.com/4.5.4/full/ckeditor.js";
 $xcrud = Xcrud::get_instance();
 $xcrud->table('article');
 $xcrud->unset_title();
+
+$xcrud->change_type('image_path', 'image', '', [
+  'path'=> dirname($_SERVER["SCRIPT_FILENAME"]).'/public/article_pic',
+  'thumbs'=> [
+    ['width'=> 600, 'marker'=>'_small'],
+    ['width'=> 800, 'marker'=>'_middle'],
+    ['width' => 150, 'folder' => 'thumbs']
+  ]
+]);
 
 // $xcrud->where('level_id =', 3);
 $xcrud->fields('created_at', true);

@@ -60,13 +60,14 @@ function notify($item)
 
       $sale = $db->get("account", "*", ["id"=> $item["assign_sale_id"]]);
       $mailContent = <<<MAILCONTENT
-      Warning: sale not accept customer 3 time
-      ==============================
-      sale ID: {$sale["id"]}
-      sale name: {$sale["name"]}
+      Warning: sale not accept customer 3 time<br />
+      ==============================<br />
+      sale ID: {$sale["id"]}<br />
+      sale name: {$sale["name"]}<br />
 MAILCONTENT;
 
       $mailHeader = "From: system@agent168th.com\r\n";
+      $mailHeader = "To: {$acc['email']}\r\n";
       $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
       @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
   }

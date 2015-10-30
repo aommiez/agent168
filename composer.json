@@ -18,6 +18,7 @@
         "doctrine/orm": "2.4.0-RC2",
         "catfan/medoo": "*",
         "phpoffice/phpexcel": "1.8.1",
-        "gargron/fileupload": "~1.0.2"
+        "gargron/fileupload": "~1.0.2",
+        "phpmailer/phpmailer": "^5.2"
     }
 }

@@ -271,18 +271,24 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
 
     if(!$scope.collection2.error) {
       $scope.assMngForm = {id: $routeParams.id};
-      $scope.autoAssMngForm = {id: $routeParams.id};
 
-      $scope.autoAssMngForm.assign_manager_id = $scope.collection2.auto_assign.id;
-      $scope.autoAssMngForm.is_auto = 1;
+      $scope.autoAssMngForm = false;
+      if($scope.collection2.auto_assign) {
+        $scope.autoAssMngForm = {id: $routeParams.id};
+        $scope.autoAssMngForm.assign_manager_id = $scope.collection2.auto_assign.id;
+        $scope.autoAssMngForm.is_auto = 1;
+      }
     }
 
     if(!$scope.collection3.error) {
       $scope.assSaleForm = {id: $routeParams.id};
-      $scope.autoAssSaleForm = {id: $routeParams.id};
 
-      $scope.autoAssSaleForm.assign_sale_id = $scope.collection3.auto_assign.id;
-      $scope.autoAssSaleForm.is_auto = 1;
+      $scope.autoAssSaleForm = false;
+      if($scope.collection3.auto_assign) {
+        $scope.autoAssSaleForm = {id: $routeParams.id};
+        $scope.autoAssSaleForm.assign_sale_id = $scope.collection3.auto_assign.id;
+        $scope.autoAssSaleForm.is_auto = 1;
+      }
     }
 
     $scope.collection.project = $scope.collection.project.sort(function(a, b) {
@@ -318,6 +324,7 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   };
 
   $scope.assSale = function() {
+    console.log($scope);
     $.post("../api/enquiry/assign_sale", $scope.assSaleForm, function(data){
       $route.reload();
     }, "json");
@@ -333,6 +340,8 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
       form = {
         comment: $scope.form.comment
       };
+      if($scope.form.enquiry_status_id)
+        form.enquiry_status_id = $scope.form.enquiry_status_id;
     }
     $.post("../api/enquiry/edit/"+$scope.id, form, function(data){
       $route.reload();

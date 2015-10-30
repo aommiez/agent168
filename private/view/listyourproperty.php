@@ -1,5 +1,8 @@
 <?php
 $this->import('/layout/header');
+$db = \Main\DB\Medoo\MedooFactory::getInstance();
+$provinces = $db->select("province", "*");
+$proptypes = $db->select("property_type", "*");
 ?>
 
 <style>
@@ -83,10 +86,11 @@ $this->import('/layout/header');
 <div class="container">
     <div class=" col-md-8" >
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" style="margin-left: 45px">
-            <li class="active"><a href="#first" data-toggle="tab">Property Information</a></li>
+            <li class="active"><a href="#first" data-toggle="tab" id="tab1">Property Information</a></li>
             <li><a href="#second" data-toggle="tab" id="tab2">Contact Information</a></li>
             <li><a href="#third" data-toggle="tab" id="tab3">Finish</a></li>
         </ul>
+        <form method="post" enctype="multipart/form-data">
         <div id="my-tab-content" class="tab-content">
             <div class="tab-pane active" id="first">
                     <div class="formClass">
@@ -94,9 +98,9 @@ $this->import('/layout/header');
                             Property is :<div class="interest">*</div>
                         </div>
                         <div class="formRight">
-                            <label class="radio-inline"><input type="radio" name="saleRent">For Sale</label>
-                            <label class="radio-inline"><input type="radio" name="saleRent">For Rent</label>
-                            <label class="radio-inline"><input type="radio" name="saleRent">For Sale/Rent</label>
+                            <label class="radio-inline"><input name="requirement" value="For Sale" type="radio" name="saleRent" required checked>For Sale</label>
+                            <label class="radio-inline"><input name="requirement" value="For Rent" type="radio" name="saleRent" required>For Rent</label>
+                            <label class="radio-inline"><input name="requirement" value="For Sale/Rent" type="radio" name="saleRent" required>For Sale/Rent</label>
                         </div>
                     </div>
 
@@ -105,11 +109,11 @@ $this->import('/layout/header');
                             Province :
                         </div>
                         <div class="formRight">
-                            <select class="form-control selected">
+                            <select name="province" class="form-control selected" required>
                                 <option></option>
-                                <option>Bangkok</option>
-                                <option>Nonthaburi</option>
-                                <option>Samut Prakarn</option>
+                                <?php foreach($provinces as $pv) {?>
+                                <option><?php echo $pv["name"];?></option>
+                                <?php }?>
                             </select>
                         </div>
                         <div class="interest">*</div>
@@ -120,35 +124,35 @@ $this->import('/layout/header');
                             Property Type :
                         </div>
                         <div class="formRight">
-                            <select class="form-control selected">
+                            <select name="property_type" class="form-control selected" required>
                                 <option></option>
-                                <option>Condominium</option>
-                                <option>Apartment</option>
-                                <option>Townhouse</option>
+                                <?php foreach($proptypes as $pt) {?>
+                                <option><?php echo $pt["name"];?></option>
+                                <?php }?>
                             </select>
                         </div>
                         <div class="interest">*</div>
                     </div>
 
-                    <div class="formClass">
+                    <div class="formClass" id="selling">
                         <div class="labelText">
                             Selling Price :
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input type="text" name="sell_price" class="form-control selected">
                             </div>
                         </div>
                         <div class="interest">*</div>
                     </div>
 
-                    <div class="formClass">
+                    <div class="formClass" id="rental">
                         <div class="labelText">
                             Rental Price / Month :
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input type="text" name="rent_price" class="form-control selected">
                             </div>
                         </div>
                         <div class="interest">*</div>
@@ -171,7 +175,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input type="text" name="project" class="form-control selected">
                             </div>
                         </div>
                     </div>
@@ -182,7 +186,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input type="text" name="unit_no" class="form-control selected" required>
                             </div>
                         </div>
                         <div class="interest">*</div>
@@ -194,7 +198,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input type="text" name="size" class="form-control selected" required>
                             </div>
                         </div>
                         <div class="interest">*</div>
@@ -206,8 +210,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <select class="form-control selected">
-                                    <option></option>
+                                <select name="floor" class="form-control selected" required>
                                     <option></option>
                                     <option>1</option>
                                     <option>2</option>
@@ -236,7 +239,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <select class="form-control selected">
+                                <select name="bedroom" class="form-control selected">
                                     <option></option>
                                     <option>Studio</option>
                                     <option>1 Bedroom</option>
@@ -255,7 +258,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <select class="form-control selected">
+                                <select name="bathroom" class="form-control selected">
                                     <option></option>
                                     <option>1 Bathroom</option>
                                     <option>2 Bathrooms</option>
@@ -273,8 +276,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <textarea rows="3" cols="50" class="textareaClass form-control">
-                                </textarea>
+                                <textarea name="description" rows="3" cols="50" class="textareaClass form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -286,7 +288,9 @@ $this->import('/layout/header');
                         <div class="formRight">
                             <div class="formRight   formWidth ">
                                 <div>
-                                    <a href="#" class="btn btn-primary">SELECT FILE</a>
+                                    <a id="img-a" class="btn btn-primary">SELECT FILE</a>
+                                    <span id="img-name"></span>
+                                    <input type="file" name="image" id="img-input" style="display: none;" />
                                 </div>Allow .jpg .gif .png and Max file size per image is not 1Mb
                             </div>
                         </div>
@@ -297,7 +301,7 @@ $this->import('/layout/header');
                         <div class="formRight">
                             <div class="formRight   formWidth ">
                                 <div>
-                                    <a href="#" class="btn btn-default" id="step1">Next Step</a>
+                                    <a class="btn btn-default" id="step1">Next Step</a>
                                 </div>
                             </div>
                         </div>
@@ -312,8 +316,8 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <select class="form-control selected">
-                                    <option>Not Specific</option>
+                                <select name="title" class="form-control selected">
+                                    <option value="">Not Specific</option>
                                     <option>Mr.</option>
                                     <option>Miss</option>
                                     <option>Mrs.</option>
@@ -329,7 +333,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input name="first_name" type="text" class="form-control selected" required>
                             </div>
                         </div>
                         <div class="interest">*</div>
@@ -341,7 +345,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input name="last_name" type="text" class="form-control selected" required>
                             </div>
                         </div>
                         <div class="interest">*</div>
@@ -353,7 +357,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input name="email" type="text" class="form-control selected" required>
                             </div>
                         </div>
                         <div class="interest">*</div>
@@ -365,7 +369,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input name="mobile_no" type="text" class="form-control selected" required>
                             </div>
                         </div>
                         <div class="interest">*</div>
@@ -377,7 +381,7 @@ $this->import('/layout/header');
                         </div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <input type="text" class="form-control selected">
+                                <input name="phone" type="text" class="form-control selected">
                             </div>
                         </div>
                     </div>
@@ -397,7 +401,7 @@ $this->import('/layout/header');
                         <div class="labelText"></div>
                         <div class="formRight">
                             <div class="formRight   formWidth ">
-                                <select class="form-control selected">
+                                <select name="how_know_company" class="form-control selected" required>
                                     <option></option>
                                     <option>Search Engine</option>
                                     <option>Other Website</option>
@@ -418,14 +422,16 @@ $this->import('/layout/header');
                         <div class="formRight">
                             <div class="formRight   formWidth ">
                                 <div>
-                                    <a href="#" class="btn btn-primary" id="step2">Submit</a>
+                                    <a class="btn btn-default" id="backBTN"><< back</a> <button href="#" class="btn btn-primary" id="step2">Submit</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="formClass">
-                        <div class="labelText"><< back</div>
+                        <div class="labelText" style="padding-left: 185px;">
+
+                        </div>
                     </div>
                 <br><br>
             </div>
@@ -446,6 +452,7 @@ $this->import('/layout/header');
                 </div>
             </div>
         </div>
+      </form>
     </div>
     <div class="col-md-4 divRight">
         <?php
@@ -455,14 +462,53 @@ $this->import('/layout/header');
 </div>
 
 <script>
-    $( document ).ready(function() {
-        $("#step1").click(function(){
-            $("#tab2").click();
-            return false;
+    $(document).ready(function() {
+        $("#step1").click(function(e){
+          $("#tab2").click();
+          return false;
         });
-        $("#step2").click(function(){
-            $("#tab3").click();
-            return false;
+        $("#tab2").click(function(e){
+            var isAll = true;
+            $('#first input, #first select').filter('[required]').each(function(index, el){
+              var $el = $(el);
+              var val = $.trim($el.val());
+              if(!val) {
+                $el.focus();
+                alert('require ' + $el.attr('name'));
+                isAll = false;
+                return false;
+              }
+            });
+            if(!isAll) {
+              return false;
+            }
+        });
+        $("#step2").click(function(e){ $("#tab3").click(); return false; });
+        $("#tab3").click(function(){
+            // second
+            var isAll = true;
+            $('#second input, #second select').filter('[required]').each(function(index, el){
+              var $el = $(el);
+              var val = $.trim($el.val());
+              if(!val) {
+                $el.focus();
+                alert('require ' + $el.attr('name'));
+                isAll = false;
+                return false;
+              }
+            });
+            if(isAll) {
+              $("#tab3").click();
+            }
+            else {
+              return false;
+            }
+        });
+
+        $('#backBTN').click(function(e){
+          e.preventDefault();
+          $('#tab1').click();
+          return false;
         });
     });
 </script>
@@ -495,8 +541,50 @@ $this->import('/layout/header');
         });
     });
 
+    $(function(){
+      $('#img-a').click(function(e) {
+        $('#img-input').click();
+      });
+
+      var $imgName = $('#img-name');
+      $('#img-input').change(function(e){
+        console.log(e.target.files);
+        try {
+          var f = e.target.files[0];
+          $imgName.text(f.name);
+        }
+        catch (err) {
+          console.log(err);
+          $imgName.text("");
+        }
+      });
+
+      $('input[name=requirement]').change(function(e) {
+        if(!this.checked) return;
+
+        var val = this.value;
+        // $('input[name=radioName]:checked')
+
+        $('#selling input, #rental input').prop('required', false);
+        $('#selling .interest, #rental .interest').hide();
+
+        if(val == 'For Sale') {
+          $('#selling input').prop('required', true);
+          $('#selling .interest').show();
+        }
+        else if(val == 'For Rent') {
+          $('#rental input').prop('required', true);
+          $('#rental .interest').show();
+        }
+        else {
+          $('#selling input, #rental input').prop('required', true);
+          $('#selling .interest, #rental .interest').show();
+        }
+      });
+      $('input[name=requirement]').change();
+    });
+
 </script>
 <?php
 $this->import('/layout/footer');
 ?>
-

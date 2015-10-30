@@ -41,6 +41,18 @@ class ListCTL extends BaseCTL {
         $searchQuery .= " AND property.property_type_id=:property_type_id";
         $excParams[":property_type_id"] = $params['property_type_id'];
       }
+      if(!empty($params['bts_id'])) {
+        $searchQuery .= " AND property.bts_id=:bts_id";
+        $excParams[":bts_id"] = $params['bts_id'];
+      }
+      if(!empty($params['mrt_id'])) {
+        $searchQuery .= " AND property.mrt_id=:mrt_id";
+        $excParams[":mrt_id"] = $params['mrt_id'];
+      }
+      if(!empty($params['zone_id'])) {
+        $searchQuery .= " AND property.zone_id=:zone_id";
+        $excParams[":zone_id"] = $params['zone_id'];
+      }
       if(!empty($params['requirement_id'])) {
         $searchQuery .= " AND (property.requirement_id=:requirement_id OR property.requirement_id=3)";
         $excParams[":requirement_id"] = $params['requirement_id'];

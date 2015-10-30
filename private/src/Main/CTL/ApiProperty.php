@@ -135,6 +135,11 @@ class ApiProperty extends BaseCTL {
           }
         }
 
+        // zone
+        if(!empty($params['zone_id'])) {
+          $where["AND"]['property.zone_id'] = $params['zone_id'];
+        }
+
         // web url searh
         if(!empty($params['web_url_search'])) {
           $where["AND"]['property.web_url_search[~]'] = $params['web_url_search'];
@@ -239,6 +244,18 @@ class ApiProperty extends BaseCTL {
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
 
+        $acc = $db->get("account", "*", ["id"=> $accId]);
+        $url = URL::absolute("/admin/properties#/edit/".$id);
+        $mailContent = <<<MAILCONTENT
+        Property: <a href="{$url}">{$item["reference_id"]}</a> has added by {$acc["name"]}. please check property.
+MAILCONTENT;
+
+        $mailHeader = "From: system@agent168th.com\r\n";
+        $mailHeader = "To: admin@agent168th.com\r\n";
+        $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+        @mail("admin@agent168th.com", "Added property: ".$item["reference_id"], $mailContent, $mailHeader);
+
+
         return $item;
     }
 
@@ -304,14 +321,15 @@ class ApiProperty extends BaseCTL {
 
         // mail when comment
         $acc = $db->get("account", "*", ["id"=> $accId]);
+        $url = URL::absolute("/admin/properties#/edit/".$id);
         $mailContent = <<<MAILCONTENT
-        Property: {$old["reference_id"]} has comment by {$acc["name"]}. please check property.
+        Property: <a href="{$url}">{$old["reference_id"]}</a> has comment by {$acc["name"]}. please check property.
 MAILCONTENT;
 
         $mailHeader = "From: system@agent168th.com\r\n";
+        $mailHeader = "To: admin@agent168th.com\r\n";
         $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
-        @mail($acc["email"], "Comment property: ".$old["reference_id"], $mailContent, $mailHeader);
-
+        @mail("admin@agent168th.com", "Comment property: ".$old["reference_id"], $mailContent, $mailHeader);
 
         $db->update("request_contact", ["commented"=> 1], [
           "AND"=> [
@@ -367,7 +385,7 @@ MAILCONTENT;
         $id = $this->reqInfo->urlParam("id");
 
         $validator = new \FileUpload\Validator\Simple(1024 * 1024 * 4, ['image/png', 'image/jpg', 'image/jpeg']);
-        $pathresolver = new \FileUpload\PathResolver\Simple('public/images/upload');
+        $pathresolver = new \FileUpload\PathResolver\Simple('public/prop_pic');
         $filesystem = new \FileUpload\FileSystem\Simple();
         $filenamegenerator = new \FileUpload\FileNameGenerator\Random();
 
@@ -458,7 +476,11 @@ MAILCONTENT;
 
         $db = MedooFactory::getInstance();
         foreach($params['id'] as $imgId){
-            $db->delete("property_image", ["AND"=> ["property_id"=> $id, "id"=> $imgId]]);
+            $where = ["AND"=> ["property_id"=> $id, "id"=> $imgId]];
+            $img = $db->get("property_image", "*", $where);
+            $path = "public/prop_pic/".$img["name"];
+            unlink($path);
+            $db->delete("property_image", $where);
         }
 
         return ["success"=> true];
@@ -594,7 +616,7 @@ MAILCONTENT;
     }
 
     public function _buildImage(&$item){
-        $item['url'] = URL::absolute("/public/images/upload/".$item['name']);
+        $item['url'] = URL::absolute("/public/prop_pic/".$item['name']);
     }
 
     public function _buildImages(&$items){

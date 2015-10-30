@@ -51,13 +51,96 @@ class ApiEnquiry extends BaseCTL {
         }
 
         $params = $this->reqInfo->params();
-        if(!empty($params['match_enquiry_id'])) {
-          $where["AND"]['property.inc_vat'] = $params['inc_vat'];
+        // if(!empty($params['match_enquiry_id'])) {
+        //   $where["AND"]['property.inc_vat'] = $params['inc_vat'];
+        // }
+
+        if(!empty($params['enquiry_no'])) {
+          $where["AND"]['enquiry.enquiry_no[~]'] = $params['enquiry_no'];
+        }
+        if(!empty($params['enquiry_type_id'])) {
+          $where["AND"]['enquiry.enquiry_type_id'] = $params['enquiry_type_id'];
+        }
+        if(!empty($params['customer'])) {
+          $where["AND"]['enquiry.customer[~]'] = $params['customer'];
+        }
+        if(!empty($params['requirement_id'])) {
+          $where["AND"]['enquiry.requirement_id'] = $params['requirement_id'];
+        }
+        if(!empty($params['property_type_id'])) {
+          $where["AND"]['enquiry.property_type_id'] = $params['property_type_id'];
+        }
+        if(!empty($params['project_id'])) {
+          $where["AND"]['enquiry.project_id'] = $params['project_id'];
+        }
+        if(!empty($params['province_id'])) {
+          $where["AND"]['enquiry.province_id'] = $params['province_id'];
         }
 
-        $where["ORDER"] = "enquiry.updated_at DESC";
+        if((!empty($params['size_start']) || !empty($params['size_end'])) && !empty($params['size_unit_id'])){
+            $where["AND"]['enquiry.size_unit_id'] = $params['size_unit_id'];
+
+            if(!empty($params['size_start'])) {
+              $where["AND"]['enquiry.size[>=]'] = $params['size_start'];
+            }
+            if(!empty($params['size_end'])) {
+              $where["AND"]['enquiry.size[<=]'] = $params['size_end'];
+            }
+        }
+
+        if(!empty($params['buy_budget_start']) || !empty($params['buy_budget_end'])){
+            if(!empty($params['buy_budget_start'])) {
+              $where["AND"]['enquiry.buy_budget_start[>=]'] = $params['buy_budget_start'];
+            }
+            if(!empty($params['buy_budget_end'])) {
+              $where["AND"]['enquiry.buy_budget_end[<=]'] = $params['buy_budget_end'];
+            }
+        }
+
+        if(!empty($params['rent_budget_start']) || !empty($params['rent_budget_end'])){
+            if(!empty($params['rent_budget_start'])) {
+              $where["AND"]['enquiry.rent_budget_start[>=]'] = $params['rent_budget_start'];
+            }
+            if(!empty($params['rent_budget_end'])) {
+              $where["AND"]['enquiry.rent_budget_end[<=]'] = $params['rent_budget_end'];
+            }
+        }
+
+        if(!empty($params['decision_maker'])) {
+          $where["AND"]['enquiry.decision_maker'] = $params['decision_maker'];
+        }
+        if(!empty($params['ptime_to_pol'])) {
+          $where["AND"]['enquiry.ptime_to_pol'] = $params['ptime_to_pol'];
+        }
+        if(!empty($params['bedroom'])) {
+          $where["AND"]['enquiry.bedroom'] = $params['bedroom'];
+        }
+        if(!empty($params['is_studio'])) {
+          $where["AND"]['enquiry.is_studio'] = $params['is_studio'];
+        }
+        if(!empty($params['bts_id'])) {
+          $where["AND"]['enquiry.bts_id'] = $params['bts_id'];
+        }
+        if(!empty($params['mrt_id'])) {
+          $where["AND"]['enquiry.mrt_id'] = $params['mrt_id'];
+        }
+        if(!empty($params['enquiry_status_id'])) {
+          $where["AND"]['enquiry.enquiry_status_id'] = $params['enquiry_status_id'];
+        }
+        if(!empty($params['ex_location'])) {
+          $where["AND"]['enquiry.ex_location[~]'] = $params['ex_location'];
+        }
+        if(!empty($params['contact_type_id'])) {
+          $where["AND"]['enquiry.contact_type_id'] = $params['contact_type_id'];
+        }
+
+        $orderType = !empty($params['orderType'])? $params['orderType']: "DESC";
+        $orderBy = !empty($params['orderBy'])? $params['orderBy']: "updated_at";
+        $order = "{$orderBy} {$orderType}";
+
 
         if(count($where["AND"]) > 0){
+            $where["ORDER"] = "enquiry.updated_at DESC";
             $list = ListDAO::gets($this->table, [
                 "field"=> $field,
                 "join"=> $join,
@@ -69,6 +152,7 @@ class ApiEnquiry extends BaseCTL {
             $list = ListDAO::gets($this->table, [
                 "field"=> $field,
                 "join"=> $join,
+                'where'=> ["ORDER"=> $order],
                 "limit"=> 100
             ]);
         }
@@ -166,7 +250,8 @@ class ApiEnquiry extends BaseCTL {
         $set['updated_at'] = $now;
 
         $db = MedooFactory::getInstance();
-        $old = $db->get("request_contact", "*", ["id"=> $id]);
+        // $old = $db->get("request_contact", "*", ["id"=> $id]);
+        $old = $db->get("enquiry", "*", ["id"=> $id]);
 
         $db->update($this->table, $set, ['id'=> $id]);
 
@@ -185,6 +270,25 @@ class ApiEnquiry extends BaseCTL {
         //     "account_id"=> $accId
         //     ]
         //   ]);
+
+        // mail when comment
+        $acc = $db->get("account", "*", ["id"=> $accId]);
+        $url = URL::absolute("/admin/enquiries#/edit/".$id);
+        $mailContent = <<<MAILCONTENT
+        Enquiry: <a href="{$url}">{$old["enquiry_no"]}</a> has comment by {$acc["name"]}. please check enquiry.
+MAILCONTENT;
+
+        $mailHeader = "From: system@agent168th.com\r\n";
+        $mailHeader = "To: admin@agent168th.com\r\n";
+        $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+        @mail("admin@agent168th.com", "Comment enquiry: ".$old["enquiry_no"], $mailContent, $mailHeader);
+
+        $db->update("request_contact", ["commented"=> 1], [
+          "AND"=> [
+            "property_id"=> $id,
+            "account_id"=> $accId
+            ]
+          ]);
 
         $item = $db->get($this->table, "*", ["id"=> $id]);
         return $item;
@@ -232,7 +336,7 @@ class ApiEnquiry extends BaseCTL {
           return $item["id"] < $carry["id"]? $item: $carry;
         }
       });
-      if(is_null($next)) $next = $accounts[0];
+      if(is_null($next)) $next = @$accounts[0];
 
       return [
         "auto_assign"=> $next,
@@ -278,7 +382,7 @@ class ApiEnquiry extends BaseCTL {
           return $item["id"] < $carry["id"]? $item: $carry;
         }
       });
-      if(is_null($next)) $next = $accounts[0];
+      if(is_null($next)) $next = @$accounts[0];
 
       return [
         "auto_assign"=> $next,
@@ -345,6 +449,7 @@ class ApiEnquiry extends BaseCTL {
 MAILCONTENT;
 
       $mailHeader = "From: system@agent168th.com\r\n";
+      $mailHeader = "To: {$acc['email']}\r\n";
       $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
       @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
 
@@ -399,6 +504,7 @@ MAILCONTENT;
       Assign enquiry: {$item["enquiry_no"]} to you. please check enquiry.
 MAILCONTENT;
       $mailHeader = "From: system@agent168th.com\r\n";
+      $mailHeader = "To: {$acc['email']}\r\n";
       $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
       @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
 

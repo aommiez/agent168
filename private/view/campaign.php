@@ -32,32 +32,15 @@ $this->import('/layout/header');
 <hr style="border: 1px solid #000000; width: 100%">
 
 <div class="container">
-    <!-- <div class="labelText"><a href="#">Home</a>&nbsp;|&nbsp;<a href="#">Campaigns</a> </div> -->
-    <div class="div labelImg">
-        <!-- <img src="<?php echo \Main\Helper\URL::absolute("/public/images/town.jpg")?>" style="width: 940px"> -->
-    </div>
-    <!-- <div class="div labelText2">Campaigns</div> -->
+    <?php foreach($params['items'] as $item){?>
     <div class="div labelText">
-      <a href="<?php echo \Main\Helper\URL::absolute("/campaign/1")?>">
-        Project review
-        <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/lifea.jpg")?>" width="100%" height="200" style="object-fit: cover;" />
+      <a href="<?php echo \Main\Helper\URL::absolute("/campaign/".$item["id"]);?>">
+        <?php echo $item["name"];?>
+        <img src="<?php echo $item["image_url"];?>" width="100%" height="200" style="object-fit: cover;" />
       </a>
     </div>
-    <div class="underText">..............................................
-      ..............................................................................................................................</div>
-    <div class="div labelText">
-      <a href="<?php echo \Main\Helper\URL::absolute("/campaign/2")?>">
-        Property news
-        <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/pnews/bkk.jpg")?>" width="100%" height="200" style="object-fit: cover;" />
-      </a>
-    </div>
-    <div class="underText">............................................................................................................................................................................</div>
-    <div class="div labelText">
-      <a href="<?php echo \Main\Helper\URL::absolute("/campaign/3")?>">
-        Tips
-        <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/tips/01.jpg")?>" width="100%" height="200" style="object-fit: cover;" />
-      </a>
-    </div>
+    <?php }?>
+    <div class="underText"></div>
 </div>
 <br><br><br>
 <?php

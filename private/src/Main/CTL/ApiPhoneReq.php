@@ -79,13 +79,14 @@ class ApiPhoneReq extends BaseCTL
     $email = $acc["email"];
 
     $mailContent = <<<MAILCONTENT
-    Owner: {$prop["owner"]}
-    ==============================
-    property no: {$prop["reference_id"]}
+    Owner: {$prop["owner"]}<br />
+    ==============================<br />
+    property no: {$prop["reference_id"]}<br />
     ==============================
 MAILCONTENT;
 
     $mailHeader = "From: system@agent168th.com\r\n";
+    $mailHeader = "To: {$email}\r\n";
     $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
     @mail($email, "Accept request contact property: ".$prop["reference_id"], $mailContent, $mailHeader);
 
@@ -109,10 +110,13 @@ MAILCONTENT;
     $email = $acc["email"];
 
     $mailContent = <<<MAILCONTENT
-    Denine request
+    Denine request<br />
+    ==============================<br />
+    property no: {$prop["reference_id"]}
 MAILCONTENT;
 
-    $mailHeader = "From: system@agent168th.com\r\n";
+    $mailHeader = "From: admin@agent168th.com\r\n";
+    $mailHeader = "To: {$email}\r\n";
     $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
     @mail($email, "Denine request contact property: ".$prop["reference_id"], $mailContent, $mailHeader);
 

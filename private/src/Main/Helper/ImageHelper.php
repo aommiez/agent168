@@ -40,14 +40,16 @@ class ImageHelper
   static public function watermarkResource($image)
   {
     $watermark = self::getWtmResource();
+    $imgX = imagesx($image);
+    $imgY = imagesy($image);
     $wtmX = imagesx($watermark);
     $wtmY = imagesy($watermark);
 
     imagecopyresized(
       $image,
       $watermark,
-      round(self::$x/2 - $wtmX/2),
-      round(self::$y/2 - $wtmY/2),
+      round($imgX/2 - $wtmX/2),
+      round($imgY/2 - $wtmY/2),
       0,
       0,
       $wtmX,

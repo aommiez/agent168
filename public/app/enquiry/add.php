@@ -243,7 +243,7 @@
                     </div>
                     <div class="col-md-3">
                     	<div><input type="checkbox" ng-model="form.sq_furnish" ng-true-value="1" ng-false-value="0"> Fully Furnish / ตกแต่งครบ</div>
-                        <div><input type="checkbox" ng-model="form.sq_park" ng-true-value="1" ng-false-value="0"> Close park / ใกล้สวนสาธรณะ</div>
+                        <div><input type="checkbox" ng-model="form.sq_park" ng-true-value="1" ng-false-value="0"> Close park / ใกล้สวนสาธารณะ</div>
                         <div><input type="checkbox" ng-model="form.sq_airport" ng-true-value="1" ng-false-value="0"> Close airport / ใกล้สนามบิน</div>
                     </div>
                     <div class="col-md-3">

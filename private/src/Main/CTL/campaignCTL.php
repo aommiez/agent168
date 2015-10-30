@@ -14,6 +14,8 @@ use Main\Http\RequestInfo;
 use Main\View\HtmlView;
 use Main\View\JsonView;
 use Main\ThirdParty\Xcrud\Xcrud;
+use Main\DB\Medoo\MedooFactory;
+use Main\Helper\URL;
 
 /**
  * @Restful
@@ -25,15 +27,31 @@ class campaignCTL extends BaseCTL {
      * @GET
      */
     public function index () {
-        return new HtmlView('/campaign');
+        $db = MedooFactory::getInstance();
+        $items = $db->select("article", "*");
+        $this->_builds($items);
+        return new HtmlView('/campaign', ['items'=> $items]);
     }
 
     /**
      * @GET
-     * @uri /[:id]
+     * @uri /[i:id]
      */
-    public function campaignId () {
+    public function byId () {
       $id = $this->reqInfo->urlParam("id");
-      return new HtmlView('/campaign/'.$id);
+      $db = MedooFactory::getInstance();
+      $item = $db->get("article", "*", ["id"=> $id]);
+      return new HtmlView('/campaignId', ['item'=> $item]);
+    }
+
+    public function _builds(&$items)
+    {
+      foreach($items as &$item)
+        $this->_build($item);
+    }
+
+    public function _build(&$item)
+    {
+      $item["image_url"] = URL::absolute("/public/article_pic/".$item["image_path"]);
     }
 }
