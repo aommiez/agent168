@@ -64,12 +64,69 @@ class ApiPropertyReportCTL extends BaseCTL {
             ]
         ];
 
-        $list = ListDAO::gets("property", [
-            "field"=> $field,
-            "join"=> $join,
-            "where"=> $where,
-            "limit"=> 100
-        ]);
+        $params = $this->reqInfo->params();
+        $limit = empty($_GET['limit'])? 15: $_GET['limit'];
+        $where = ["AND"=> []];
+
+        if(!empty($params['property_type_id'])){
+            $where["AND"]['property.property_type_id'] = $params['property_type_id'];
+        }
+        if(!empty($params['bedrooms'])){
+            if($params['bedrooms'] == "4+") {
+              $where["AND"]['property.bedrooms[>=]'] = $params['bedrooms'];
+            }
+            else {
+              $where["AND"]['property.bedrooms'] = $params['bedrooms'];
+            }
+        }
+
+        // zone
+        if(!empty($params['zone_id'])) {
+          $where["AND"]['property.zone_id'] = $params['zone_id'];
+        }
+        if(!empty($params['province_id'])) {
+          $where["AND"]['property.province_id'] = $params['province_id'];
+        }
+        if(!empty($params['property_status_id'])) {
+          $where["AND"]['property.property_status_id'] = $params['property_status_id'];
+        }
+        if(!empty($params['bts_id'])) {
+          $where["AND"]['property.bts_id'] = $params['bts_id'];
+        }
+        if(!empty($params['mrt_id'])) {
+          $where["AND"]['property.mrt_id'] = $params['mrt_id'];
+        }
+        if(!empty($params['created_at_start'])) {
+          $where["AND"]['property.created_at[>=]'] = $params['created_at_start'];
+        }
+        if(!empty($params['created_at_end'])) {
+          $where["AND"]['property.created_at[<=]'] = $params['created_at_end'];
+        }
+
+        $page = !empty($params['page'])? $params['page']: 1;
+        $orderType = !empty($params['orderType'])? $params['orderType']: "DESC";
+        $orderBy = !empty($params['orderBy'])? $params['orderBy']: "updated_at";
+        $order = "{$orderBy} {$orderType}";
+
+        if(count($where["AND"]) > 0){
+            $where['ORDER'] = $order;
+            $list = ListDAO::gets("property", [
+                "field"=> $field,
+                "join"=> $join,
+                "where"=> $where,
+                "page"=> $page,
+                "limit"=> $limit
+            ]);
+        }
+        else {
+            $list = ListDAO::gets("property", [
+                "field"=> $field,
+                "join"=> $join,
+                "page"=> $page,
+                'where'=> ["ORDER"=> $order],
+                "limit"=> $limit
+            ]);
+        }
 
         return $list;
     }

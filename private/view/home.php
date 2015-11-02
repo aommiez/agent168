@@ -1,5 +1,9 @@
 <?php
 $this->import('/layout/header');
+$db = \Main\DB\Medoo\MedooFactory::getInstance();
+$news = $db->get("article", "*", ["topic_id"=> 1, "ORDER"=> "created_at DESC"]);
+$tip = $db->get("article", "*", ["topic_id"=> 2, "ORDER"=> "created_at DESC"]);
+$review = $db->get("article", "*", ["topic_id"=> 3, "ORDER"=> "created_at DESC"]);
 ?>
 <style>
 .slide .carousel-indicators
@@ -187,58 +191,64 @@ html, body {
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
+                        <?php if($news){?>
                         <div class="col-lg-3" id="box1" style="border: solid 2px;">
                             <div class="row">
                                 <div class="col-lg-12" id="banner"><p>NEWS:Propety News</p></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentpic">
-                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/pnews/bkk.jpg")?>"  style="margin: 0 auto; max-width: 100%;" />
+                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/article_pic/".$news["image_path"]);?>"  style="margin: 0 auto; max-width: 100%;" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentdes">
-                                    <p id="headline">เจาะทำเลน่าจับตาในกรุงเทพฯ พบโซนรัชดา-พระราม 9-ลาดพร้าวฮอตเป็นพิเศษ</p>
-                                    <p>หลังมีการพัฒนาทั้งเชิงพาณิชย์และที่อยู่อาศัยในพื้นที่ ในขณะที่ถนนพระราม 3 เป็นทำเลที่ราคาขายของคอนโดฯ เฉลี่ยออกมาถูกสุดในโซนกลางเมือง........</p>
+                                    <p id="headline"><?php echo $news["name"];?></p>
+                                    <p><?php echo $news["description"];?></p>
 
-                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/2")?>">View All</a>
+                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/".$news["id"])?>">View All</a>
                                 </div>
                             </div>
                         </div>
+                        <?php }else{?><div class="col-lg-3" id="box1"></div><?php }?>
+                        <?php if($tip){?>
                         <div class="col-lg-3" id="box2" style="margin: 0 50px 0 50px; border: solid 2px;">
                             <div class="row">
                                 <div class="col-lg-12" id="banner"><p>Tips:Propety Tips</p></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentpic">
-                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/tips/01.jpg")?>"  style="max-width: 100%;"  />
+                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/article_pic/".$tip["image_path"]);?>"  style="max-width: 100%;"  />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentdes">
-                                    <p id="headline">เทคนิคการดูแลรักษาเฟอร์นิเจอร์บิ้วท์อิน</p>
-                                    <p>เฟอร์นิเจอร์เป็นทั้งของใช้และของตกแต่งไปในตัว.......</p>
-                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/3")?>">View All</a>
+                                    <p id="headline"><?php echo $tip["name"];?></p>
+                                    <p><?php echo $tip["description"];?></p>
+                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/".$tip["id"])?>">View All</a>
                                 </div>
                             </div>
                         </div>
+                        <?php }else{?><div class="col-lg-3" id="box2"></div><?php }?>
+                        <?php if($review){?>
                         <div class="col-lg-3" id="box3" style="border: solid 2px;">
                             <div class="row">
                                 <div class="col-lg-12" id="banner"><p>Project Review</p></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentpic">
-                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/images/editorial/lifea.jpg")?>" style="max-width: 100%;" />
+                                    <img src="<?php echo \Main\Helper\URL::absolute("/public/article_pic/".$review["image_path"]);?>" style="max-width: 100%;" />
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12" id="contentdes">
-                                    <p id="headline">Life Asoke  คอนโด High Rise</p>
-                                    <p>Life Asoke  คอนโด High Rise โครงการใหม่จาก AP บนถนนอโศก-ดินแดง ใกล้ MRT เพชรบุรี และ Airport Link มักกะสัน</p>
-                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/1")?>">View All</a>
+                                    <p id="headline"><?php echo $review["name"];?></p>
+                                    <p><?php echo $review["description"];?></p>
+                                    <a class="btn btn-primary" href="<?php echo \Main\Helper\URL::absolute("/campaign/".$review["id"]);?>">View All</a>
                                 </div>
                             </div>
                         </div>
+                        <?php }else{?><div class="col-lg-3" id="box3"></div><?php }?>
                     </div>
                 </div>
             </div>

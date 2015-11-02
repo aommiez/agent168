@@ -17,41 +17,26 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
 
 app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route){
     $scope.props = [];
+    $scope.form = {};
 
-    function getDate(date){
-        var dd = date.getDate();
-        var mm = date.getMonth()+1; //January is 0!
-
-        var yyyy = date.getFullYear();
-        if(dd<10){
-            dd='0'+dd
-        }
-        if(mm<10){
-            mm='0'+mm
-        }
-        return yyyy+'-'+mm+'-'+dd;
-    }
-
-    $scope.getProps = function(back){
+    $scope.getProps = function(){
         var url = "../api/report_property";
-        var curr = new Date; // get current date
-        curr.setDate(curr.getDate()-(back*7));
-        var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-        var last = first + 6; // last day is the first day + 6
-
-        var firstday = new Date(curr.setDate(first));
-        var lastday = new Date(curr.setDate(last));
-        url = url + "?" + $.param({
-            start: getDate(firstday),
-            end: getDate(lastday)
-        });
-
+        url += "?" + $.param($scope.form);
         $http.get(url).success(function(data){
-            $scope.props = data.data;
+            $scope.props = data;
+            // if(data.total > 0){
+            //   $scope.pagination = [];
+            //   for(var i = 1; i * $scope.form.limit <= data.total; i++) {
+            //     $scope.pagination.push(data.paging.page == i);
+            //   }
+            // }
+            // else {
+            //   $scope.pagination = null;
+            // }
         });
     };
 
-    $scope.getProps(0);
+    $scope.getProps();
 
     $scope.filterProps = function(){
         getProps($scope.form);
