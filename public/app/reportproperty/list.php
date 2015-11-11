@@ -1,5 +1,5 @@
 <div ng-controller="ListCTL">
-  <form ng-submit="filterProps()">
+  <form ng-submit="getProps()">
     <div class="row">
         <div class="col-md-4 form-group">
           <label class="control-label">Property Type</label>
@@ -14,11 +14,20 @@
             <select class="form-control"
                 ng-model="form.bedrooms">
                 <option value="">All</option>
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4+">4+</option>
             </select>
+        </div>
+        <div class="col-md-4 form-group">
+          <label class="control-label">Project</label>
+          <select class="form-control"
+              ng-options="item.id as item.name for item in collection.project"
+              ng-model="form.project_id">
+              <option value="">All</option>
+          </select>
         </div>
     </div>
 
@@ -79,11 +88,25 @@
     <div class="row">
       <div class="col-md-4 el-custom-1">
         <label>Created start</label>
-        <input type="text" class="form-control" ng-model="form.created_at_start">
+        <input type="text" class="form-control" ng-model="form.created_at_start"
+        id="created_at_start">
       </div>
       <div class="col-md-4 el-custom-1">
         <label>Created end</label>
-        <input type="text" class="form-control" ng-model="form.created_at_end">
+        <input type="text" class="form-control" ng-model="form.created_at_end"
+        id="created_at_end">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 el-custom-1">
+        <label>Updated start</label>
+        <input type="text" class="form-control" ng-model="form.updated_at_start"
+        id="updated_at_start">
+      </div>
+      <div class="col-md-4 el-custom-1">
+        <label>Updated end</label>
+        <input type="text" class="form-control" ng-model="form.updated_at_end"
+        id="updated_at_end">
       </div>
     </div>
     <div class="row">
@@ -107,11 +130,14 @@
             <option value="ASC">min -> max</option>
         </select>
       </div>
-      <div class="col-md-2">{{total}}</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6"></div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <button type="submit" class="btn btn-success" ng-click="filterProps()">Search</button>
+            <button type="submit" class="btn btn-success">Search</button>
+            <span ng-if="isShowTotal()">Search total: {{props.total}} item</span>
         </div>
     </div>
   </form>
@@ -125,6 +151,9 @@
           <th>Sell</th>
           <th>Rent</th>
           <th>Status</th>
+          <th>Zone</th>
+          <th>Province</th>
+          <!-- <th>Total Unit</th> -->
       </tr>
       </thead>
       <tbody>
@@ -144,7 +173,19 @@
           <td><span ng-hide="!prop.sell_price">฿{{commaNumber(prop.sell_price)}}</span></td>
           <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
           <td>{{prop.property_status_name}}</td>
+          <td>{{prop.zone_name}}</td>
+          <td>{{prop.province_name}}</td>
+          <td><a class="btn btn-info" href="properties#/edit/{{prop.id}}" target="_blank">View</a></td>
       </tr>
       </tbody>
     </table>
 </div>
+<script>
+$(function(){
+  $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+  $('#created_at_start').datepicker();
+  $('#created_at_end').datepicker();
+  $('#updated_at_start').datepicker();
+  $('#updated_at_end').datepicker();
+});
+</script>

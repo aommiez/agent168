@@ -75,6 +75,10 @@ class AdminCTL extends BaseCTL {
           unset($_SESSION['login']);
           return new JsonView(["error"=> ["message"=> "Wrong password"]]);
         }
+        else if($account['account_status_id'] != 1) {
+          unset($_SESSION['login']);
+          return new JsonView(["error"=> ["message"=> "This account is not active."]]);
+        }
         else {
           $now = date('Y-m-d H:i:s');
           $db->update("account", ['last_login'=> $now], ['id'=> $account['id']]);

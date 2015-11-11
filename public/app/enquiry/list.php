@@ -38,7 +38,7 @@
                                 <div>
                                   <select class="form-control"
                                   ng-model="form.requirement_id"
-                                  ng-options="item.id as item.name_for_enquiry for item in collection.requirement">
+                                  ng-options="item.id as item.name_for_enquiry for item in collection.requirement | filter: {id: '!4'}">
                                       <option value="">All</option>
                                   </select>
                                 </div>
@@ -233,6 +233,34 @@
                             </div>
                         </div>
                         <div class="row">
+                          <?php if(@$_SESSION['login']['level_id'] == 1 || @$_SESSION['login']['level_id'] == 2){?>
+                          <div class="col-md-3 form-group">
+                              <label class="control-label">Manager</label>
+                              <div>
+                                <select
+                                  class="form-control"
+                                  ng-model="form.assign_manager_id"
+                                  ng-options="item.id as item.name for item in accounts | filter: {level_id: '3'}">
+                                    <option value="">-Please select-</option>
+                                </select>
+                              </div>
+                          </div>
+                          <?php }?>
+                          <?php if(@$_SESSION['login']['level_id'] == 1 || @$_SESSION['login']['level_id'] == 2 || @$_SESSION['login']['level_id'] == 3){?>
+                          <div class="col-md-3 form-group">
+                              <label class="control-label">Sale</label>
+                              <div>
+                                <select
+                                  class="form-control"
+                                  ng-model="form.assign_sale_id"
+                                  ng-options="item.id as item.name for item in accounts | filter: {level_id: '4'}">
+                                    <option value="">-Please select-</option>
+                                </select>
+                              </div>
+                          </div>
+                          <?php }?>
+                        </div>
+                        <div class="row">
                           <div class="col-md-2">
                             <label>Order By</label>
                             <select ng-model="form.orderBy" ng-init="form.orderBy='enquiry.updated_at'" class="form-control">
@@ -269,10 +297,11 @@
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
-                <th></th>
+                <th>Enquiry no.</th>
                 <th>Updated</th>
                 <th>Assign to</th>
-                <th>Customer</th>
+                <th style="width: 10%;">Customer</th>
+                <th>Project</th>
                 <th>Requirement</th>
                 <th>Enquiry Type</th>
 
@@ -297,6 +326,7 @@
                 </td>
                 <?php }?>
                 <td>{{item.customer}}</td>
+                <td>{{item.project_name}}</td>
                 <td>{{item.name_for_enquiry}}</td>
                 <td>{{item.enquiry_type_name}}</td>
 

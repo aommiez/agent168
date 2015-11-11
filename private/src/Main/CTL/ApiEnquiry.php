@@ -31,11 +31,13 @@ class ApiEnquiry extends BaseCTL {
           "enquiry_status.name(enquiry_status_name)",
           "sale.name(sale_name)",
           "manager.name(manager_name)",
+          "project.name(project_name)",
           "enquiry.*"
       ];
         $join = [
             "[>]requirement"=> ["requirement_id"=> "id"],
             "[>]size_unit"=> ["size_unit_id"=> "id"],
+            "[>]project"=> ["project_id"=> "id"],
             "[>]enquiry_type"=> ["enquiry_type_id"=> "id"],
             "[>]enquiry_status"=> ["enquiry_status_id"=> "id"],
             "[>]account(sale)"=> ["assign_sale_id"=> "id"],
@@ -134,13 +136,20 @@ class ApiEnquiry extends BaseCTL {
           $where["AND"]['enquiry.contact_type_id'] = $params['contact_type_id'];
         }
 
+        if(!empty($params['assign_manager_id'])) {
+          $where["AND"]['enquiry.assign_manager_id'] = $params['assign_manager_id'];
+        }
+        if(!empty($params['assign_sale_id'])) {
+          $where["AND"]['enquiry.assign_sale_id'] = $params['assign_sale_id'];
+        }
+
         $orderType = !empty($params['orderType'])? $params['orderType']: "DESC";
-        $orderBy = !empty($params['orderBy'])? $params['orderBy']: "updated_at";
+        $orderBy = !empty($params['orderBy'])? $params['orderBy']: "enquiry.updated_at";
         $order = "{$orderBy} {$orderType}";
 
 
         if(count($where["AND"]) > 0){
-            $where["ORDER"] = "enquiry.updated_at DESC";
+            $where["ORDER"] = $order;
             $list = ListDAO::gets($this->table, [
                 "field"=> $field,
                 "join"=> $join,
@@ -156,6 +165,8 @@ class ApiEnquiry extends BaseCTL {
                 "limit"=> 100
             ]);
         }
+
+        // print_r(\Main\DB\Medoo\MedooFactory::getInstance()->error()); exit();
 
         $this->_builds($list["data"]);
         return $list;
@@ -243,7 +254,7 @@ class ApiEnquiry extends BaseCTL {
           "desicion_maker", "bedroom", "is_studio", "size", "size_unit_id", "bts_id", "mrt_id",
           "airport_link_id", "enquiry_status_id", "ex_location", "ptime_to_pol", "sq_furnish",
           "sq_hospital", "sq_school", "sq_park", "sq_bts", "sq_shopmall", "sq_airport", "sq_mainroad",
-          "sq_other", "contact_type_id"
+          "sq_other", "contact_type_id", "book_property_id"
         ], $params);
 
         $now = date('Y-m-d H:i:s');
@@ -252,6 +263,22 @@ class ApiEnquiry extends BaseCTL {
         $db = MedooFactory::getInstance();
         // $old = $db->get("request_contact", "*", ["id"=> $id]);
         $old = $db->get("enquiry", "*", ["id"=> $id]);
+
+        $fnIsChangeToBook = function() use ($set, $old){
+          return !empty($set['enquiry_status_id'])
+            && $set['enquiry_status_id'] == 7
+            && $old['enquiry_status_id'] != 7;
+        };
+
+        if($_SESSION['login']['level_id'] == 4 && $fnIsChangeToBook()) {
+          unset($set['enquiry_status_id']);
+          $set['wait_book_approve'] = 1;
+        }
+
+        if(!empty($set['enquiry_status_id']) && $set['enquiry_status_id'] != 7) {
+          $set['wait_book_approve'] = 0;
+          $set['book_property_id'] = NULL;
+        }
 
         $db->update($this->table, $set, ['id'=> $id]);
 
@@ -264,15 +291,11 @@ class ApiEnquiry extends BaseCTL {
         ];
 
         $db->insert("enquiry_comment", $commentInsert);
-        // $db->update("request_contact", ["commented"=> 1], [
-        //   "AND"=> [
-        //     "enquiry_id"=> $id,
-        //     "account_id"=> $accId
-        //     ]
-        //   ]);
+
+        $item = $db->get($this->table, "*", ["id"=> $id]);
+        $acc = $db->get("account", "*", ["id"=> $accId]);
 
         // mail when comment
-        $acc = $db->get("account", "*", ["id"=> $accId]);
         $url = URL::absolute("/admin/enquiries#/edit/".$id);
         $mailContent = <<<MAILCONTENT
         Enquiry: <a href="{$url}">{$old["enquiry_no"]}</a> has comment by {$acc["name"]}. please check enquiry.
@@ -283,6 +306,26 @@ MAILCONTENT;
         $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
         @mail("admin@agent168th.com", "Comment enquiry: ".$old["enquiry_no"], $mailContent, $mailHeader);
 
+        if($_SESSION['login']['level_id'] == 3 && $fnIsChangeToBook()) {
+          $url = URL::absolute("/admin/enquiries#/edit/".$id);
+          $urlProp = URL::absolute("/admin/properties#/edit/".$item['book_property_id']);
+          $prop = $db->get("property", ["reference_id"], ['id'=> $item['book_property_id']]);
+
+          $mailContent = <<<MAILCONTENT
+          Enquiry has booked.<br />
+          Please go to property and change status to booked.<br />
+          Enquiry: <a href="{$url}">{$old["enquiry_no"]}</a>.<br />
+          Property: <a href="{$urlProp}">{$prop["reference_id"]}</a>.<br />
+          Approve by: {$acc['name']}.<br />
+MAILCONTENT;
+
+          $mailHeader = "From: system@agent168th.com\r\n";
+          $mailHeader = "To: admin@agent168th.com\r\n";
+          $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+
+          @mail("admin@agent168th.com", "Booked enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
+        }
+
         $db->update("request_contact", ["commented"=> 1], [
           "AND"=> [
             "property_id"=> $id,
@@ -290,7 +333,6 @@ MAILCONTENT;
             ]
           ]);
 
-        $item = $db->get($this->table, "*", ["id"=> $id]);
         return $item;
     }
 
@@ -560,6 +602,7 @@ MAILCONTENT;
 
         $params = $this->reqInfo->params();
         $where["AND"]['property.match_enquiry_id'] = NULL;
+        $where["AND"]['property.match_enquiry_id'] = NULL;
 
         if(!empty($params['property_type_id'])){
             $where["AND"]['property.property_type_id'] = $params['property_type_id'];
@@ -822,6 +865,16 @@ MAILCONTENT;
       $db->delete("request_contact", ["property_id"=> $id]);
 
       return ['success'=> true];
+    }
+
+    /**
+     * @GET
+     * @uri /account
+     */
+    public function account()
+    {
+      $db = MedooFactory::getInstance();
+      return $db->select("account", ['id', 'name', 'level_id']);
     }
 
     // internal function

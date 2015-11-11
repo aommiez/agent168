@@ -37,7 +37,7 @@ session_start();
         <select class="form-control"
         ng-model="form.project_id"
         ng-options="item.id as item.name for item in collection.project"
-        >
+        required>
             <option value="">Please select</option>
         </select>
       </div>
@@ -67,7 +67,7 @@ session_start();
           <div class="col-md-6">
             <select ng-model="form.size_unit_id" class="form-control"
             ng-options="item.id as item.name for item in collection.size_unit"
-            required>
+            >
               <option value="">Please select</option>
             </select>
           </div>

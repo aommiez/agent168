@@ -14,6 +14,7 @@ use Main\ThirdParty\Xcrud\Xcrud;
 $xcrud = Xcrud::get_instance();
 $xcrud->table('project');
 $xcrud->change_type('image_path','image','', [
+  'path'=> dirname($_SERVER["SCRIPT_FILENAME"]).'/public/project_pic',
   'thumbs'=> [
     ['width'=> 50, 'marker'=>'_small'],
     ['width'=> 100, 'marker'=>'_middle'],
@@ -22,7 +23,7 @@ $xcrud->change_type('image_path','image','', [
 ]);
 // $xcrud->change_type('address', 'textarea');
 
-$xcrud->columns(['name', 'image_path', 'address', 'tel_company',
+$xcrud->columns(['name', 'image_path', 'address', 'tel_company', 'Total Unit'
 // 'number_buildings', 'number_units', 'number_floors', 'center_area'
 ]);
 $xcrud->fields([
@@ -31,7 +32,7 @@ $xcrud->fields([
   'has_game_room', 'has_playground', 'has_meeting_room', 'has_private_butler', 'has_shuttle_bus', 'has_minimart_supermarket', 'has_restaurant',
   'has_laundry_service', 'has_private_parking', 'has_bathtub_inside_unit', 'builder_by',
   'address', 'province_id', 'district_id', 'sub_district_id', 'bts_id', 'mrt_id', 'airport_link_id',
-  'location_lat', 'location_lng'
+  'location_lat', 'location_lng', 'zone_id'
   ]);
 
 $xcrud->relation('province_id', 'province', 'id', 'name', '');
@@ -41,6 +42,7 @@ $xcrud->relation('sub_district_id', 'sub_district', 'id', 'name', '','','','',''
 $xcrud->relation('bts_id', 'bts', 'id', 'name');
 $xcrud->relation('mrt_id', 'mrt', 'id', 'name');
 $xcrud->relation('airport_link_id', 'airport_link', 'id', 'name');
+$xcrud->relation('zone_id', 'zone', 'id', 'name');
 
 $xcrud->change_type('has_swimming_pool', 'bool');
 $xcrud->change_type('has_onsen', 'bool');
@@ -86,6 +88,7 @@ $xcrud->label([
   'has_bathtub_inside_unit'=> 'Bathtub Inside Unit'
   ]);
 
+$xcrud->subselect('Total Unit','SELECT COUNT(id) FROM property WHERE property.project_id = {id}');
 echo $xcrud->render();
 ?>
 <style>

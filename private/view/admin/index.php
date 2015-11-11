@@ -144,6 +144,12 @@ $this->import("/admin/layout/header");
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/article') ?>"><i
                             class="fa fa-user-secret fa-3"></i> Article</a></li>
                 <?php }?>
+                <?php if($_SESSION['login']['level_id'] == 1 ||
+                $_SESSION['login']['level_id'] == 2 ||
+                $_SESSION['login']['level_id'] == 3){?>
+                  <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/bookreq') ?>"><i
+                              class="fa fa-user-secret fa-3"></i> Booking request</a></li>
+                <?php }?>
 
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/login') ?>"><i
                             class="fa fa-sign-out fa-3"></i> Sign Out</a></li>

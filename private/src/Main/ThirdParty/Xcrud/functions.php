@@ -170,3 +170,9 @@ function article_beforeInsert($postdata, $xcrud)
 {
   $postdata->set('created_at', date('Y-m-d H:i:s'));
 }
+
+function project_afterUpdate($postdata, $xcrud)
+{
+  $db = \Main\DB\Medoo\MedooFactory::getInstance();
+  $db->update();
+}

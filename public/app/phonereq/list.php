@@ -51,7 +51,7 @@
 									</td>
 									<td>
 										<div><strong>Manager</strong>: {{item.manager_name}}</div>
-										<div><strong>Sale</strong>: {{item.sale_name}}</div>
+										<div><strong>Sale</strong>: {{item.sale_name}}, {{item.sale_phone}}</div>
 									</td>
                 	<td ng-if="item.status_id == 1">
                   		<a class="xcrud-action btn btn-success btn-sm" ng-click="onClickApply(item.id)">

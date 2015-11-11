@@ -37,6 +37,7 @@ class ApiPhoneReq extends BaseCTL
 
       "account.id",
       "account.name(sale_name)",
+      "account.phone(sale_phone)",
 
       "enquiry.enquiry_no",
       "enquiry.customer",

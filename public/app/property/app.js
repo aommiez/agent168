@@ -30,6 +30,9 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
             when('/:id/match', {
                 templateUrl: '../public/app/property/match.php'
             }).
+            when('/:id/projectdetail', {
+                templateUrl: '../public/app/property/projectdetail.php'
+            }).
             otherwise({
                 redirectTo: '/'
             });
@@ -81,8 +84,8 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;
         $scope.collection.project = data.project.sort(function(a, b) {
-          if(a.name < b.name) return -1;
-          if(a.name > b.name) return 1;
+          if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+          if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
           return 0;
         });
     });
@@ -146,8 +149,8 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;
         $scope.collection.project = data.project.sort(function(a, b) {
-          if(a.name < b.name) return -1;
-          if(a.name > b.name) return 1;
+          if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+          if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
           return 0;
         });
     });
@@ -173,6 +176,11 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
     $scope.submit = function(){
       if(!$scope.form.comment) {
         alert("please comment when add");
+        return;
+      }
+
+      if(!$scope.form.bts_id && !$scope.form.mrt_id && !$scope.form.airport_link_id) {
+        alert("Please chose mts or mrt or airport link.");
         return;
       }
         // var fd = new FormData();
@@ -229,8 +237,8 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   $http.get("../api/collection").success(function(data) {
     $scope.collection = data;
     $scope.collection.project = data.project.sort(function(a, b) {
-      if(a.name < b.name) return -1;
-      if(a.name > b.name) return 1;
+      if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+      if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
       return 0;
     });
   });
@@ -299,6 +307,11 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
       window.location.reload();
     }, 'json');
   };
+
+  $scope.id = $routeParams.id;
+  $scope.changeHash = function(hash){
+    window.location.hash = hash;
+  };
 }]);
 
 app.controller('GalleryCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams){
@@ -345,6 +358,11 @@ app.controller('GalleryCTL', ['$scope', '$http', '$location', '$route', '$routeP
             $scope.refreshList();
         });
     };
+
+    $scope.id = $routeParams.id;
+    $scope.changeHash = function(hash){
+      window.location.hash = hash;
+    };
 }]);
 
 app.controller('CommentCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
@@ -352,6 +370,21 @@ app.controller('CommentCTL', ['$scope', '$http', '$location', '$route', '$routeP
   $http.get("../api/property/" + $routeParams.id + "/comment").success(function(data){
       $scope.comments = data.data;
   });
+}]);
+
+app.controller('ProjectdetailCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {
+  $scope.id = $routeParams.id;
+  $scope.project = {};
+  $http.get("../api/property/" + $routeParams.id).success(function(data){
+    $http.get("../api/property/project/" + data.project_id).success(function(data2){
+      $scope.project = data2;
+      console.log($scope.project);
+    });
+  });
+  $scope.id = $routeParams.id;
+  $scope.changeHash = function(hash){
+    window.location.hash = hash;
+  };
 }]);
 
 app.controller('MatchCTL', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location, $route, $routeParams) {

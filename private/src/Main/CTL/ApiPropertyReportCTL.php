@@ -31,9 +31,6 @@ class ApiPropertyReportCTL extends BaseCTL {
      * @GET
      */
     public function getByBetween(){
-        $start = $this->reqInfo->param('start');
-        $end = $this->reqInfo->param('end');
-
         $db = MedooFactory::getInstance();
 
         $field = [
@@ -45,7 +42,9 @@ class ApiPropertyReportCTL extends BaseCTL {
             "property_status.name(property_status_name)",
             // "developer.name(developer_name)",
             "size_unit.name(size_unit_name)",
-            "project.name(project_name)"
+            "project.name(project_name)",
+            "zone.name(zone_name)",
+            "province.name(province_name)"
         ];
         $join = [
             // "[>]property_type"=> ["property_type_id"=> "id"],
@@ -54,30 +53,29 @@ class ApiPropertyReportCTL extends BaseCTL {
             "[>]property_status"=> ["property_status_id"=> "id"],
             // "[>]developer"=> ["developer_id"=> "id"],
             "[>]size_unit"=> ["size_unit_id"=> "id"],
-            "[>]project"=> ["project_id"=> "id"]
-        ];
-
-        $where = [
-            "AND"=> [
-                "property.created_at[>=]"=> $start,
-                "property.created_at[<=]"=> $end
-            ]
+            "[>]project"=> ["project_id"=> "id"],
+            "[>]zone"=> ["zone_id"=> "id"],
+            "[>]province"=> ["province_id"=> "id"]
         ];
 
         $params = $this->reqInfo->params();
-        $limit = empty($_GET['limit'])? 15: $_GET['limit'];
+        $limit = empty($_GET['limit'])? 1500: $_GET['limit'];
         $where = ["AND"=> []];
 
         if(!empty($params['property_type_id'])){
             $where["AND"]['property.property_type_id'] = $params['property_type_id'];
         }
-        if(!empty($params['bedrooms'])){
+        if(!empty($params['bedrooms']) || @$params['bedrooms'] === 0 || @$params['bedrooms'] === '0'){
             if($params['bedrooms'] == "4+") {
               $where["AND"]['property.bedrooms[>=]'] = $params['bedrooms'];
             }
             else {
               $where["AND"]['property.bedrooms'] = $params['bedrooms'];
             }
+        }
+
+        if(!empty($params['project_id'])) {
+          $where["AND"]['property.project_id'] = $params['project_id'];
         }
 
         // zone
@@ -97,10 +95,16 @@ class ApiPropertyReportCTL extends BaseCTL {
           $where["AND"]['property.mrt_id'] = $params['mrt_id'];
         }
         if(!empty($params['created_at_start'])) {
-          $where["AND"]['property.created_at[>=]'] = $params['created_at_start'];
+          $where["AND"]['property.created_at[>=]'] = $params['created_at_start'].' 00:00:00';
         }
         if(!empty($params['created_at_end'])) {
-          $where["AND"]['property.created_at[<=]'] = $params['created_at_end'];
+          $where["AND"]['property.created_at[<=]'] = $params['created_at_end'].' 00:00:00';
+        }
+        if(!empty($params['updated_at_start'])) {
+          $where["AND"]['property.updated_at[>=]'] = $params['updated_at_start'].' 00:00:00';
+        }
+        if(!empty($params['updated_at_end'])) {
+          $where["AND"]['property.updated_at[<=]'] = $params['updated_at_end'].' 00:00:00';
         }
 
         $page = !empty($params['page'])? $params['page']: 1;
@@ -127,6 +131,8 @@ class ApiPropertyReportCTL extends BaseCTL {
                 "limit"=> $limit
             ]);
         }
+
+        // $list['sql'] = $db->last_query();
 
         return $list;
     }

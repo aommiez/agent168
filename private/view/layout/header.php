@@ -42,8 +42,8 @@ use Main\Helper;
                 <span class="glyphicon glyphicon-envelope" id="icon" aria-hidden="true"></span>
                 info@agent168th.com
             </li>
-            <li style="margin-right: 0px"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login" style="padding: 0px">LOGIN</button></li>
-            <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#register" style="padding: 0px">REGISTER</button></li>
+            <!-- <li style="margin-right: 0px"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login" style="padding: 0px">LOGIN</button></li>
+            <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#register" style="padding: 0px">REGISTER</button></li> -->
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Facebook.png")?>" /> </li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Twitter.png")?>" /></li>
             <li><img src="<?php echo \Main\Helper\URL::absolute("/public/images/Google+.png")?>" /></li>

@@ -28,11 +28,36 @@ class PropertyCTL extends BaseCTL {
     * @uri /[:id]
     */
     public function index () {
-      $id = $this->reqInfo->urlParams("id");
+      $id = $this->reqInfo->urlParam("id");
       $db = MedooFactory::getInstance();
       $item = $db->get("property", "*", ["id"=> $id]);
       $this->_buildItem($item);
       return new HtmlView('/property', ['item'=> $item]);
+    }
+
+    /**
+    * @POST
+    * @uri /[:id]
+    **/
+    public function sendForm()
+    {
+      $id = $this->reqInfo->urlParam("id");
+      $url = URL::absolute("/admin/properties#/edit/".$id);
+      $mailContent = <<<MAILCONTENT
+      Request enquiry from page property: <a href="{$url}">{$_POST["reference_id"]}</a><br />
+      Requirement type: {$_POST["requirement"]}<br />
+      Email: {$_POST["email"]}<br />
+      First name: {$_POST["first_name"]}<br />
+      Last name: {$_POST["last_name"]}<br />
+      Phone: {$_POST["phone"]}<br />
+MAILCONTENT;
+
+      $mailHeader = "From: system@agent168th.com\r\n";
+      $mailHeader = "To: admin@agent168th.com\r\n";
+      $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
+      @mail("admin@agent168th.com", "Request enquiry From property page: ".$_POST["reference_id"], $mailContent, $mailHeader);
+
+      return ['success'=> true];
     }
 
     public function _buildItem(&$item)
@@ -44,7 +69,14 @@ class PropertyCTL extends BaseCTL {
         $this->_buildRequirement($item);
         $this->_buildImages($item);
         $this->_buildPropType($item);
+        $this->_buildZone($item);
       // }
+    }
+
+    public function _buildZone(&$item)
+    {
+      $db = MedooFactory::getInstance();
+      $item['zone'] = $db->get("zone", "*", ["id"=> $item['zone_id']]);
     }
 
     public function _buildPropType(&$item)
@@ -59,7 +91,7 @@ class PropertyCTL extends BaseCTL {
       $pic = $db->get("property_image", "*", ["property_id"=> $item['id']]);
       if(!$pic){
         $pic = [];
-        $path = 'private/src/Main/ThirdParty/uploads/'.$item['project']['image_path'];
+        $path = 'public/prop_pic/'.$item['project']['image_path'];
         if(is_file($path)) {
           $pic['url'] = URL::absolute("/".$path);
         }
@@ -68,7 +100,7 @@ class PropertyCTL extends BaseCTL {
         }
       }
       else {
-        $pic['url'] = URL::absolute("/public/images/upload/".$pic['name']);
+        $pic['url'] = URL::absolute("/public/prop_pic/".$pic['name']);
       }
       $item['picture'] = $pic;
     }
@@ -90,7 +122,7 @@ class PropertyCTL extends BaseCTL {
       $db = MedooFactory::getInstance();
       $item['images'] = $db->select("property_image", "*", ["property_id"=> $item['id']]);
       foreach ($item['images'] as &$img) {
-        $img['url'] = URL::absolute("/public/images/upload/".$img['name']);
+        $img['url'] = URL::absolute("/public/prop_pic/".$img['name']);
       }
     }
 

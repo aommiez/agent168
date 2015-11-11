@@ -77,7 +77,7 @@
                         <i class="col-md-5 box-2">
                         	<select class="form-control"
 													ng-model="form.requirement_id"
-													ng-options="item.id as item.name_for_enquiry for item in collection.requirement"
+													ng-options="item.id as item.name_for_enquiry for item in collection.requirement | filter: {id: '!4'}"
 													ng-init="form.requirement_id=1"
                           required>
                         	</select>
@@ -112,7 +112,7 @@
                         	<select class="form-control"
 													ng-model="form.project_id"
 										      ng-options="item.id as item.name for item in collection.project"
-													>
+													required>
                           <option value="">-Please Select-</option>
                   			</select>
                     	</i>
@@ -153,7 +153,7 @@
                     <div class="form-group">
             	       <i class="col-md-6 box-1"><strong>Period time to purchasing or leasing: </strong></i>
                        <i class="col-md-5 box-2">
-                         <select class="form-control" ng-model="form.ptime_to_pol">
+                         <select class="form-control" ng-model="form.ptime_to_pol" required>
      	                    <option>Within a week</option>
                             <option>Within a month</option>
                             <option>Within 3 months</option>
@@ -174,7 +174,7 @@
                  		<i class="col-md-3 box-1"><strong>Size: </strong></i>
                     	<i class="col-md-8 box-2">
                         	<input type="text" class="form-control" ng-model="form.size">
-                  			<select class="form-control size" ng-model="form.size_unit_id">
+                  			<select class="form-control size" ng-model="form.size_unit_id" required>
                     			<option value="1">Sq. m.</option>
                     			<option value="2">Sq. wa</option>
                     			<option value="3">Rai</option>

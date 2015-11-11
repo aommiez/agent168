@@ -39,4 +39,5 @@ $xcrud->fields('created_at', true);
 $xcrud->before_insert("article_beforeInsert");
 ?>
 <h1>Article</h1>
+<a href="<?php echo \Main\Helper\URL::absolute('/admin/images');?>">Image manager</a>
 <?php echo $xcrud->render(); ?>

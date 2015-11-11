@@ -71,6 +71,10 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
       $scope.thailocation = thailocation;
     });
 
+    $http.get("../api/enquiry/account").success(function(accs) {
+      $scope.accounts = accs;
+    });
+
     $scope.remove = function(id){
         if(!window.confirm("Are you sure?")){
             return;
@@ -100,8 +104,8 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
         $scope.collection = data;
         // $scope.form.project_id = data.project[0].id;
         $scope.collection.project = data.project.sort(function(a, b) {
-          if(a.name < b.name) return -1;
-          if(a.name > b.name) return 1;
+          if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+          if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
           return 0;
         });
     });
@@ -292,8 +296,8 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
     }
 
     $scope.collection.project = $scope.collection.project.sort(function(a, b) {
-      if(a.name < b.name) return -1;
-      if(a.name > b.name) return 1;
+      if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+      if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
       return 0;
     });
 
@@ -301,6 +305,18 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
     $scope.$apply();
   });
 
+  (function(){
+    var url = "../api/enquiry/"+$routeParams.id+"/matched?limit=200";
+    $http.get(url).success(function(data){
+        $scope.matched = data.data;
+    });
+  })();
+
+  $scope.changeStatus = function(){
+    if($scope.status_id != 7) {
+      delete $scope.form.book_property_id;
+    }
+  };
   $scope.changeHash = function(hash){
     window.location.hash = hash;
   };
@@ -331,6 +347,10 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   };
 
   $scope.submitEdit = function() {
+    if($scope.form.enquiry_status_id == 7 && !$scope.form.book_property_id) {
+      alert("Please select booking property.");
+      return;
+    }
     if(!$scope.form.comment) {
       alert("require comment");
       return;
@@ -342,6 +362,8 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
       };
       if($scope.form.enquiry_status_id)
         form.enquiry_status_id = $scope.form.enquiry_status_id;
+      if($scope.form.book_property_id)
+        form.book_property_id = $scope.form.book_property_id;
     }
     $.post("../api/enquiry/edit/"+$scope.id, form, function(data){
       $route.reload();
@@ -394,8 +416,8 @@ app.controller('MatchCTL', ['$scope', '$http', '$location', '$route', '$routePar
   $http.get("../api/collection").success(function(data){
       $scope.collection = data;
       $scope.collection.project = data.project.sort(function(a, b) {
-        if(a.name < b.name) return -1;
-        if(a.name > b.name) return 1;
+        if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
         return 0;
       });
   });
@@ -464,8 +486,8 @@ app.controller('MatchedCTL', ['$scope', '$http', '$location', '$route', '$routeP
   $http.get("../api/collection").success(function(data){
       $scope.collection = data;
       $scope.collection.project = data.project.sort(function(a, b) {
-        if(a.name < b.name) return -1;
-        if(a.name > b.name) return 1;
+        if(a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        if(a.name.toLowerCase() > b.name.toLowerCase()) return 1;
         return 0;
       });
   });

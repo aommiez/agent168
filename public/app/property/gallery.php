@@ -1,4 +1,5 @@
 <div ng-controller="GalleryCTL">
+  <?php include(dirname(__FILE__).'/head.php');?>
     <div>
         <form ng-submit="addSubmit()">
             <fieldset ng-disabled="isUploading">

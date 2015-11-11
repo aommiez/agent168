@@ -25,8 +25,8 @@ MAILCONTENT;
   foreach($admins as $admin) {
 
     $mailHeader = "From: system@agent168th.com\r\n";
-    $mailHeader = "To: {$admin['email']}\r\n";
+    $mailHeader = "To: admin@agent168th.com\r\n";
     $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
-    @mail($admin["email"], "Property contract expire in 1 month", $mailContent, $mailHeader);
+    @mail("admin@agent168th.com", "Property contract expire in 1 month", $mailContent, $mailHeader);
   }
 }

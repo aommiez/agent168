@@ -35,7 +35,8 @@ class ApiProperty extends BaseCTL {
             "property_status.name(property_status_name)",
             // "developer.name(developer_name)",
             "size_unit.name(size_unit_name)",
-            "project.name(project_name)"
+            "project.name(project_name)",
+            "key_location.name(key_location_name)"
         ];
         $join = [
             // "[>]property_type"=> ["property_type_id"=> "id"],
@@ -44,7 +45,8 @@ class ApiProperty extends BaseCTL {
             "[>]property_status"=> ["property_status_id"=> "id"],
             // "[>]developer"=> ["developer_id"=> "id"],
             "[>]size_unit"=> ["size_unit_id"=> "id"],
-            "[>]project"=> ["project_id"=> "id"]
+            "[>]project"=> ["project_id"=> "id"],
+            "[>]key_location"=> ["key_location_id"=> "id"]
         ];
         $limit = empty($_GET['limit'])? 15: $_GET['limit'];
         $where = ["AND"=> []];
@@ -53,7 +55,7 @@ class ApiProperty extends BaseCTL {
         if(!empty($params['property_type_id'])){
             $where["AND"]['property.property_type_id'] = $params['property_type_id'];
         }
-        if(!empty($params['bedrooms'])){
+        if(!empty($params['bedrooms']) || @$params['bedrooms'] === 0 || @$params['bedrooms'] === '0'){
             if($params['bedrooms'] == "4+") {
               $where["AND"]['property.bedrooms[>=]'] = $params['bedrooms'];
             }
@@ -614,6 +616,31 @@ MAILCONTENT;
 
       return $list;
     }
+
+    /**
+     * @GET
+     * @uri /project/[i:id]
+     */
+    public function getProject() {
+      $id = $this->reqInfo->urlParam("id");
+      $db = MedooFactory::getInstance();
+
+      $item = $db->get("project", "*", ["id"=> $id]);
+      $item['province'] = $db->get("province", "*", ["id"=> $item["province_id"]]);
+      $item['district'] = $db->get("district", "*", ["id"=> $item["district_id"]]);
+      $item['sub_district'] = $db->get("sub_district", "*", ["id"=> $item["sub_district_id"]]);
+
+      $item['bts'] = $db->get("bts", "*", ["id"=> $item["bts_id"]]);
+      $item['mrt'] = $db->get("mrt", "*", ["id"=> $item["mrt_id"]]);
+      $item['airport_link'] = $db->get("airport_link", "*", ["id"=> $item["airport_link_id"]]);
+
+      $item['image_url'] = URL::absolute('/public/project_pic/'.$item['image_path']);
+
+      $item['zone'] = $db->get("zone", "*", ["id"=> $item["zone_id"]]);
+
+      return $item;
+    }
+
 
     public function _buildImage(&$item){
         $item['url'] = URL::absolute("/public/prop_pic/".$item['name']);

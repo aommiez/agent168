@@ -67,8 +67,8 @@ function notify($item)
 MAILCONTENT;
 
       $mailHeader = "From: system@agent168th.com\r\n";
-      $mailHeader = "To: {$acc['email']}\r\n";
+      $mailHeader = "To: {$sale['email']}\r\n";
       $mailHeader .= "Content-type: text/html; charset=utf-8\r\n";
-      @mail($acc["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
+      @mail($sale["email"], "Assign enquiry: ".$item["enquiry_no"], $mailContent, $mailHeader);
   }
 }

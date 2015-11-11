@@ -57,6 +57,7 @@
                               <select class="form-control"
                                   ng-model="form.bedrooms">
                                   <option value="">All</option>
+                                  <option value="0">0</option>
                                   <option value="1">1</option>
                                   <option value="2">2</option>
                                   <option value="3">3</option>
@@ -239,11 +240,12 @@
                 <th>#</th>
                 <th>Details</th>
                 <th>Requirement</th>
+                <th>Key Location</th>
                 <th>Size</th>
                 <th>Sell</th>
                 <th>Rent</th>
                 <th>Status</th>
-                <th></th>
+                <!-- <th></th> -->
                 <th></th>
             </tr>
             </thead>
@@ -260,13 +262,14 @@
                     <!-- <div><strong>Transfer Status</strong>: <span>{{prop.property_status_name}}</span></div> -->
                 </td>
                 <td>{{prop.requirement_name}}</td>
+                <td>{{prop.key_location_name}}</td>
                 <td>{{prop.size}} {{prop.size_unit_name}}</td>
                 <td><span ng-hide="!prop.sell_price">฿{{commaNumber(prop.sell_price)}}</span></td>
                 <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
                 <td>{{prop.property_status_name}}</td>
-                <td>
+                <!-- <td>
                   <a class="btn btn-info" href="#/{{prop.id}}/gallery" target="_blank">images</a>
-                </td>
+                </td> -->
                 <td>
                   <a class="xcrud-action btn btn-warning btn-sm" href="#edit/{{prop.id}}" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
                   <?php if(@$_SESSION["login"]["level_id"]==1){?><a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a><?php }?>

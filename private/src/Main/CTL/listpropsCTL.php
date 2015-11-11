@@ -57,7 +57,7 @@ class listpropsCTL extends BaseCTL {
         $mail = new \PHPMailer();
         $mail->CharSet = 'UTF-8';
         $mail->setFrom('system@agent168th.com');
-        $mail->addAddress('papangping@gmail.com');
+        $mail->addAddress('admin@agent168th.com');
         $mail->Subject = 'Send property from list your property page';
         $mail->msgHTML($contentMail);
 

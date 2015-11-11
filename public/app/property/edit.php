@@ -1,5 +1,7 @@
 <?php session_start();?>
-<form ng-submit="submit()" ng-controller="EditCTL" id="form-edit-prop" ng-show="initSuccess"
+<div ng-controller="EditCTL">
+<?php include(dirname(__FILE__).'/head.php');?>
+<form ng-submit="submit()" id="form-edit-prop" ng-show="initSuccess"
   ng-init="editAllow = <?php echo json_encode(@$_SESSION['login']['level_id'] <= 2 && @$_SESSION['login']['level_id'] > 0);?>;"
   >
   <div class="row">
@@ -268,4 +270,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>
