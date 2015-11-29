@@ -89,6 +89,7 @@ $xcrud->label([
   ]);
 
 $xcrud->subselect('Total Unit','SELECT COUNT(id) FROM property WHERE property.project_id = {id}');
+$xcrud->after_update('project_afterUpdate');
 echo $xcrud->render();
 ?>
 <style>

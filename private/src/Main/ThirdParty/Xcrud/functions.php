@@ -171,8 +171,29 @@ function article_beforeInsert($postdata, $xcrud)
   $postdata->set('created_at', date('Y-m-d H:i:s'));
 }
 
-function project_afterUpdate($postdata, $xcrud)
+function project_afterUpdate($postdata, $primary, $xcrud)
 {
   $db = \Main\DB\Medoo\MedooFactory::getInstance();
-  $db->update();
+  $id = $xcrud->get('primary');
+
+  $zone_id = $postdata->get('zone_id');
+  $bts_id = $postdata->get('bts_id');
+  $mrt_id = $postdata->get('mrt_id');
+  $airport_link_id = $postdata->get('airport_link_id');
+  $province_id = $postdata->get('province_id');
+  $district_id = $postdata->get('district_id');
+  $sub_district_id = $postdata->get('sub_district_id');
+  $zone_id = $postdata->get('zone_id');
+
+  $update = [
+    'zone_id'=> $zone_id,
+    'bts_id'=> $bts_id,
+    'mrt_id'=> $mrt_id,
+    'airport_link_id'=> $airport_link_id,
+    'province_id'=> $province_id,
+    'district_id'=> $district_id,
+    'sub_district_id'=> $sub_district_id
+  ];
+
+  $db->update("property", $update, ["project_id"=> $id]);
 }
