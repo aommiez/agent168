@@ -37,7 +37,7 @@ $("slide>ul>li>a>img").click(function () {
 
 		<div class="container">
         	<div class="content">
-                	<div id="slideshow" style="height: 600px;"></div>
+                	<div id="slideshow" style="height: 450px;"></div>
 						<div class="text-center">
                         	<div class="slide">
                          	 <ul id="slideshow_thumbs" class="desoslide-thumbs-vertical list-inline ">

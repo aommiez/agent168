@@ -48,7 +48,7 @@ $configs = array(
             "master"=> array(
                 "database_type"=> "mysql",
                 "database_name" => "agent168",
-                "server" => "localhost",
+                "server" => "192.168.100.30",
                 "username" => 'root',
                 'password' => '',
 
