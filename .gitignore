@@ -53,3 +53,5 @@ public/prop_pic/
 public/article_pic/
 private/src/Main/ThirdParty/uploads/
 vendor/
+
+private/AppConfig.php
