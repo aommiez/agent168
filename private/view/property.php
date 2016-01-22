@@ -77,15 +77,82 @@ $(document).ready(function() {
 	}
 	.red{color:red;}
 	.property_options .bottom-border p a{ text-decoration:none;}
+	.amenities {
+		margin-bottom:20px;
+		float:left;
+		width:100%;
+	}
 	.amenities ul{
 		list-style:none;
-		display: -webkit-inline-box;
+		display: block;
+		padding:0;
 	}
 	.amenities ul li{
 		margin-right:15px;
+		float:left;
+		width:180px;
+		text-align:center;
 	}
 	.amenities ul li span{
 		margin-right:5px;
+	}
+	.box-right {
+		background-color: gainsboro;
+		color: #000;
+		padding: 20px;
+		font-size: 16px;
+		margin: 10px 0 40px 0;
+		border: 1px solid whitesmoke;
+	}
+	p.head-form {
+		text-align: center;
+		font-size: 17px;
+		margin: 0 0 10px 0;
+	}
+	.cf:before, .cf:after {
+		content: " ";
+		display: table;
+	}
+	.item-form p {
+		margin: 10px 0;
+		font-size: 13px;
+	}
+	.item-form>p:after {
+		content: '*';
+		font-size: 10px;
+		color: red;
+		top: -5px;
+		left: 2px;
+		position: relative;
+	}
+	.item-form>div>input[type=radio] {
+		margin-right: 12px;
+		padding-top: 3px;
+	}
+	.item-form>div {
+		width: 100%;
+		height: 30px;
+		font-size: 13px;
+	}
+	.item-form div input[type=text] {
+		width: 100%;
+		height: 28px;
+		font-size: 18px;
+		color: #000;
+		padding: 0 0 0 10px;
+		border: 1px solid whitesmoke;
+	}
+	.btn-search {
+		width: 190px;
+		height: 30px;
+		display: block;
+		margin: 20px auto 0 auto;
+		color: #fff;
+		background-color: #1957a4;
+		border: 1px solid #1957a4;
+		text-align: center;
+		line-height: 30px;
+		text-decoration: none;
 	}
 </style>
 
@@ -137,12 +204,21 @@ $(document).ready(function() {
                             <li><span class="glyphicon glyphicon-ok"></span>furniture</li>
                         </ul>
                     </div>
+                    <div class="amenities">
+                    	<h3>Outdoor amenities</h3>
+                        <ul>
+                        	<li><span class="glyphicon glyphicon-ok"></span>Swimming Pool</li>
+                            <li><span class="glyphicon glyphicon-ok"></span>Onsen</li>
+                            <li><span class="glyphicon glyphicon-ok"></span>Swimming Pool</li>
+                            <li><span class="glyphicon glyphicon-ok"></span>Onsen</li>
+                            <li><span class="glyphicon glyphicon-ok"></span>Swimming Pool</li>
+                            <li><span class="glyphicon glyphicon-ok"></span>Onsen</li>
+                        </ul>
+                    </div>
         		</div>
      		</div>
-     	</div>
-     </div>
-     <div class="container">
-            <div class="box-right">
+            <div class="col-md-3">
+            	<div class="box-right">
     			<form id="frmQuickSendEnquiry">
                     <p class="head-form">กรอกข้อมูลเพื่อเยี่ยมชมยูนิตนี้</p>
                     <div class="item-form cf">
@@ -179,11 +255,13 @@ $(document).ready(function() {
           <div id="message-success"
           style="display:none; text-align:center; line-height:30px;">Success send form</div>
     	</div>
-
-        <div class="content-tab1-main">
+            </div>
+     	</div>
+     </div>
+     
 
         <!-- Project Details -->
-		<div class="box-text-main">
+		<!--<div class="box-text-main">
 			<p class="title-text">ข้อมูลอสังหาฯ</p>
 			<div class="text cf">
         <p><span>ประเภทอสังหาฯ</span> :
@@ -222,37 +300,8 @@ $(document).ready(function() {
     		<?php if(@$params['item']['project']['has_laundry_service']){?><p>Laundry Servic</p><?php }?>
     		<?php if(@$params['item']['project']['has_private_parking']){?><p>Private Parking</p><?php }?>
     		<?php if(@$params['item']['project']['has_bathtub_inside_unit']){?><p>Bathtub Inside Unit</p><?php }?>
-     	</div>
-			<!-- Facilities End -->
-		</div>
-	</div>
-    <div class="box-price-main">
-                <!-- Best Deal -->
-                <div class="box-picture cf">
-                    <?php if($params['item']['feature_unit_id']==1){?>
-                    <span class="ribbon best-buy"></span>
-                    <?php }?>
-                </div>
-                <div class="box-price cf" style="width: 100%;">
-                  <?php if($params['item']['requirement_id']==1 || $params['item']['requirement_id']==3){?>
-                  <div class="box-left" style="width: 100%;">
-                      <p class="price">ราคาขาย</p>
-                      <p class="num"><?php echo number_format($params['item']['sell_price']);?> บาท</p>
-                  </div>
-                  <?php }?>
-                  <?php if($params['item']['requirement_id']==2 || $params['item']['requirement_id']==3){?>
-                  <div class="box-left" style="width: 100%;">
-                      <p class="price">ราคาเช่า</p>
-                      <p class="num"><?php echo number_format($params['item']['rent_price']);?> บาท</p>
-                  </div>
-                  <?php }?>
-                <!-- <div class="box-cart">
-                    <a class="btn-cart" href="">สนใจยูนิตนี้<img src="../public/images/shopping_cart.png" alt="images"></a>
-                </div> -->
-                </div>
-                <!-- Best Deal End -->
-		</div>
-	</div><!--container-->
+     	</div>-->
+		
 <script>
   $(function(){
     var form = $('#frmQuickSendEnquiry');
