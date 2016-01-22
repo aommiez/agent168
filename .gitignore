@@ -46,5 +46,10 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
-private/src/Main/ThirdParty/uploads/*
-public/images/upload/*
+
+public/article_pic/
+public/project_pics/
+public/prop_pic/
+public/article_pic/
+private/src/Main/ThirdParty/uploads/
+vendor/

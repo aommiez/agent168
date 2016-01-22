@@ -18,16 +18,30 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
 
 app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route){
   $scope.items = [];
-  var promise1 = Q.promise(function (resolve, reject) {
-    $.get("../api/phonereq", function(data){
-      resolve(data);
-    }, "json");
-  });
+  $scope.form = {};
+  $scope.form.page = 1;
+  function getData() {
+    var promise1 = Q.promise(function (resolve, reject) {
+      $.get("../api/phonereq?page="+$scope.form.page, function(data){
+        resolve(data);
+      }, "json");
+    });
 
-  promise1.then(function(data){
-    $scope.list = data;
-    $scope.$apply();
-  });
+    promise1.then(function(data){
+      $scope.list = data;
+      if(data.total > 0){
+        $scope.pagination = [];
+        for(var i = 1; i * data.paging.limit <= data.total; i++) {
+          $scope.pagination.push(data.paging.page == i);
+        }
+      }
+      else {
+        $scope.pagination = null;
+      }
+      $scope.$apply();
+    });
+  }
+  getData();
 
   function upateStatus(id, status_id){
     var item = $scope.list.data.find(function(o, index){
@@ -59,5 +73,13 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
       upateStatus(id, 3);
       $scope.$apply();
     }, "json");
+  };
+
+  $scope.setPage = function($index) {
+    if($index < 1 || $index > $scope.pagination.length)
+      return;
+
+    $scope.form.page = $index;
+    getData();
   };
 }]);

@@ -25,8 +25,11 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
 app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route){
     $scope.props = [];
     $scope.form = {};
+    $scope.form.page = 1;
+    $scope.form.limit = 15
 
-    $scope.getProps = function(){
+    $scope.getProps = function(page){
+      if(page) $scope.page = page;
         // if(!$scope.form.created_at_start || !$scope.form.created_at_start) {
         //   alert('Require created start and created end');
         //   return;
@@ -36,16 +39,25 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
         url += "?" + $.param($scope.form);
         $http.get(url).success(function(data){
             $scope.props = data;
-            // if(data.total > 0){
-            //   $scope.pagination = [];
-            //   for(var i = 1; i * $scope.form.limit <= data.total; i++) {
-            //     $scope.pagination.push(data.paging.page == i);
-            //   }
-            // }
-            // else {
-            //   $scope.pagination = null;
-            // }
+            if(data.total > 0){
+              $scope.pagination = [];
+              var numPage = Math.ceil(data.total/$scope.form.limit);
+              for(var i = 1; i <= numPage; i++) {
+                $scope.pagination.push(data.paging.page == i);
+              }
+            }
+            else {
+              $scope.pagination = null;
+            }
         });
+    };
+
+    $scope.setPage = function($index) {
+      if($index < 1 || $index > $scope.pagination.length)
+        return;
+
+      $scope.form.page = $index;
+      $scope.getProps();
     };
 
     $http.get("../api/collection").success(function(data){

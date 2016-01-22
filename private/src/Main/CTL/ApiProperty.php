@@ -36,7 +36,7 @@ class ApiProperty extends BaseCTL {
             // "developer.name(developer_name)",
             "size_unit.name(size_unit_name)",
             "project.name(project_name)",
-            "key_location.name(key_location_name)"
+            "zone.name(zone_name)"
         ];
         $join = [
             // "[>]property_type"=> ["property_type_id"=> "id"],
@@ -46,7 +46,7 @@ class ApiProperty extends BaseCTL {
             // "[>]developer"=> ["developer_id"=> "id"],
             "[>]size_unit"=> ["size_unit_id"=> "id"],
             "[>]project"=> ["project_id"=> "id"],
-            "[>]key_location"=> ["key_location_id"=> "id"]
+            "[>]zone"=> ["zone_id"=> "id"]
         ];
         $limit = empty($_GET['limit'])? 15: $_GET['limit'];
         $where = ["AND"=> []];
@@ -64,7 +64,12 @@ class ApiProperty extends BaseCTL {
             }
         }
         if(!empty($params['requirement_id'])){
-            $where["AND"]['property.requirement_id'] = $params['requirement_id'];
+            if(in_array($params['requirement_id'], [1,2,4])) {
+              $where["AND"]['property.requirement_id'] = [$params['requirement_id'], 3];
+            }
+            else {
+              $where["AND"]['property.requirement_id'] = $params['requirement_id'];
+            }
         }
         if(!empty($params['project_id'])){
             $where["AND"]['property.project_id'] = $params['project_id'];
@@ -77,6 +82,16 @@ class ApiProperty extends BaseCTL {
         }
         if(!empty($params['feature_unit_id'])){
             $where["AND"]['property.feature_unit_id'] = $params['feature_unit_id'];
+        }
+
+        if(!empty($params['bts_id'])){
+            $where["AND"]['property.bts_id'] = $params['bts_id'];
+        }
+        if(!empty($params['mrt_id'])){
+            $where["AND"]['property.mrt_id'] = $params['mrt_id'];
+        }
+        if(!empty($params['airport_link_id'])){
+            $where["AND"]['property.airport_link_id'] = $params['airport_link_id'];
         }
 
 
@@ -137,6 +152,16 @@ class ApiProperty extends BaseCTL {
           }
         }
 
+        if(!empty($params['province_id'])) {
+          $where["AND"]['property.province_id'] = $params['province_id'];
+        }
+        if(!empty($params['district_id'])) {
+          $where["AND"]['property.district_id'] = $params['district_id'];
+        }
+        if(!empty($params['sub_district_id'])) {
+          $where["AND"]['property.sub_district_id'] = $params['sub_district_id'];
+        }
+
         // zone
         if(!empty($params['zone_id'])) {
           $where["AND"]['property.zone_id'] = $params['zone_id'];
@@ -188,7 +213,7 @@ class ApiProperty extends BaseCTL {
           "requirement_id", "contract_price", "sell_price", "net_sell_price", "rent_price", "net_rent_price", "owner",
           "key_location_id", "zone_id", "road", "province_id", "district_id", "sub_district_id", "bts_id", "mrt_id",
           "airport_link_id", "property_status_id", "contract_expire", "web_status", "property_highlight_id",
-          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner", "web_url_search"
+          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner", "web_url_search", "room_type_id"
         ], $params);
 
         $insert = array_map(function($item) {
@@ -277,7 +302,7 @@ MAILCONTENT;
           "requirement_id", "contract_price", "sell_price", "net_sell_price", "rent_price", "net_rent_price", "owner",
           "key_location_id", "zone_id", "road", "province_id", "district_id", "sub_district_id", "bts_id", "mrt_id",
           "airport_link_id", "property_status_id", "contract_expire", "web_status", "property_highlight_id",
-          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner", "web_url_search"
+          "feature_unit_id", "rented_expire", "inc_vat", "transfer_status_id", "owner", "web_url_search", "room_type_id"
         ], $set);
 
         $set = array_map(function($item) {
@@ -481,7 +506,7 @@ MAILCONTENT;
             $where = ["AND"=> ["property_id"=> $id, "id"=> $imgId]];
             $img = $db->get("property_image", "*", $where);
             $path = "public/prop_pic/".$img["name"];
-            unlink($path);
+            @unlink($path);
             $db->delete("property_image", $where);
         }
 
@@ -634,9 +659,8 @@ MAILCONTENT;
       $item['mrt'] = $db->get("mrt", "*", ["id"=> $item["mrt_id"]]);
       $item['airport_link'] = $db->get("airport_link", "*", ["id"=> $item["airport_link_id"]]);
 
-      $item['image_url'] = URL::absolute('/public/project_pic/'.$item['image_path']);
-
       $item['zone'] = $db->get("zone", "*", ["id"=> $item["zone_id"]]);
+      $item['image_url'] = URL::absolute("/public/project_pic/".$item["image_path"]);
 
       return $item;
     }

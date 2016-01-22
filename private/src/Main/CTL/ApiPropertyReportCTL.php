@@ -59,7 +59,7 @@ class ApiPropertyReportCTL extends BaseCTL {
         ];
 
         $params = $this->reqInfo->params();
-        $limit = empty($_GET['limit'])? 1500: $_GET['limit'];
+        $limit = empty($_GET['limit'])? 15: $_GET['limit'];
         $where = ["AND"=> []];
 
         if(!empty($params['property_type_id'])){

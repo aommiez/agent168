@@ -11,7 +11,7 @@ if(mail("papangping@gmail.com",
     Telephone: txxxxx
     ========================
     ยูทีเอฟแปด นะครับ",
-    "From: admin@agent168th.com")){
+    "From: system@agent168th.com")){
   echo "send mail success.";
 }
 else {

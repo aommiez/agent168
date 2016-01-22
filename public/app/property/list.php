@@ -85,6 +85,15 @@
                                   </div>
                               </div>
                           </div>
+                          <div class="col-md-4 form-group">
+                              <label>Room Type</label>
+                              <select class="form-control"
+                                  ng-model="form.room_type_id">
+                                  <option value="">All</option>
+                                  <option value="1">Studio</option>
+                                  <option value="2">Duplex</option>
+                              </select>
+                          </div>
                       </div>
                       <div class="row">
                           <div class="col-md-4 form-group">
@@ -156,6 +165,31 @@
                               </select>
                           </div>
                       </div>
+
+                      <div class="row">
+                          <div class="col-md-4 form-group">
+                              <label>BTS</label>
+                              <select class="form-control" ng-model="form.bts_id"
+                                  ng-options="item.id as item.name for item in collection.bts">
+                                  <option value="">All</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>MRT</label>
+                              <select class="form-control" ng-model="form.mrt_id"
+                                  ng-options="item.id as item.name for item in collection.mrt">
+                                  <option value="">All</option>
+                              </select>
+                          </div>
+                          <div class="col-md-4 form-group">
+                              <label>Airport link</label>
+                              <select class="form-control" ng-model="form.airport_link_id"
+                                  ng-options="item.id as item.name for item in collection.airport_link">
+                                  <option value="">All</option>
+                              </select>
+                          </div>
+                      </div>
+
                       <div class="row">
                           <div class="col-md-4 form-group">
                               <label>Property Highlight</label>
@@ -238,13 +272,15 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>Created</th>
                 <th>Details</th>
                 <th>Requirement</th>
-                <th>Key Location</th>
                 <th>Size</th>
                 <th>Sell</th>
                 <th>Rent</th>
                 <th>Status</th>
+                <th>Zone</th>
+                <th>Updated</th>
                 <!-- <th></th> -->
                 <th></th>
             </tr>
@@ -252,6 +288,7 @@
             <tbody>
             <tr ng-repeat="prop in props.data">
                 <td>{{prop.reference_id}}</td>
+                <td>{{prop.created_at}}</td>
                 <td>
                     <div><strong>Project</strong>: <span>{{prop.project_name}}</span></div>
                     <div ng-if="prop.address_no"><strong>Address no</strong>: <span>{{prop.address_no}}</span></div>
@@ -259,18 +296,18 @@
                     <!-- <div><strong>Type</strong>: <span>{{prop.property_type_name}}</span></div> -->
                     <div ng-if="prop.bedrooms"><strong>Bed room</strong>: <span>{{prop.bedrooms}}</span></div>
                     <div ng-if="prop.bathrooms"><strong>Bath room</strong>: <span>{{prop.bathrooms}}</span></div>
-                    <div><strong>Update Date</strong>: <span>{{prop.updated_at.split(' ')[0]}}</span></div>
                     <!-- <div><strong>Transfer Status</strong>: <span>{{prop.property_status_name}}</span></div> -->
                 </td>
                 <td>{{prop.requirement_name}}</td>
-                <td>{{prop.key_location_name}}</td>
                 <td>{{prop.size}} {{prop.size_unit_name}}</td>
                 <td><span ng-hide="!prop.sell_price">฿{{commaNumber(prop.sell_price)}}</span></td>
                 <td><span ng-hide="!prop.rent_price">฿{{commaNumber(prop.rent_price)}}</span></td>
                 <td>{{prop.property_status_name}}</td>
+                <td>{{prop.zone_name}}</td>
                 <!-- <td>
                   <a class="btn btn-info" href="#/{{prop.id}}/gallery" target="_blank">images</a>
                 </td> -->
+                <td>{{prop.updated_at}}</td>
                 <td>
                   <a class="xcrud-action btn btn-warning btn-sm" href="#edit/{{prop.id}}" target="_blank"><i class="glyphicon glyphicon-edit"></i></a>
                   <?php if(@$_SESSION["login"]["level_id"]==1){?><a class="xcrud-action btn btn-danger btn-sm" ng-click="remove(prop.id)"><i class="glyphicon glyphicon-remove"></i></a><?php }?>

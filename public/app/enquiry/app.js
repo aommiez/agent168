@@ -37,6 +37,11 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider',
 
 app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route){
     $scope.items = [];
+
+    $scope.form = {};
+    $scope.form.page = 1;
+    $scope.form.limit = 15;
+
     function getItems(query){
         var url = "../api/enquiry";
         if(query){
@@ -46,7 +51,8 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
             $scope.items = data;
             if(data.total > 0){
               $scope.pagination = [];
-              for(var i = 1; i * $scope.form.limit <= data.total; i++) {
+              var numPage = Math.ceil(data.total/$scope.form.limit);
+              for(var i = 1; i <= numPage; i++) {
                 $scope.pagination.push(data.paging.page == i);
               }
             }
@@ -57,11 +63,17 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
     }
     getItems();
 
+    $scope.setPage = function($index) {
+      if($index < 1 || $index > $scope.pagination.length)
+        return;
+
+      $scope.form.page = $index;
+      getItems($scope.form);
+    };
+
     $scope.filterItems = function(){
         getItems($scope.form);
     };
-
-    $scope.form = {};
 
     $http.get("../api/collection").success(function(data){
         $scope.collection = data;
@@ -150,6 +162,8 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
             fd.append(key, value);
         });
 
+        if(!window.confirm('Are you sure?')) return;
+
         $.post("../api/enquiry", $scope.form, function(data){
           // $scope.isSaving = false;
           if(data.error) {
@@ -215,12 +229,16 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
     };
 
     $scope.addForm2 = function() {
+      if(!window.confirm('Are you sure?')) return;
+
       $.post("../api/enquiry/assign_manager", $scope.form2, function(data){
         window.location.hash = "/";
       }, "json");
     };
 
     $scope.addForm3 = function() {
+      if(!window.confirm('Are you sure?')) return;
+
       $.post("../api/enquiry/assign_manager", $scope.form3, function(data){
         window.location.hash = "/";
       }, "json");
@@ -322,25 +340,32 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
   };
 
   $scope.autoAssMng = function() {
+    if(!window.confirm('Are you sure?')) return;
+
     $.post("../api/enquiry/assign_manager", $scope.autoAssMngForm, function(data){
       $route.reload();
     }, "json");
   };
 
   $scope.assMng = function() {
+    if(!window.confirm('Are you sure?')) return;
+
     $.post("../api/enquiry/assign_manager", $scope.assMngForm, function(data){
       $route.reload();
     }, "json");
   };
 
   $scope.autoAssSale = function() {
+    if(!window.confirm('Are you sure?')) return;
+
     $.post("../api/enquiry/assign_sale", $scope.autoAssSaleForm, function(data){
       $route.reload();
     }, "json");
   };
 
   $scope.assSale = function() {
-    console.log($scope);
+    if(!window.confirm('Are you sure?')) return;
+
     $.post("../api/enquiry/assign_sale", $scope.assSaleForm, function(data){
       $route.reload();
     }, "json");
@@ -365,6 +390,9 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
       if($scope.form.book_property_id)
         form.book_property_id = $scope.form.book_property_id;
     }
+
+    if(!window.confirm('Are you sure?')) return;
+
     $.post("../api/enquiry/edit/"+$scope.id, form, function(data){
       $route.reload();
     }, "json");

@@ -37,24 +37,26 @@ $("slide>ul>li>a>img").click(function () {
 
 		<div class="container">
         	<div class="content">
-                	<div id="slideshow" style="height: 450px;"></div>
-						<div class="text-center">
-                        	<div class="slide">
-                         	 <ul id="slideshow_thumbs" class="desoslide-thumbs-vertical list-inline ">
-                              <?php
-                              $imgList = $params['item']['images'];
-                              if(count($imgList) == 0){ $imgList = [$params['item']['picture']]; }
+          	<div id="slideshow" style="height: 450px;"></div>
+						<div id="thumbs_block">
+              <div class="prev"></div>
+              	<div class="slide">
+                 	 <ul id="slideshow_thumbs" class="desoslide-thumbs-vertical list-inline ">
+                      <?php
+                      $imgList = $params['item']['images'];
+                      if(count($imgList) == 0){ $imgList = [$params['item']['picture']]; }
 
-                              foreach($imgList as $img){?>
-                              <li>
-                              	<a href="<?php echo $img['url'];?>"><img src="<?php echo $img['url'];?>" alt="images"></a>
-                              </li>
-                              <?php }?>
-                            </ul>
-                            </div>
+                      foreach($imgList as $img){?>
+                      <li class="thumbs">
+                      	<a href="<?php echo $img['url'];?>"><img src="<?php echo $img['url'];?>" alt="images"></a>
+                      </li>
+                      <?php }?>
+                    </ul>
+                </div>
+                <div class="next"></div>
 						</div>
 
-					<p class="remarkimg">* ภาพที่แสดงอาจไม่เหมือนสภาพจริง และห้อง/ บ้านที่จำหน่าย ไม่รวมการตกแต่งใดๆ ทั้งสิ้น ทั้งนี้เป็นไปตามเงื่อนไขบริษัทฯ</p>
+					<p class="remarkimg" style="text-align: center;">* ภาพที่แสดงอาจไม่เหมือนสภาพจริง และห้อง/ บ้านที่จำหน่าย ไม่รวมการตกแต่งใดๆ ทั้งสิ้น ทั้งนี้เป็นไปตามเงื่อนไขบริษัทฯ</p>
 
            </div><!--content-->
      </div>
@@ -197,5 +199,36 @@ $("slide>ul>li>a>img").click(function () {
       });
     });
   });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#slideshow_thumbs .thumbs").each(function(e) {
+        if (e >= 4)
+            $(this).hide();
+    });
+
+    $("#thumbs_block .next").click(function(){
+        if ($("#slideshow_thumbs .thumbs:visible:last").next().length != 0)
+            $("#slideshow_thumbs .thumbs:visible:last").nextAll(":lt(4)").show().prevAll(":lt(4)").hide();
+        else {
+            $("#slideshow_thumbs .thumbs:visible").hide();
+            $("#slideshow_thumbs .thumbs:lt(4)").show();
+        }
+        return false;
+    });
+
+    $("#thumbs_block .prev").click(function(){
+        if ($("#slideshow_thumbs .thumbs:visible:first").prev().length != 0)
+            $("#slideshow_thumbs .thumbs:visible:first").prevAll(":lt(4)").show().first().nextAll(":lt(4)").hide();
+        else {
+            $("#slideshow_thumbs .thumbs:visible").hide();
+            var mod = $("#slideshow_thumbs").length%4;
+            if(mod==0) mod = 4;
+            mod++;
+            $("#slideshow_thumbs .thumbs:gt(-"+mod+")").show();
+        }
+        return false;
+    });
+});
 </script>
 <?php $this->import("/layout/footer"); ?>

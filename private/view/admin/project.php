@@ -88,88 +88,93 @@ $xcrud->label([
   'has_bathtub_inside_unit'=> 'Bathtub Inside Unit'
   ]);
 
+$xcrud->button('project/{id}/images','Images','glyphicon glyphicon-picture','',array('target'=>'_blank'));
+
 $xcrud->subselect('Total Unit','SELECT COUNT(id) FROM property WHERE property.project_id = {id}');
 $xcrud->after_update('project_afterUpdate');
 echo $xcrud->render();
 ?>
 <style>
 @media (min-width: 768px) {
-  .form-horizontal .form-group:nth-child(8),
-  .form-horizontal .form-group:nth-child(9),
-  .form-horizontal .form-group:nth-child(10),
-  .form-horizontal .form-group:nth-child(11),
-  .form-horizontal .form-group:nth-child(12),
-  .form-horizontal .form-group:nth-child(13),
-  .form-horizontal .form-group:nth-child(14),
-  .form-horizontal .form-group:nth-child(15),
-  .form-horizontal .form-group:nth-child(16),
-  .form-horizontal .form-group:nth-child(17),
-  .form-horizontal .form-group:nth-child(18),
-  .form-horizontal .form-group:nth-child(19),
-  .form-horizontal .form-group:nth-child(20),
-  .form-horizontal .form-group:nth-child(21),
-  .form-horizontal .form-group:nth-child(22),
-  .form-horizontal .form-group:nth-child(23),
-  .form-horizontal .form-group:nth-child(24),
-  .form-horizontal .form-group:nth-child(25),
-  .form-horizontal .form-group:nth-child(26),
-  .form-horizontal .form-group:nth-child(27) {
+  .form-horizontal div.form-group:nth-child(8),
+  .form-horizontal div.form-group:nth-child(9),
+  .form-horizontal div.form-group:nth-child(10),
+  .form-horizontal div.form-group:nth-child(11),
+  .form-horizontal div.form-group:nth-child(12),
+  .form-horizontal div.form-group:nth-child(13),
+  .form-horizontal div.form-group:nth-child(14),
+  .form-horizontal div.form-group:nth-child(15),
+  .form-horizontal div.form-group:nth-child(16),
+  .form-horizontal div.form-group:nth-child(17),
+  .form-horizontal div.form-group:nth-child(18),
+  .form-horizontal div.form-group:nth-child(19),
+  .form-horizontal div.form-group:nth-child(20),
+  .form-horizontal div.form-group:nth-child(21),
+  .form-horizontal div.form-group:nth-child(22),
+  .form-horizontal div.form-group:nth-child(23),
+  .form-horizontal div.form-group:nth-child(24),
+  .form-horizontal div.form-group:nth-child(25),
+  .form-horizontal div.form-group:nth-child(26),
+  .form-horizontal div.form-group:nth-child(27) {
     width: 30%;
     display: inline-block;
     margin-left: 3%;
   }
-  .form-horizontal .form-group:nth-child(8) .col-sm-9,
-  .form-horizontal .form-group:nth-child(9) .col-sm-9,
-  .form-horizontal .form-group:nth-child(10) .col-sm-9,
-  .form-horizontal .form-group:nth-child(11) .col-sm-9,
-  .form-horizontal .form-group:nth-child(12) .col-sm-9,
-  .form-horizontal .form-group:nth-child(13) .col-sm-9,
-  .form-horizontal .form-group:nth-child(14) .col-sm-9,
-  .form-horizontal .form-group:nth-child(15) .col-sm-9,
-  .form-horizontal .form-group:nth-child(16) .col-sm-9,
-  .form-horizontal .form-group:nth-child(17) .col-sm-9,
-  .form-horizontal .form-group:nth-child(18) .col-sm-9,
-  .form-horizontal .form-group:nth-child(19) .col-sm-9,
-  .form-horizontal .form-group:nth-child(20) .col-sm-9,
-  .form-horizontal .form-group:nth-child(21) .col-sm-9,
-  .form-horizontal .form-group:nth-child(22) .col-sm-9,
-  .form-horizontal .form-group:nth-child(23) .col-sm-9,
-  .form-horizontal .form-group:nth-child(24) .col-sm-9,
-  .form-horizontal .form-group:nth-child(25) .col-sm-9,
-  .form-horizontal .form-group:nth-child(26) .col-sm-9,
-  .form-horizontal .form-group:nth-child(27) .col-sm-9 {
+  .form-horizontal div.form-group:nth-child(8) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(9) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(10) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(11) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(12) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(13) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(14) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(15) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(16) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(17) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(18) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(19) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(20) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(21) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(22) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(23) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(24) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(25) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(26) .col-sm-9,
+  .form-horizontal div.form-group:nth-child(27) .col-sm-9 {
     width: 30%;
   }
-  .form-horizontal .form-group:nth-child(8) .col-sm-3,
-  .form-horizontal .form-group:nth-child(9) .col-sm-3,
-  .form-horizontal .form-group:nth-child(10) .col-sm-3,
-  .form-horizontal .form-group:nth-child(11) .col-sm-3,
-  .form-horizontal .form-group:nth-child(12) .col-sm-3,
-  .form-horizontal .form-group:nth-child(13) .col-sm-3,
-  .form-horizontal .form-group:nth-child(14) .col-sm-3,
-  .form-horizontal .form-group:nth-child(15) .col-sm-3,
-  .form-horizontal .form-group:nth-child(16) .col-sm-3,
-  .form-horizontal .form-group:nth-child(17) .col-sm-3,
-  .form-horizontal .form-group:nth-child(18) .col-sm-3,
-  .form-horizontal .form-group:nth-child(19) .col-sm-3,
-  .form-horizontal .form-group:nth-child(20) .col-sm-3,
-  .form-horizontal .form-group:nth-child(21) .col-sm-3,
-  .form-horizontal .form-group:nth-child(22) .col-sm-3,
-  .form-horizontal .form-group:nth-child(23) .col-sm-3,
-  .form-horizontal .form-group:nth-child(24) .col-sm-3,
-  .form-horizontal .form-group:nth-child(25) .col-sm-3,
-  .form-horizontal .form-group:nth-child(26) .col-sm-3,
-  .form-horizontal .form-group:nth-child(27) .col-sm-3 {
+  .form-horizontal div.form-group:nth-child(8) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(9) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(10) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(11) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(12) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(13) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(14) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(15) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(16) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(17) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(18) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(19) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(20) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(21) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(22) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(23) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(24) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(25) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(26) .col-sm-3,
+  .form-horizontal div.form-group:nth-child(27) .col-sm-3 {
     width: 70%;
   }
 
-  .form-horizontal .form-group:nth-child(36) {
+  .form-horizontal div.form-group:nth-child(36) {
     margin-left: 14%;
   }
-  .form-horizontal .form-group:nth-child(36),
-  .form-horizontal .form-group:nth-child(37) {
+  .form-horizontal div.form-group:nth-child(36),
+  .form-horizontal div.form-group:nth-child(37) {
     width: 40%;
     display: inline-block;
+  }
+
+  .icon-images {
   }
 }
 

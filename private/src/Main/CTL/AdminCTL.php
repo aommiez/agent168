@@ -45,6 +45,18 @@ class AdminCTL extends BaseCTL {
 
     /**
      * @GET
+     * @uri /project/[:id]/images
+     */
+    public function projectImages () {
+        if(empty($_SESSION['login'])) {
+          return new RedirectView(URL::absolute('/admin/login'));
+        }
+        $id = $this->reqInfo->urlParam("id");
+        return new HtmlView('/admin/index', array("view"=> 'project_images', "project_id"=> $id));
+    }
+
+    /**
+     * @GET
      * @uri /[a:view]
      */
     public function indexView () {
@@ -52,7 +64,16 @@ class AdminCTL extends BaseCTL {
           return new RedirectView(URL::absolute('/admin/login'));
         }
         $view = $this->reqInfo->urlParam("view");
-        return new HtmlView('/admin/index', array("view"=>$view));
+        $db = MedooFactory::getInstance();
+        $pqCount = $db->count("request_contact", "*", ["status_id"=> 1]);
+        return new HtmlView('/admin/index', array("view"=>$view, "pqCount"=> $pqCount));
+    }
+	/**
+     * @GET
+     * @uri /gen
+     */
+    public function genView () {
+        return new HtmlView('/admin/gen');
     }
 
     /**

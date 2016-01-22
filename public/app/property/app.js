@@ -53,7 +53,8 @@ app.controller('ListCTL', ['$scope', '$http', '$location', '$route', function($s
             $scope.props = data;
             if(data.total > 0){
               $scope.pagination = [];
-              for(var i = 1; i * $scope.form.limit <= data.total; i++) {
+              var numPage = Math.ceil(data.total/$scope.form.limit);
+              for(var i = 1; i <= numPage; i++) {
                 $scope.pagination.push(data.paging.page == i);
               }
             }
@@ -173,16 +174,62 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
       });
     };
 
+    $scope.getRequirementList = function(){
+      return $scope.collection.requirement.filter(function(item){
+        return item.id != 5 || $scope.form.property_status_id == 4;
+      });
+    };
+
+    $scope.formPropertyTypeChange = function(){
+      if($scope.form.property_type_id == 1) {
+        $('#project_id').prop('required', true);
+      }
+      else {
+        $('#project_id').prop('required', false);
+        delete $scope.form.project_id;
+      }
+    };
+
+    $scope.formProjectIdChange = function(){
+      var project = false;
+      if($scope.form.project_id) {
+        project = (function(){
+          var i = 0;
+          for(i=0; i < $scope.collection.project.length; i++) {
+            if($scope.collection.project[i].id == $scope.form.project_id)
+              return $scope.collection.project[i];
+          }
+          return false;
+        })();
+      }
+      if(project) {
+        $scope.form.airport_link_id = project.airport_link_id;
+        $scope.form.bts_id = project.bts_id;
+        $scope.form.province_id = project.province_id;
+        $scope.form.district_id = project.district_id;
+        $scope.form.sub_district_id = project.sub_district_id;
+        $scope.form.mrt_id = project.mrt_id;
+      }
+    };
+
+    $scope.formPropertyStatusIdChange = function(){
+      if($scope.form.property_status_id != 4 && $scope.form.requirement_id == 5)
+        delete $scope.form.requirement_id;
+    };
+
+    window.s = $scope;
+
     $scope.submit = function(){
       if(!$scope.form.comment) {
         alert("please comment when add");
         return;
       }
 
-      if(!$scope.form.bts_id && !$scope.form.mrt_id && !$scope.form.airport_link_id) {
-        alert("Please chose mts or mrt or airport link.");
-        return;
-      }
+      // if(!$scope.form.bts_id && !$scope.form.mrt_id && !$scope.form.airport_link_id) {
+      //   alert("Please chose mts or mrt or airport link.");
+      //   return;
+      // }
+
         // var fd = new FormData();
         // angular.forEach($scope.form, function(value, key) {
         //     fd.append(key, value);
@@ -200,6 +247,9 @@ app.controller('AddCTL', ['$scope', '$http', '$location', function($scope, $http
       //           $location.path("/");
       //       }
       //   });
+
+      if(!window.confirm('Are you sure?')) return;
+
       $.post("../api/property", $scope.form, function(data){
         if(data.error) {
           alert(data.error.message);
@@ -296,6 +346,8 @@ app.controller('EditCTL', ['$scope', '$http', '$location', '$route', '$routePara
         comment: $scope.form.comment
       };
     }
+
+    if(!window.confirm('Are you sure?')) return;
 
     $.post("../api/property/edit/" + $routeParams.id, form, function(data){
       if(data.error) {

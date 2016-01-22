@@ -138,7 +138,7 @@ $this->import("/admin/layout/header");
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/project') ?>"><i
                             class="fa fa-user-secret fa-3"></i> Project</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/phonereq') ?>"><i
-                    class="fa fa-user-secret fa-3"></i> Phone Request</a></li>
+                    class="fa fa-user-secret fa-3"></i> Phone Request (<?php echo $params['pqCount'];?>)</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/reportproperty') ?>"><i
                             class="fa fa-user-secret fa-3"></i> Report Property</a></li>
                 <li><a href="<?php echo \Main\Helper\URL::absolute('/admin/article') ?>"><i

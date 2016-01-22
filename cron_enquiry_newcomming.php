@@ -1,9 +1,12 @@
 <?php
+exit();
+
 require("bootstrap.php");
 
 use Main\DB\Medoo\MedooFactory;
 
 $dt = date("y-m-d H:i:s", time() - (24*60*60));
+
 
 $db = MedooFactory::getInstance();
 $items = $db->select("enquiry", [

@@ -20,6 +20,7 @@ class ApiPhoneReq extends BaseCTL
    */
   public function index ()
   {
+    $page = !empty($_GET['page'])? $_GET['page']: 1;
     $db = MedooFactory::getInstance();
     $join = [
       "[>]property"=> ["property_id"=> "id"],
@@ -28,6 +29,7 @@ class ApiPhoneReq extends BaseCTL
       "[>]project"=> ["property.project_id"=> "id"],
       "[>]project(project_enq)"=> ["enquiry.project_id"=> "id"],
       "[>]account(manager)"=> ["account.manager_id"=> "id"],
+      "[>]account(accepted_account)"=> ["accepted_by"=> "id"],
       "[>]requirement(req_enq)"=> ["enquiry.requirement_id"=> "id"]
     ];
     $field = [
@@ -47,6 +49,7 @@ class ApiPhoneReq extends BaseCTL
       "project_enq.name(project_name_enq)",
 
       "manager.name(manager_name)",
+      "accepted_account.name(accepted_name)",
 
       "request_contact.*"
     ];
@@ -57,7 +60,8 @@ class ApiPhoneReq extends BaseCTL
         "field"=> $field,
         "join"=> $join,
         "where"=> $where,
-        "limit"=> 15
+        "limit"=> 15,
+        "page"=> $page
     ]);
 
     return $list;

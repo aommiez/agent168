@@ -11,20 +11,20 @@ $configs = array(
         "name" => "Agent 168",
         "title" => "Agent 168",
         "version" => "1.0",
-        "base_url" => "http://localhost/agent168",
-        "site_url" => "http://localhost/agent168",
+        "base_url" => "http://agent168th.com",
+        "site_url" => "http://agent168th.com",
         "share_url" => "",
         "directory" => dirname(__FILE__),
         "view" => "default"
     ),
     "route"=> array(
-        "base_path"=> "/agent168"
+        "base_path"=> ""
     ),
     "crud" => array(
         "dbhost" => "localhost",
-        "dbname" => "agent168",
-        "dbuser" => "root",
-        "dbpass" => "",
+        "dbname" => "admin_agent168",
+        "dbuser" => "admin_agent168",
+        "dbpass" => "111111",
         "theme" => "bootstrap" , // can be 'default', 'bootstrap', 'minimal' or your custom. Theme of xCRUD visual presentation. For using bootstrap you need to load it on your page.
         "language" => "en" , // sets default localization
         "dbencoding"  => "utf8", // Your database encoding, default is 'utf8'. Do not change, if not sure.
@@ -47,17 +47,19 @@ $configs = array(
         "medoo" => array(
             "master"=> array(
                 "database_type"=> "mysql",
-                "database_name" => "agent168",
-                "server" => "192.168.100.30",
-                "username" => 'root',
-                'password' => '',
+                "database_name" => "admin_agent168",
+                "server" => "localhost",
+                "username" => 'admin_agent168',
+                'password' => '111111',
 
                 // optional
                 'port' => 3306,
                 'charset' => 'utf8',
                 // driver_option for connection, read more from http://www.php.net/manual/en/pdo.setattribute.php
                 'option' => array(
-                    \PDO::ATTR_CASE => \PDO::CASE_NATURAL
+                    \PDO::ATTR_CASE => \PDO::CASE_NATURAL,
+                    \PDO::ATTR_EMULATE_PREPARES => false,
+                    \PDO::ATTR_STRINGIFY_FETCHES => false
                 )
             )
         )

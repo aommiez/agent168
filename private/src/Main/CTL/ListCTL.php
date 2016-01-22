@@ -37,6 +37,10 @@ class ListCTL extends BaseCTL {
 
       $searchQuery = "1";
       $excParams = [];
+      if(!empty($params['project_id'])) {
+        $searchQuery .= " AND property.project_id=:project_id";
+        $excParams[":project_id"] = $params['project_id'];
+      }
       if(!empty($params['property_type_id'])) {
         $searchQuery .= " AND property.property_type_id=:property_type_id";
         $excParams[":property_type_id"] = $params['property_type_id'];
@@ -75,10 +79,10 @@ class ListCTL extends BaseCTL {
           $excParams[":bathrooms"] = $params['bathrooms'];
         }
       }
-      if(!empty($params['keyword'])) {
-        $searchQuery .= " AND project.name LIKE :keyword";
-        $excParams[":keyword"] = '%'.$params['keyword'].'%';
-      }
+      // if(!empty($params['keyword'])) {
+      //   $searchQuery .= " AND project.name LIKE :keyword";
+      //   $excParams[":keyword"] = '%'.$params['keyword'].'%';
+      // }
       if(!empty($params['price-range']) && !empty($params['requirement_id'])) {
         $field1 = $params['requirement_id'] == 1? "sell_price": "rent_price";
         $priceRange = explode('-', $params['price-range']);
@@ -105,6 +109,8 @@ class ListCTL extends BaseCTL {
       $stmt->execute($excParams);
       $items = $stmt->fetchAll(\PDO::FETCH_ASSOC);
       $this->_buildItems($items);
+
+      // $projects = $db->select("project", "id, name");
       return new HtmlView('/list', ['items'=> $items]);
     }
 

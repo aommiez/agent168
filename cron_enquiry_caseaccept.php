@@ -1,4 +1,6 @@
 <?php
+exit();
+
 require("bootstrap.php");
 
 use Main\DB\Medoo\MedooFactory;

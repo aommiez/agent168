@@ -1,9 +1,25 @@
 <?php
+use Main\Helper;
+
 $this->import('/layout/header');
 $db = \Main\DB\Medoo\MedooFactory::getInstance();
 $news = $db->get("article", "*", ["topic_id"=> 1, "ORDER"=> "created_at DESC"]);
 $tip = $db->get("article", "*", ["topic_id"=> 2, "ORDER"=> "created_at DESC"]);
 $review = $db->get("article", "*", ["topic_id"=> 3, "ORDER"=> "created_at DESC"]);
+
+$zones = $db->select("zone", "*");
+$zonegroups = $db->select("zone_group", "*");
+foreach($zonegroups as &$zonegroup) {
+  $zonegroup["zones"] = array_filter($zones, function($zone) use($zonegroup) {
+    return $zonegroup["id"] == $zone["zone_group_id"];
+  });
+}
+
+$projects = $db->select("project", ["id", "name"]);
+
+$btss = $db->select("bts", "*");
+$mrts = $db->select("mrt", "*");
+
 ?>
 <style>
 .slide .carousel-indicators
@@ -43,50 +59,86 @@ html, body {
         <img style="opacity: 0.8;" src="<?php echo \Main\Helper\URL::absolute("/public/images/maps.jpg")?>" />
         <div class="searchbox">
             <div class="row">
-                <div class="col-lg-10">
+                <div class="col-lg-9">
                     <p>Find your place</p>
                     <div class="pic" style="margin-left: 290px;">
                         <img src="<?php echo \Main\Helper\URL::absolute("/public/images/linetable.jpg")?>" /> <span class="glyphicon glyphicon-search"></span> <img src="<?php echo \Main\Helper\URL::absolute("/public/images/linetable.jpg")?>" />
                     </div>
-                    <div class="searchopt">
+                    <form class="searchopt" action="list">
                         <div class="row">
                             <div class="col-lg-4">
                                 <label>Location:</label><br/>
-                                <select class="form-control">
-                                    <option>Any Location</option>
+                                <select class="form-control" name="zone_id">
+                                    <option value="">Any Location</option>
+                                    <?php foreach($zonegroups as $zonegroup) {?>
+                                      <optgroup label="<?php echo $zonegroup["name"];?>">
+                                      <?php foreach($zonegroup["zones"] as $zone) {?>
+                                        <option value="<?php echo $zone["id"];?>" <?php if(@$_GET['zone_id']==$zone["id"]) echo "selected";?>><?php echo $zone["name"];?></option>
+                                      <?php }?>
+                                      </optgroup>
+                                    <?php }?>
                                 </select>
-                                <label>Feature:</label><br/>
-                                <select class="form-control">
-                                    <option>Any Feature</option>
+                                <label>Near MRT:</label><br/>
+                                <select class="form-control" name="mrt_id">
+                                    <option value="">Any Feature</option>
+                                    <?php foreach($mrts as $mrt) {?>
+                                      <option value="<?php echo $mrt["id"];?>" <?php if(@$_GET['mrt_id']==$mrt["id"]) echo "selected";?>><?php echo $mrt["name"];?></option>
+                                    <?php }?>
                                 </select>
                             </div>
                             <div class="col-lg-4">
                                 <label>Property Type:</label><br/>
-                                <select class="form-control">
-                                    <option>Any Type</option>
+                                <select class="form-control" name="property_type_id">
+                                    <option value="">Any Type</option>
+                                    <option value="1">Condominium</option>
+                                    <option value="2">Single detached house</option>
+                                    <option value="10">Townhome</option>
+                                    <option value="7">Home office</option>
                                 </select>
-                                <label>Type:</label><br/>
-                                <label><input type="checkbox"/> Other</label> <label><input type="checkbox"/> Fixed</label> <label><input type="checkbox"/> Scale</label><br/>
+
+                                <label>Near BTS:</label><br/>
+                                <select class="form-control" name="bts_id">
+                                    <option value="">Any Feature</option>
+                                    <?php foreach($btss as $bts) {?>
+                                      <option value="<?php echo $bts["id"];?>" <?php if(@$_GET['bts_id']==$bts["id"]) echo "selected";?>><?php echo $bts["name"];?></option>
+                                    <?php }?>
+                                </select>
+
                                 <button class="btn btn-primary">Search</button>
                             </div>
                             <div class="col-lg-4">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <label>Rooms:</label><br/>
-                                        <select class="form-control">
-                                            <option>Any</option>
+                                        <label>Bathrooms:</label><br/>
+                                        <select class="form-control" name="bathrooms">
+                                            <option value="">Any</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4+">4+</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label>Bed:</label><br/>
-                                        <select class="form-control">
-                                            <option>Any</option>
+                                        <label>Bedrooms:</label><br/>
+                                        <select class="form-control" name="bedrooms">
+                                            <option value="">Any</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4+">4+</option>
                                         </select>
                                     </div>
                                 </div>
+                                  <label>Project:</label><br/>
+                                  <select class="form-control" name="project_id">
+                                      <option value="">Any</option>
+                                      <?php foreach($projects as $project){?>
+                                      <option value="<?php echo $project["id"];?>" <?php if(@$_GET['project_id']==$project["id"]) echo "selected";?>><?php echo $project["name"];?></option>
+                                      <?php }?>
+                                  </select>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

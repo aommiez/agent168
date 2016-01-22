@@ -66,9 +66,19 @@ class ApiEnquiry extends BaseCTL {
         if(!empty($params['customer'])) {
           $where["AND"]['enquiry.customer[~]'] = $params['customer'];
         }
+
         if(!empty($params['requirement_id'])) {
           $where["AND"]['enquiry.requirement_id'] = $params['requirement_id'];
         }
+        // if(!empty($params['requirement_id'])){
+        //     if($params['requirement_id'] != 3) {
+        //       $where["AND"]['enquiry.requirement_id'] = [$params['requirement_id'], 3];
+        //     }
+        //     else {
+        //       $where["AND"]['enquiry.requirement_id'] = $params['requirement_id'];
+        //     }
+        // }
+
         if(!empty($params['property_type_id'])) {
           $where["AND"]['enquiry.property_type_id'] = $params['property_type_id'];
         }
@@ -143,9 +153,25 @@ class ApiEnquiry extends BaseCTL {
           $where["AND"]['enquiry.assign_sale_id'] = $params['assign_sale_id'];
         }
 
+        if(!empty($params['created_at_start'])) {
+          $where["AND"]['enquiry.created_at[>=]'] = $params['created_at_start'].' 00:00:00';
+        }
+        if(!empty($params['created_at_end'])) {
+          $where["AND"]['enquiry.created_at[<=]'] = $params['created_at_end'].' 00:00:00';
+        }
+        if(!empty($params['updated_at_start'])) {
+          $where["AND"]['enquiry.updated_at[>=]'] = $params['updated_at_start'].' 00:00:00';
+        }
+        if(!empty($params['updated_at_end'])) {
+          $where["AND"]['enquiry.updated_at[<=]'] = $params['updated_at_end'].' 00:00:00';
+        }
+
         $orderType = !empty($params['orderType'])? $params['orderType']: "DESC";
         $orderBy = !empty($params['orderBy'])? $params['orderBy']: "enquiry.updated_at";
         $order = "{$orderBy} {$orderType}";
+
+        $limit = empty($_GET['limit'])? 15: $_GET['limit'];
+        $page = !empty($params['page'])? $params['page']: 1;
 
 
         if(count($where["AND"]) > 0){
@@ -154,7 +180,8 @@ class ApiEnquiry extends BaseCTL {
                 "field"=> $field,
                 "join"=> $join,
                 "where"=> $where,
-                "limit"=> 100
+                "page"=> $page,
+                "limit"=> $limit
             ]);
         }
         else {
@@ -162,7 +189,8 @@ class ApiEnquiry extends BaseCTL {
                 "field"=> $field,
                 "join"=> $join,
                 'where'=> ["ORDER"=> $order],
-                "limit"=> 100
+                "page"=> $page,
+                "limit"=> $limit
             ]);
         }
 
@@ -708,6 +736,11 @@ MAILCONTENT;
                 "limit"=> $limit
             ]);
         }
+
+        $db = MedooFactory::getInstance();
+        $enquiry = $db->get("enquiry", "*", ["id"=> $id]);
+        $enquiry["project"] = $db->get("project", "*", ["id"=> $enquiry["project_id"]]);
+        $list["enquiry"] = $enquiry;
 
         // $this->_proBuilds($list['data']);
 

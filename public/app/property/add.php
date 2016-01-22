@@ -15,6 +15,7 @@ session_start();
       <label>Status</label>
       <select class="form-control"
       ng-model="form.property_status_id"
+      ng-change="formPropertyStatusIdChange()"
       ng-options="item.id as item.name for item in collection.property_status"
       required>
           <option value="">Please select</option>
@@ -28,6 +29,7 @@ session_start();
         <select class="form-control"
         ng-model="form.property_type_id"
         ng-options="item.id as item.name for item in collection.property_type"
+        ng-change="formPropertyTypeChange()"
         required>
             <option value="">Please select</option>
         </select>
@@ -37,15 +39,25 @@ session_start();
         <select class="form-control"
         ng-model="form.project_id"
         ng-options="item.id as item.name for item in collection.project"
-        required>
-            <option value="">Please select</option>
+        ng-change="formProjectIdChange()"
+        id="project_id">
+            <option value="">-None-</option>
         </select>
       </div>
       <div class="col-md-4 form-group">
-        <label>requirement</label>
+        <label>Room type</label>
+        <select class="form-control"
+        ng-model="form.room_type_id">
+            <option value="">Please select</option>
+            <option value="1">Studio</option>
+            <option value="2">Duplex</option>
+        </select>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Requirement</label>
         <select class="form-control"
         ng-model="form.requirement_id"
-        ng-options="item.id as item.name for item in collection.requirement"
+        ng-options="item.id as item.name for item in getRequirementList()"
         required>
             <option value="">Please select</option>
         </select>

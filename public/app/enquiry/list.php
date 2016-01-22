@@ -260,6 +260,32 @@
                           </div>
                           <?php }?>
                         </div>
+
+                        <div class="row">
+                          <div class="col-md-4 el-custom-1">
+                            <label>Created start</label>
+                            <input type="text" class="form-control" ng-model="form.created_at_start"
+                            id="created_at_start">
+                          </div>
+                          <div class="col-md-4 el-custom-1">
+                            <label>Created end</label>
+                            <input type="text" class="form-control" ng-model="form.created_at_end"
+                            id="created_at_end">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4 el-custom-1">
+                            <label>Updated start</label>
+                            <input type="text" class="form-control" ng-model="form.updated_at_start"
+                            id="updated_at_start">
+                          </div>
+                          <div class="col-md-4 el-custom-1">
+                            <label>Updated end</label>
+                            <input type="text" class="form-control" ng-model="form.updated_at_end"
+                            id="updated_at_end">
+                          </div>
+                        </div>
+
                         <div class="row">
                           <div class="col-md-2">
                             <label>Order By</label>
@@ -298,7 +324,7 @@
             <thead>
             <tr>
                 <th>Enquiry no.</th>
-                <th>Updated</th>
+                <th>Created</th>
                 <th>Assign to</th>
                 <th style="width: 10%;">Customer</th>
                 <th>Project</th>
@@ -309,14 +335,14 @@
                 <th>Rental Budget</th>
                 <th>Status</th>
 
-                <th>Update</th>
+                <th>Updated</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="item in items.data">
                 <td>{{item.enquiry_no}}</td>
-                <td>{{item.updated_at}}</td>
+                <td>{{item.created_at}}</td>
                 <?php if(@$_SESSION['login']['level_id'] <= 3){?>
                 <td>
                   <?php if(@$_SESSION['login']['level_id'] <= 2){?>
@@ -343,4 +369,55 @@
             </tbody>
         </table>
     </div>
+    <div>
+      <ul class="pagination">
+        <li>
+          <a href="" aria-label="Previous" ng-click="setPage(form.page - 1)">
+            <span aria-hidden="true">&#60;</span>
+          </a>
+        </li>
+        <li ng-class="{'active': form.page == 1}">
+          <a href="" aria-label="Previous" ng-click="setPage(1)">
+            <span aria-hidden="true">1</span>
+          </a>
+        </li>
+        <li ng-show="form.page > 5">
+          <a aria-label="Previous">
+            <span aria-hidden="true">..</span>
+          </a>
+        </li>
+        <li
+          ng-repeat="page in pagination track by $index"
+          ng-class="{'active': $index == (form.page - 1)}"
+          ng-if="form.page <= $index + 4 && form.page > $index - 3
+            && $index > 0 && $index < pagination.length - 1">
+          <a href="" ng-click="setPage($index + 1)">{{($index+1)}}</a>
+        </li>
+        <li ng-show="form.page <= pagination.length - 5">
+          <a aria-label="Previous">
+            <span aria-hidden="true">..</span>
+          </a>
+        </li>
+        <li ng-class="{'active': form.page == pagination.length}">
+          <a href="" aria-label="Previous" ng-click="setPage(pagination.length)">
+            <span aria-hidden="true">{{pagination.length}}</span>
+          </a>
+        </li>
+        <li>
+          <a href="" aria-label="Next" ng-click="setPage(form.page + 1)">
+            <span aria-hidden="true">&#62;</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 </div>
+
+<script>
+$(function(){
+  $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+  $('#created_at_start').datepicker();
+  $('#created_at_end').datepicker();
+  $('#updated_at_start').datepicker();
+  $('#updated_at_end').datepicker();
+});
+</script>

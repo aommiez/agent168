@@ -74,7 +74,7 @@ use Main\Helper;
 
 </style>
 <div class="glyphicon glyphicon-phone"></div>
-<div class="tel">02-222-2222</div>
+<div class="tel">087-7605555</div>
 <hr style="margin-top: 0; border: 1px solid #1957a4; width: 100%;">
 <div class="in glyphicon glyphicon-envelope"></div>
 <div class="envelope">info@agent168.com</div>

@@ -16,9 +16,8 @@
         "vlucas/valitron": "1.1.7",
         "facebook/php-sdk-v4": "4.0.11",
         "doctrine/orm": "2.4.0-RC2",
-        "catfan/medoo": "*",
+        "catfan/medoo": "v0.9.8",
         "phpoffice/phpexcel": "1.8.1",
-        "gargron/fileupload": "~1.0.2",
-        "phpmailer/phpmailer": "^5.2"
+        "gargron/fileupload": "~1.0.2"
     }
 }

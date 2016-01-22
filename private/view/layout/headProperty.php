@@ -9,6 +9,8 @@ foreach($zonegroups as &$zonegroup) {
   });
 }
 
+$projects = $db->select("project", ["id", "name"]);
+
 $btss = $db->select("bts", "*");
 $mrts = $db->select("mrt", "*");
 ?>
@@ -42,6 +44,16 @@ $mrts = $db->select("mrt", "*");
     <script src="<?php echo \Main\Helper\URL::absolute("/public/js/jquery.nicescroll.min.js")?>"></script>
 </head>
 <body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-37675183-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
 <div class="contact-bar">
     <div class="container">
         <ul>
@@ -220,7 +232,7 @@ $mrts = $db->select("mrt", "*");
 
     .all-head{
         background-color: #1957a4;
-        height: 253px;
+        height: 258px;
         margin-top: 30px;
     }
     .head{
@@ -322,7 +334,7 @@ $mrts = $db->select("mrt", "*");
                     <li style="margin-top: 1px">Property Type</li><br>
                     <li style="margin-top: 1px">Bedroom(s)</li><br>
                     <li style="margin-top: 1px">Near BTS</li> <br>
-                    <li style="margin-top: 1px">Project Name / Keyword Search</li><br>
+                    <li style="margin-top: 1px">Project Name</li><br>
                 </ul>
 
             </div>
@@ -365,7 +377,13 @@ $mrts = $db->select("mrt", "*");
                                           </select>
                                         </li><br><br>
                                         <li>
-                                          <input name="keyword" type="text" class="form-control" style="font-size: 12px; width: 200px;  float: right">
+                                          <!-- <input name="keyword" type="text" class="form-control" style="font-size: 12px; width: 200px;  float: right"> -->
+                                          <select name="project_id" class="form-control" style="padding-top: 3px; width: 200px;  float: right">
+                                            <option value="">-Please Select-</option>
+                                            <?php foreach($projects as $project){?>
+                                            <option value="<?php echo $project["id"];?>" <?php if(@$_GET['project_id']==$project["id"]) echo "selected";?>><?php echo $project["name"];?></option>
+                                            <?php }?>
+                                          </select>
                                         </li>
                                         <br>
                                     </ul>

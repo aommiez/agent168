@@ -46,6 +46,15 @@
         </select>
       </div>
       <div class="col-md-4 form-group">
+        <label>Room type</label>
+        <select class="form-control"
+        ng-model="form.room_type_id">
+            <option value="">Please select</option>
+            <option value="1">Studio</option>
+            <option value="2">Duplex</option>
+        </select>
+      </div>
+      <div class="col-md-4 form-group">
         <label>requirement</label>
         <select class="form-control"
         ng-model="form.requirement_id"

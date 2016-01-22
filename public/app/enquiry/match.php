@@ -11,6 +11,8 @@
     <div>
             <div class="panel panel-primary">
                 <div class="panel-body" style="">
+                    <h3 class="text-center">Project Require: <strong style="color: #1c5fbe;">{{props.enquiry.project.name}}</strong></h3>
+                    <hr>
                     <form ng-submit="filterProps()">
                       <div class="row">
                           <div class="col-md-4 form-group">
