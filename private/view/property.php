@@ -1,67 +1,145 @@
 <?php $this->import("/layout/headProperty"); ?>
 
-<link rel="stylesheet" type="text/css" href="../public/css/detail.css">
-
-<link rel="icon" href="assets/img/favicon.png">
 <!-- Important stylesheet -->
-<link rel="stylesheet" href="../public/js/assets/css/vendor/magic/magic.min.css">
-<link rel="stylesheet" href="../public/js/assets/css/vendor/animate/animate.min.css">
-<link rel="stylesheet" href="../public/css/jquery.desoslide.css">
+<link rel="stylesheet" href="../public/css/owl.carousel.css">
+<link rel="stylesheet" href="../public/css/owl.theme.css">
 
 <!-- Include js plugin -->
 <script src="../public/js/jquery.min.js"></script>
 <script src="../public/js/bootstrap.min.js"></script>
-<script src="../public/js/assets/js/vendor/highlight/highlight.pack.js"></script>
-<script src="../public/js/assets/js/app/jquery.desoslide.js"></script>
+<script src="../public/js/custom.js"></script>
+<script src="../public/js/owl.carousel.min.js"></script>
 
 <!-- script slide -->
 <script>
-$(function() {
-
- $('#slideshow').desoSlide({
-        thumbs: $('#slideshow_thumbs li > a'),
-        auto: {
-            start: true
-        },
-        first: 0,
-        interval: 6000
-    });
+$(document).ready(function() {
+ 
+  $("#owl-demo").owlCarousel({
+ 
+      navigation : false, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true,
+	  autoPlay : 3000,
+ 
+      // "singleItem:true" is a shortcut for:
+      // items : 1, 
+      // itemsDesktop : false,
+      // itemsDesktopSmall : false,
+      // itemsTablet: false,
+      // itemsMobile : false
+ 
+  });
 });
 </script>
- <script>
 
-$("slide>ul>li>a>img").click(function () {
-      $(this).toggleClass("transitions");
-    });
-    </script>
+<style>
+	.property{
+		padding:40px 0;
+	}
+	.property-slide .item img{
+		width:100%;
+	}
+	.property-slide .owl-theme .owl-controls {
+    margin-top: -30px;
+	}
+	.remarkimg{
+		margin:10px 0;
+	}
+	.property-slide h3{
+	    color: #555555;
+	}
+	.property-slide h3 span{
+		margin-right:15px;
+	}
+	.overview h3,
+	.property-box h3{
+		color: #555555;
+		border-bottom: 2px solid #DDDDDD;
+		padding-bottom:10px;
+	}
+	.property_options .bottom-border {
+    	border-bottom: 1px solid #DDDDDD;
+    	padding: 5px 5px;
+		margin-bottom:5px;
+	}
+	.property_options .bottom-border span{
+    	float: right;
+	}
+	.property_options .bottom-border p{
+		margin-bottom:5px;
+	}
+	.property_options .bottom-border span.label{
+		padding:5px 15px;
+	}
+	.bottom-border strong{
+		margin: 0 10px 10px 0;
+	}
+	.red{color:red;}
+	.property_options .bottom-border p a{ text-decoration:none;}
+	.amenities ul{
+		list-style:none;
+		display: -webkit-inline-box;
+	}
+	.amenities ul li{
+		margin-right:15px;
+	}
+	.amenities ul li span{
+		margin-right:5px;
+	}
+</style>
 
+	<div class="property">
 		<div class="container">
-        	<div class="content">
-          	<div id="slideshow" style="height: 450px;"></div>
-						<div id="thumbs_block">
-              <div class="prev"></div>
-              	<div class="slide">
-                 	 <ul id="slideshow_thumbs" class="desoslide-thumbs-vertical list-inline ">
-                      <?php
-                      $imgList = $params['item']['images'];
-                      if(count($imgList) == 0){ $imgList = [$params['item']['picture']]; }
-
-                      foreach($imgList as $img){?>
-                      <li class="thumbs">
-                      	<a href="<?php echo $img['url'];?>"><img src="<?php echo $img['url'];?>" alt="images"></a>
-                      </li>
-                      <?php }?>
-                    </ul>
-                </div>
-                <div class="next"></div>
-						</div>
-
-					<p class="remarkimg" style="text-align: center;">* ภาพที่แสดงอาจไม่เหมือนสภาพจริง และห้อง/ บ้านที่จำหน่าย ไม่รวมการตกแต่งใดๆ ทั้งสิ้น ทั้งนี้เป็นไปตามเงื่อนไขบริษัทฯ</p>
-
-           </div><!--content-->
-     </div>
-     <div class="container">
-
+        	<div class="col-md-9">
+        		<div class="property-slide">
+                	<h3><span class="glyphicon glyphicon-home"></span>RHYTHM Sukhumvit 36-38 Bangkok</h3>
+          			<div id="owl-demo" class="owl-carousel owl-theme">
+                  		<div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/condo.jpg")?>" alt=""></div>
+                  		<div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/condo.jpg")?>" alt=""></div>
+                  		<div class="item"><img src="<?php echo \Main\Helper\URL::absolute("/public/images/condo.jpg")?>" alt=""></div>
+                	</div>
+					<p class="remarkimg">
+                    * ภาพที่แสดงอาจไม่เหมือนสภาพจริง และห้อง/ บ้านที่จำหน่าย ไม่รวมการตกแต่งใดๆ ทั้งสิ้น ทั้งนี้เป็นไปตามเงื่อนไขบริษัทฯ</p>
+				</div><!--content-->
+           </div>
+           
+           <div class="col-md-3">
+           		<div class="overview">
+                	<h3>Overview</h3>
+                    <div class="property_options">
+                    	<div class="bottom-border"><p><strong>ชื่อโครงการ</strong>RHYTHM Sukhumvit 36-38 Bangkok</p></div>
+                        <div class="bottom-border"><p><strong>Purpose :</strong><span class="label btn-danger">Sale</span></p></div>
+                        <div class="bottom-border"><p><strong>ประเภทอสังหาฯ :</strong><span><a href="">คอนโด</a></span></p></div>
+                        <div class="bottom-border"><p><strong>รหัสอสังหาฯ : </strong><span> AC03070801</span></p></div>
+						<div class="bottom-border"><p><strong>ราคาขาย : </strong><span class="red">1,680,000 บาท </span></p></div>
+                        <div class="bottom-border"><p><strong>ทำเล :</strong><a>สุขุมวิทช่วงต้น ซ.1-21, ซ.2-16, นานา, อโศก</a></p></div>
+                    	<div class="bottom-border"><p><strong>ขนาด :</strong><span> 34 ตร.ว.</span></p></div>
+                    	<div class="bottom-border"><p><strong>Bathrooms:</strong><span> 2 </span></p></div>
+                   		<div class="bottom-border"><p><strong>Bedrooms:</strong><span> 2 </span></p></div>
+                    	<div class="bottom-border"><p><strong>Floor:</strong><span> 3 </span></p></div>
+                  	</div>
+            	</div>
+           </div>
+        </div>
+     
+     	<div class="container">
+     		<div class="col-md-9">
+        		<div class="property-box">
+                	<div class="descrip">
+           				<h3>Description</h3>
+                    	<p>......................</p>
+                    </div>
+                    <div class="amenities">
+                    	<h3>Indoor amenities</h3>
+                        <ul>
+                        	<li><span class="glyphicon glyphicon-ok"></span>Air conditioning</li>
+                            <li><span class="glyphicon glyphicon-ok"></span>furniture</li>
+                        </ul>
+                    </div>
+        		</div>
+     		</div>
+     	</div>
      </div>
      <div class="container">
             <div class="box-right">

@@ -11,14 +11,14 @@ $configs = array(
         "name" => "Agent 168",
         "title" => "Agent 168",
         "version" => "1.0",
-        "base_url" => "http://agent168th.com",
-        "site_url" => "http://agent168th.com",
+        "base_url" => "http://localhost/agent168",
+        "site_url" => "http://localhost/agent168",
         "share_url" => "",
         "directory" => dirname(__FILE__),
         "view" => "default"
     ),
     "route"=> array(
-        "base_path"=> ""
+        "base_path"=> "/agent168"
     ),
     "crud" => array(
         "dbhost" => "localhost",
@@ -47,10 +47,10 @@ $configs = array(
         "medoo" => array(
             "master"=> array(
                 "database_type"=> "mysql",
-                "database_name" => "admin_agent168",
+                "database_name" => "agent168",
                 "server" => "localhost",
-                "username" => 'admin_agent168',
-                'password' => '111111',
+                "username" => 'root',
+                'password' => null,
 
                 // optional
                 'port' => 3306,
