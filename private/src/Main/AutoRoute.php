@@ -16,14 +16,21 @@ use Main\View\BaseView;
 
 
 class AutoRoute {
-    public static function dispatch(){
+
+    private static $route = null;
+
+    public static function dispatch($uri = null, $method = null){
         $route = self::mapAllCTL();
-        $match = $route->match();
+        $match = $route->match($uri, $method);
 
         if($match['target']){
             $reqInfo = RequestInfo::loadFromGlobal(array("url_params"=> $match['params']));
             $ctl = new $match['target']['c']($reqInfo);
             $response = $ctl->{$match['target']['a']}();
+            if($response instanceof ControllerFollow) {
+              return self::dispatch(AppConfig::get("route.base_path").$response->getUri(), $response->getMethod());
+            }
+
             if($response instanceof BaseView){
                 $response->render();
             }
@@ -46,22 +53,26 @@ class AutoRoute {
     }
 
     public static function mapAllCTL(){
-        $router = new \AltoRouter();
+        if(!is_null(self::$route)) {
+          return self::$route;
+        }
+
+        self::$route = new \AltoRouter();
 
         $basePath = AppConfig::get("route.base_path");
         if(!is_null($basePath) && trim($basePath) != ""){
-            $router->setBasePath($basePath);
+            self::$route->setBasePath($basePath);
         }
 
         $ctls = self::readCTL();
         foreach($ctls as $ctl){
-            $router->map(implode('|', $ctl['methods']), $ctl['uri'], array(
+            self::$route->map(implode('|', $ctl['methods']), $ctl['uri'], array(
                 'c'=> $ctl['controller'],
                 'a'=> $ctl['action']
             ));
         }
 
-        return $router;
+        return self::$route;
     }
 
     public static function readCTL(){
@@ -149,5 +160,10 @@ class AutoRoute {
         }
 
         return $files;
+    }
+
+    public function actionCTL($c, $a)
+    {
+
     }
 }
